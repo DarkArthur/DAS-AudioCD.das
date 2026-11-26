@@ -29,6 +29,18 @@ jobs:
 
       - name: Open or update PR development -> main
         run: |
+          # Auto-merge richiede branch protection (piano Pro o repo pubblico).
+          # In mancanza: attende i check della PR e poi fonde.
+          merge_pr() {
+            if gh pr merge "$1" --auto --merge 2>/dev/null; then
+              echo "Auto-merge abilitato su PR #$1"
+              return 0
+            fi
+            echo "Auto-merge non disponibile: attendo i check e fondo."
+            sleep 30
+            gh pr checks "$1" --watch --fail-fast
+            gh pr merge "$1" --merge
+          }
           ahead=$(git rev-list --count origin/main..origin/development)
           if [ "$ahead" -eq 0 ]; then
             echo "development non ha commit nuovi rispetto a main."
@@ -44,4 +56,4 @@ jobs:
           fi
 
           # Auto-merge con merge commit (non squash): release-please legge i singoli commit.
-          gh pr merge "$num" --auto --merge
+          merge_pr "$num"
