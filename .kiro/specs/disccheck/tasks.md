@@ -2,7 +2,7 @@
 
 ## Overview
 
-Il piano segue le milestone M0-M8 del Requirement 27. Ogni milestone termina con un checkpoint. I grafici (Requirement 38-39) sono realizzati dalla libreria `DAS.Design.Charts` (controllo `DasChartView`, funzioni pure testabili) creata in M3 prima della vista Scansione; le viste Scansione, Storico, Confronto e Archivio/Degrado usano solo `DasChartView`, mai `AvaPlot`/`Plot`. Il linguaggio di implementazione è C# 12 su .NET 8 (come nel design). I test usano xUnit, FluentAssertions e NSubstitute; i property test usano FsCheck.Xunit con almeno 100 iterazioni e un commento `// Feature: disccheck, Property N: <testo>`.
+Il piano segue le milestone M0-M8 del Requirement 27. Ogni milestone termina con un checkpoint. I grafici (Requirement 38-39) sono realizzati dalla libreria `DAS.Design.Charts` (controllo `DasChartView`, funzioni pure testabili) creata in M3 prima della vista Scansione; le viste Scansione, Storico, Confronto e Archivio/Degrado usano solo `DasChartView`, mai `AvaPlot`/`Plot`. Il linguaggio di implementazione è C# 15 su .NET 11 (come nel design). I test usano xUnit, FluentAssertions e NSubstitute; i property test usano FsCheck.Xunit con almeno 100 iterazioni e un commento `// Feature: disccheck, Property N: <testo>`.
 
 Regole trasversali:
 - Tutto l'hardware passa da `IScsiTransport`. I ViewModel dipendono solo da interfacce del Core.
@@ -19,7 +19,9 @@ Regole trasversali:
     - Creare `src/DAS.Design.Charts/CHANGELOG.md` (voce 1.0.0) e la struttura di cartelle del design (Styling, Interaction, Formatting, Export, Models)
     - Creare `CLAUDE.md` nella radice con stack, struttura, regole e i comandi `dotnet build`, `dotnet test --filter "Category!=Hardware"`, `dotnet run --project src/DiscCheck.App`
     - Creare la cartella `tests/Fixtures`
-    - _Requirements: 1.1, 1.2, 1.10, 23.1, 38.1, 38.16_
+    - Creare nella radice `global.json` (SDK 11.0.x, `rollForward` = `latestFeature`) e `Directory.Build.props` (`TargetFramework` `net11.0`, `Nullable` `enable`, `LangVersion` non specificata), senza funzionalità in anteprima (Requirement 1, criteri 11-12)
+    - Verificare che l'SDK .NET 11 sia installato con `dotnet --list-sdks`; se è presente solo un SDK più vecchio, avvisare l'utente di installare l'SDK .NET 11 (ad esempio `winget install Microsoft.DotNet.SDK.11`) prima di eseguire la build
+    - _Requirements: 1.1, 1.2, 1.10, 1.11, 1.12, 1.13, 23.1, 38.1, 38.16_
 
   - [ ] 1.2 Creare il registro delle decisioni D1-D5
     - Creare `docs/decisions.md` con una voce per D1, D2, D3, D4, D5: identificativo, opzioni, stato ("aperta"/"risolta"), opzione scelta, data AAAA-MM-GG, motivazione
@@ -544,6 +546,7 @@ Regole trasversali:
 - I checkpoint garantiscono la validazione incrementale per milestone (Requirement 27.10, 27.11).
 - I test dei grafici stanno in `DAS.Design.Charts.Tests`; le Property 23-30 usano FsCheck su funzioni pure di `DAS.Design.Charts` (senza UI).
 - L'icona `das.reset` del pulsante "Reset zoom" è creata in M7 (15.10); fino ad allora `DasIcon` mostra l'icona di ripiego.
+- I workflow di CI e di release (`.github/workflows`, `docker/ci.Dockerfile`) devono usare la stessa versione major dell'SDK fissata in `global.json` (.NET 11), come da Requirement 1.13.
 - I task D1 (11.1), D2 (13.1) e D5 (17.6) richiedono una scelta dell'utente se la decisione è ancora "aperta".
 
 ## Task Dependency Graph

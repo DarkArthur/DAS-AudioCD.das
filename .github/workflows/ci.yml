@@ -58,7 +58,7 @@ jobs:
       - uses: actions/setup-dotnet@v4
         if: steps.sln.outputs.present == 'true'
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 11.0.x
           cache: true
           cache-dependency-path: '**/packages.lock.json'
 

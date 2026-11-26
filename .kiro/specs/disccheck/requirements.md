@@ -87,7 +87,7 @@ Le sezioni di riferimento (§) indicate nei requisiti rimandano alla specifica o
 #### Acceptance Criteria
 
 1. THE DiscCheck SHALL essere organizzato nella soluzione `DiscCheck.sln` con i progetti `DiscCheck.App`, `DiscCheck.Core`, `DiscCheck.Scsi`, `DiscCheck.Scanners`, `DiscCheck.Verify`, `DiscCheck.Data` in `src/`, il progetto `DAS.Design` in `src/DAS.Design/` (DAS_Design, Requirement 28), il progetto `DAS.Design.Charts` in `src/DAS.Design.Charts/` (DAS_Charts, Requirement 38) e `DiscCheck.Core.Tests`, `DiscCheck.Scsi.Tests`, `DiscCheck.Hardware.Tests`, `DAS.Design.Tests` in `tests/`.
-2. THE DiscCheck SHALL essere implementato in C# 12 su .NET 8 LTS con Avalonia 11, CommunityToolkit.Mvvm, ScottPlot.Avalonia 5.x, Microsoft.Data.Sqlite, Dapper, Microsoft.Extensions.Hosting e Serilog.
+2. THE DiscCheck SHALL essere implementato in C# 15 su .NET 11 (GA del 10 novembre 2026, STS, supportato fino a novembre 2028, SDK 11.0.x), con target framework `net11.0` per tutti i progetti (e `net11.0-windows` per i soli progetti Windows-specifici, solo se necessario), con Avalonia 11, CommunityToolkit.Mvvm, ScottPlot.Avalonia 5.x, Microsoft.Data.Sqlite, Dapper, Microsoft.Extensions.Hosting e Serilog.
 3. WHEN l'App viene avviata, THE App SHALL registrare e risolvere servizi, Scsi_Transport, Quality_Scanner e Repository tramite Microsoft.Extensions.Hosting e dependency injection, senza istanziare direttamente implementazioni concrete di tali tipi nei ViewModel.
 4. WHEN l'App viene avviata, THE Log SHALL scrivere su file e su console tramite Serilog, con livello minimo Information e livello Verbose solo mentre la Modalità_Debug è attiva.
 5. IF l'inizializzazione del Log su file fallisce (ad esempio cartella non scrivibile), THEN THE App SHALL proseguire l'avvio scrivendo solo su console e mostrare un avviso che indica che il log su file non è disponibile.
@@ -96,6 +96,9 @@ Le sezioni di riferimento (§) indicate nei requisiti rimandano alla specifica o
 8. WHEN l'App viene avviata, THE App SHALL mostrare la finestra principale con tema Fluent chiaro o scuro, applicato tramite il Theme_Entry_Point di DAS_Design (Requirement 28) e seguendo il tema di sistema di Windows, entro 5 secondi dall'avvio su un PC che soddisfa i requisiti di Windows 10/11 x64.
 9. IF l'avvio dell'App fallisce per un'eccezione non gestita nella costruzione dell'host o nella risoluzione dei servizi, THEN THE App SHALL scrivere l'eccezione nel Log, mostrare un messaggio di errore che indica l'impossibilità di avviare l'applicazione e terminare con codice di uscita diverso da 0.
 10. THE DiscCheck SHALL includere nella root del repository un file `CLAUDE.md` con stack, struttura, regole di progetto e i comandi `dotnet build`, `dotnet test --filter "Category!=Hardware"`, `dotnet run --project src/DiscCheck.App`.
+11. THE DiscCheck SHALL includere nella radice del repository un file `global.json` che fissa l'SDK 11.0.x con `rollForward` impostato a `latestFeature` e un file `Directory.Build.props` con `TargetFramework` `net11.0`, `LangVersion` non specificata (valore predefinito C# 15) e `Nullable` abilitato.
+12. THE DiscCheck SHALL non usare funzionalità di linguaggio o di runtime in anteprima o sperimentali (ad esempio funzionalità C# disponibili solo in preview), in modo che la build usi solo l'SDK stabile.
+13. THE DiscCheck SHALL eseguire la build nel workflow di CI e nel workflow di release con la stessa versione major dell'SDK fissata in `global.json`.
 
 ### Requirement 2: Trasporto SCSI su Windows
 
@@ -566,7 +569,7 @@ Le sezioni di riferimento (§) indicate nei requisiti rimandano alla specifica o
 
 #### Acceptance Criteria
 
-1. THE DAS_Design SHALL essere un progetto Avalonia 11 (.NET 8) in `src/DAS.Design/`, incluso in `DiscCheck.sln`, con namespace radice `DAS.Design`, progettato per essere estratto in un repository autonomo e pubblicato come pacchetto NuGet con id `DAS.Design` senza modifiche al suo codice.
+1. THE DAS_Design SHALL essere un progetto Avalonia 11 su .NET 11 (`net11.0`) in `src/DAS.Design/`, incluso in `DiscCheck.sln`, con namespace radice `DAS.Design`, progettato per essere estratto in un repository autonomo e pubblicato come pacchetto NuGet con id `DAS.Design` senza modifiche al suo codice.
 2. THE DAS_Design SHALL contenere: Design_Token (colori chiari e scuri, tipografia, spaziatura, raggi), dizionari di risorse e stili Avalonia (tema, pulsanti, tabelle, card, badge di stato OK/WARN/KO, palette dei grafici), Icon_Set (SVG) e DAS_Logo (SVG e `.ico`).
 3. THE DAS_Design SHALL avere 0 riferimenti di progetto, di pacchetto o di assembly a `DiscCheck.*` e SHALL avere come unica dipendenza di terze parti Avalonia 11 (e il suo tema Fluent), senza dipendere da ScottPlot, Dapper, Serilog o altri pacchetti.
 4. THE DAS_Design SHALL esporre il Theme_Entry_Point come tipo `DasTheme` (derivato da `Avalonia.Styling.Styles`) aggiungibile con una sola riga XAML `<das:DasTheme />` nell'elemento `Application.Styles`, e come metodo di estensione `AppBuilder.UseDasTheme()` equivalente, in modo che una nuova applicazione ottenga tutti i Design_Token, gli stili e le icone senza altre registrazioni.
