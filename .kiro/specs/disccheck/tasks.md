@@ -2,7 +2,7 @@
 
 ## Overview
 
-Il piano segue le milestone M0-M8 del Requirement 27. Ogni milestone termina con un checkpoint. Il linguaggio di implementazione è C# 12 su .NET 8 (come nel design). I test usano xUnit, FluentAssertions e NSubstitute; i property test usano FsCheck.Xunit con almeno 100 iterazioni e un commento `// Feature: disccheck, Property N: <testo>`.
+Il piano segue le milestone M0-M8 del Requirement 27. Ogni milestone termina con un checkpoint. I grafici (Requirement 38-39) sono realizzati dalla libreria `DAS.Design.Charts` (controllo `DasChartView`, funzioni pure testabili) creata in M3 prima della vista Scansione; le viste Scansione, Storico, Confronto e Archivio/Degrado usano solo `DasChartView`, mai `AvaPlot`/`Plot`. Il linguaggio di implementazione è C# 12 su .NET 8 (come nel design). I test usano xUnit, FluentAssertions e NSubstitute; i property test usano FsCheck.Xunit con almeno 100 iterazioni e un commento `// Feature: disccheck, Property N: <testo>`.
 
 Regole trasversali:
 - Tutto l'hardware passa da `IScsiTransport`. I ViewModel dipendono solo da interfacce del Core.
@@ -14,11 +14,12 @@ Regole trasversali:
 
 - [ ] 1. M0: Soluzione, infrastruttura, DAS.Design e CLAUDE.md
   - [ ] 1.1 Creare la soluzione e la struttura dei progetti
-    - Creare `DiscCheck.sln` con `src/DiscCheck.App`, `DiscCheck.Core`, `DiscCheck.Scsi`, `DiscCheck.Scanners`, `DiscCheck.Verify`, `DiscCheck.Data`, `src/DAS.Design` e `tests/DiscCheck.Core.Tests`, `DiscCheck.Scsi.Tests`, `DiscCheck.Hardware.Tests`, `DAS.Design.Tests`
-    - Impostare i riferimenti come da design (Core senza dipendenze; DAS.Design solo Avalonia 11) e i pacchetti (Avalonia 11, CommunityToolkit.Mvvm, ScottPlot.Avalonia 5.x, Microsoft.Data.Sqlite, Dapper, Microsoft.Extensions.Hosting, Serilog, xUnit, FluentAssertions, NSubstitute, FsCheck.Xunit)
+    - Creare `DiscCheck.sln` con `src/DiscCheck.App`, `DiscCheck.Core`, `DiscCheck.Scsi`, `DiscCheck.Scanners`, `DiscCheck.Verify`, `DiscCheck.Data`, `src/DAS.Design`, `src/DAS.Design.Charts` e `tests/DiscCheck.Core.Tests`, `DiscCheck.Scsi.Tests`, `DiscCheck.Hardware.Tests`, `DAS.Design.Tests`, `DAS.Design.Charts.Tests`
+    - Impostare i riferimenti come da design (Core senza dipendenze; DAS.Design solo Avalonia 11; DAS.Design.Charts solo `DAS.Design` e ScottPlot.Avalonia 5.x, senza riferimenti a `DiscCheck.*`; `DAS.Design.Charts.Tests` referenzia `DAS.Design.Charts`) e i pacchetti (Avalonia 11, CommunityToolkit.Mvvm, ScottPlot.Avalonia 5.x solo in `DAS.Design.Charts`, Microsoft.Data.Sqlite, Dapper, Microsoft.Extensions.Hosting, Serilog, xUnit, FluentAssertions, NSubstitute, FsCheck.Xunit)
+    - Creare `src/DAS.Design.Charts/CHANGELOG.md` (voce 1.0.0) e la struttura di cartelle del design (Styling, Interaction, Formatting, Export, Models)
     - Creare `CLAUDE.md` nella radice con stack, struttura, regole e i comandi `dotnet build`, `dotnet test --filter "Category!=Hardware"`, `dotnet run --project src/DiscCheck.App`
     - Creare la cartella `tests/Fixtures`
-    - _Requirements: 1.1, 1.2, 1.10, 23.1_
+    - _Requirements: 1.1, 1.2, 1.10, 23.1, 38.1, 38.16_
 
   - [ ] 1.2 Creare il registro delle decisioni D1-D5
     - Creare `docs/decisions.md` con una voce per D1, D2, D3, D4, D5: identificativo, opzioni, stato ("aperta"/"risolta"), opzione scelta, data AAAA-MM-GG, motivazione
@@ -204,11 +205,82 @@ Regole trasversali:
     - **Property 21: Downsampling del grafico preserva i massimi**
     - **Validates: Requirements 18.6**
 
+  - [ ] 7.19 Implementare i modelli e le funzioni pure di cursore e selezione in DAS.Design.Charts
+    - `Models/ChartSample`, `ChartSeries`, `ChartSeriesKind`, `ChartAxisSpec`, `SelectionStats`, `SelectionResult`, `ThresholdSettings`, `ThresholdLine`, `AxisRange`
+    - `Interaction/NearestSampleFinder` (ricerca binaria, minima distanza assoluta, a parità il tempo minore) e `SelectionStatistics.Compute(samples, t0, t1)` (min, max, media, somma sui soli non nulli, estremi inclusi, "n/d" se vuoto)
+    - _Requirements: 38.16, 39.1, 39.6, 39.13_
+
+  - [ ]* 7.20 Property test per il Chart_Cursor
+    - **Property 23: Il Chart_Cursor sceglie il campione a distanza minima**
+    - **Validates: Requirements 39.1, 39.13, 37.13**
+
+  - [ ]* 7.21 Property test per le statistiche di selezione
+    - **Property 24: Le statistiche di selezione sono coerenti con il calcolo di riferimento**
+    - **Validates: Requirements 39.6, 37.13**
+
+  - [ ] 7.22 Implementare formattazione e scelta dei tick del tempo in DAS.Design.Charts
+    - `Formatting/TimeTickFormatter` (`mm:ss`, minuti oltre 59, con parsing inverso per i test) e `TimeTickIntervalSelector` (intervalli 1, 2, 5, 10, 15, 30, 60, 120, 300, 600 s, 4-12 tick maggiori, nessuna sovrapposizione delle etichette)
+    - _Requirements: 38.6, 38.9_
+
+  - [ ]* 7.23 Property test per il formato dei tick tempo
+    - **Property 25: Round-trip del formato dei tick tempo**
+    - **Validates: Requirements 38.6, 37.13**
+
+  - [ ]* 7.24 Property test per la scelta dell'intervallo dei tick
+    - **Property 26: Scelta dell'intervallo dei tick tempo**
+    - **Validates: Requirements 38.6**
+
+  - [ ] 7.25 Implementare `ThresholdLineSelector` ed `ErrorHighlighter`
+    - `ThresholdLineSelector.Select(settings, visibleYRange)`: linee solo per LiteOn con "Mostra soglie" attivo e valore nell'intervallo Y visibile, mai estensione dell'asse Y
+    - `ErrorHighlighter.Seconds(samples)`: campioni con C2 > 0 o CU > 0, conteggio per l'etichetta "Secondi con errori C2/CU: N"
+    - _Requirements: 39.8-39.11_
+
+  - [ ]* 7.26 Property test per le linee soglia
+    - **Property 27: Le linee soglia rispettano scanner, opzione e intervallo visibile**
+    - **Validates: Requirements 39.8, 39.9**
+
+  - [ ]* 7.27 Property test per il conteggio dei secondi con errori
+    - **Property 28: Conteggio dei secondi con errori**
+    - **Validates: Requirements 39.10, 39.11**
+
+  - [ ] 7.28 Implementare `ZoomPanCalculator` e `SeriesStyles`
+    - `ZoomPanCalculator`: zoom 1,25 per scatto centrato sul puntatore, intervallo in [min(5 s, durata), durata], pan vincolato a [0, durata], auto-fit (Y da 0 a 1,05 × massimo, minimo 10)
+    - `SeriesStyles`: C1 barre piene + cerchio, C2 tratteggio + quadrato, CU punti + rombo, SpeedX tratteggiata; 8 curve con colore `Series.(i+1)`, stile `i mod 4`, marcatore `(i / 2) mod 4`, distinguibili a coppie
+    - _Requirements: 38.12, 39.4, 39.5_
+
+  - [ ]* 7.29 Property test per zoom e pan
+    - **Property 29: Zoom e pan restano nei limiti dei dati**
+    - **Validates: Requirements 39.4, 39.5**
+
+  - [ ]* 7.30 Property test per gli stili distinguibili delle serie
+    - **Property 30: Le serie sono distinguibili anche senza il colore**
+    - **Validates: Requirements 38.12, 37.13**
+
+  - [ ] 7.31 Implementare `ChartThemeApplier` e `DasChartStyle`
+    - `ChartThemeApplier.Apply(Plot, ThemeVariant, ITokenResolver, log)`: sfondo figura `Das.Color.Background`, area dati `Surface`, griglia maggiore 100% e minore 40% con `Border`, assi/tick, testi `Text`/`TextSecondary`, legenda `SurfaceAlt` con bordo `Border`, font Inter 12/14 (600)/20 (600) con fallback
+    - Token non risolvibile: valore della variante Light, avviso nel Log (logger di Avalonia o delegate, senza nuove dipendenze) con la Token_Key, nessuna eccezione
+    - Nessun colore letterale nel codice; legenda sotto il grafico, centrata, max 4 righe
+    - _Requirements: 38.2, 38.3, 38.5, 38.7, 38.11, 38.17, 35.4_
+
+  - [ ] 7.32 Implementare il controllo `DasChartView`
+    - `AvaPlot` incorporato; proprietà `Series`, `AxisSpec`, `Thresholds`, `SelectedStatistics`, `ErrorSeconds`; applicazione del Chart_Style alla creazione e a ogni cambio di `ActualThemeVariant` entro 1 s conservando dati, zoom, selezione e serie visibili
+    - Rendering di barre/linee con `SeriesStyles`, asse X tempo con tick `mm:ss`, asse Y interi con minimo 0, asse destro "Velocità (x)", valori nulli omessi (interruzione della curva)
+    - Chart_Cursor (linea agganciata, tooltip con "n/d", una riga per curva in Confronto, tooltip dentro l'area, nascosto all'uscita entro 100 ms), Chart_Selection con Maiusc + trascinamento, pannello statistiche, Esc o clic fuori per cancellare
+    - Zoom con rotella, pan con trascinamento, pulsante "Reset zoom" (`das.reset`, abilitato solo fuori dall'auto-fit), doppio clic e tasto `0`, tasti `+`/`-` e frecce, contorno di focus, auto-fit con estensione dell'asse X sui nuovi campioni
+    - Linee soglia (da `ThresholdLineSelector`), evidenziazione dei secondi con errori (banda `KoSurface` 60% + triangolo `Ko`) ed etichetta "Secondi con errori C2/CU: N"
+    - Stato vuoto (X 0-60 s, Y 0-10, "Nessun dato da visualizzare"), accorpamento dei ridisegni a ≤ 30/s, esposizione di larghezza in pixel e intervallo X visibile per il downsampling, rendering a risoluzione fisica (HiDPI)
+    - _Requirements: 18.2, 18.10, 38.4, 38.8, 38.10, 38.13, 38.14, 38.15, 39.1-39.12_
+
+  - [ ] 7.33 Implementare `ChartSampleMapper` nell'App
+    - Conversione `ScanSample` → `ChartSample` (nulli preservati), `Thresholds` + `ScannerKind` → `ThresholdSettings`, applicazione di `ChartDownsampler` in base a pixel e intervallo visibili del `DasChartView`
+    - Nessun codice ScottPlot né costanti di colore nell'App
+    - _Requirements: 18.6, 35.4, 38.15_
+
   - [ ] 7.17 Implementare la vista Scansione
     - Selettore scanner e velocità (4x, 8x preselezionata, 16x, 24x, massima), conferma per velocità non supportata, SET CD SPEED prima della lettura
-    - Grafico ScottPlot live (barre C1/C2/CU, linea velocità con interruzione sui null), `ChartColorProvider` dai token `Das.Color.Chart.*`, riepilogo, `DasStatusBadge`, "n/d", note sui limiti e avviso di confronto
+    - Grafico live tramite `DasChartView` (barre C1/C2/CU, linea velocità con interruzione sui null) alimentato via `ChartSampleMapper`, con soglie, evidenziazione errori e opzione "Mostra soglie"; nessun `AvaPlot`/`Plot` e nessun colore nella vista; riepilogo, `DasStatusBadge`, "n/d", note sui limiti e avviso di confronto
     - Stati Avvia/Annulla, messaggi di errore, Disco assente; icone `disccheck.scan.pulse`, `disccheck.chart.errors`
-    - _Requirements: 6.2-6.6, 7.9, 10.1-10.7, 11.7, 18.1-18.9, 35.4, 35.6_
+    - _Requirements: 6.2-6.6, 7.9, 10.1-10.7, 11.7, 18.1-18.10, 35.4, 35.6, 38.15, 39.8-39.12_
 
   - [ ]* 7.18 Scrivere i test unitari dei ViewModel di scansione
     - Macchina a stati (avvio, annulla, errore), Avvia disabilitato senza disco, velocità non supportata (conferma/annulla)
@@ -236,8 +308,8 @@ Regole trasversali:
     - **Validates: Requirements 4.5**
 
   - [ ] 9.5 Collegare il salvataggio e implementare la vista Storico
-    - Salvataggio della scansione completata (non se annullata), Database al percorso predefinito con errori di apertura, tre elenchi ordinati per data decrescente, filtri AND (supporto, velocità, date, Verdetto), riepilogo e grafico, tabella verifica, eliminazione con conferma, messaggi per elenco vuoto ed errori
-    - _Requirements: 9.8, 16.1, 16.2, 16.10, 16.12, 17.1-17.9_
+    - Salvataggio della scansione completata (non se annullata), Database al percorso predefinito con errori di apertura, tre elenchi ordinati per data decrescente, filtri AND (supporto, velocità, date, Verdetto), riepilogo e grafico tramite `DasChartView` e `ChartSampleMapper` (nessun `AvaPlot`/`Plot`), tabella verifica, eliminazione con conferma, messaggi per elenco vuoto ed errori
+    - _Requirements: 9.8, 16.1, 16.2, 16.10, 16.12, 17.1-17.9, 38.15_
 
   - [ ]* 9.6 Scrivere i test unitari di Migrator e Storico
     - Script fallito con rollback, versione futura, vincoli CHECK, cascade, filtri senza risultati, tempo di salvataggio di 4.800 campioni
@@ -365,8 +437,9 @@ Regole trasversali:
 
   - [ ] 15.5 Implementare `ComparisonService`, `SpeedProposer` e vista Confronto
     - Da 2 a 8 scansioni con palette `Das.Color.Series.*`, tabella, avvisi (limite 8, una sola scansione, drive/velocità diversi), wizard velocità (minima supportata … 12x, nessuna velocità disponibile)
+    - Grafico tramite `DasChartView` con serie `CompareCurve` (estendere `ChartSampleMapper` per le serie di Confronto), stili di linea e marcatori distinti (`SeriesStyles`), legenda con data, supporto e velocità, tooltip del cursore con una riga per curva; nessun `AvaPlot`/`Plot`
     - Icona `disccheck.compare.curves`
-    - _Requirements: 19.1-19.7, 10.5, 35.4_
+    - _Requirements: 19.1-19.8, 10.5, 35.4, 38.12, 38.15, 39.3_
 
   - [ ]* 15.6 Scrivere i test unitari del Comparator e dello SpeedProposer
     - 8 scansioni esatte, 9 scansioni, una sola scansione, esclusione dei valori nulli, nessuna velocità supportata
@@ -380,9 +453,13 @@ Regole trasversali:
     - **Property 14: Round-trip CSV**
     - **Validates: Requirements 21.10**
 
-  - [ ] 15.9 Implementare export PNG, report HTML e interfaccia di export
-    - PNG ≥ 1.200×600 con zoom e serie correnti, HTML autosufficiente (Disco, Drive, Verdetto, riepilogo, grafico incorporato, verifica con Read_Offset, Combined_Offset, campioni esclusi), conferma di sovrascrittura, pulizia del file parziale, conferma con percorso entro 2 s, nessun export senza campioni, attribuzione D5 se richiesta
-    - _Requirements: 21.2-21.8, 36.6_
+  - [ ] 15.15 Implementare `ChartExporter` in DAS.Design.Charts
+    - `DasChartView.ExportPng(path)` a scala 2x (≥ 2.400 × 1.200 px, dimensione logica ≥ 1.200 × 600) e `ExportSvg(path)` (XML valido, testi come testo, nessun raster per i dati) con dati, zoom e serie visibili e Chart_Style della variante attiva; numeri in cultura invariante
+    - _Requirements: 21.2, 21.11, 21.12, 38.9_
+
+  - [ ] 15.9 Implementare export PNG, SVG, report HTML e interfaccia di export
+    - PNG e SVG prodotti da `DasChartView` tramite `ChartExporter` (2x, ≥ 1.200×600 logici), scritti dall'Exporter con zoom e serie correnti, HTML autosufficiente (Disco, Drive, Verdetto, riepilogo, grafico incorporato, verifica con Read_Offset, Combined_Offset, campioni esclusi), conferma di sovrascrittura, pulizia del file parziale, conferma con percorso entro 2 s, nessun export senza campioni, attribuzione D5 se richiesta
+    - _Requirements: 21.2-21.8, 21.11, 21.12, 36.6_
 
   - [ ] 15.10 Creare le 15 icone del DAS_Icon_Set
     - SVG con `viewBox="0 0 24 24"`, tratto 1.5, `currentColor`, nomi file `<chiave>.svg`, risorse `Das.Icon.<chiave>`, stati distinti per forma
@@ -404,6 +481,22 @@ Regole trasversali:
     - Validazione di ogni SVG, esattamente 20 chiavi senza duplicati, nessuna chiave `disccheck.*` in DAS.Design, `disccheck.ico` e `das.ico` con 7 dimensioni, nessuna copia del logo fuori da `src/DAS.Design/`
     - _Requirements: 37.3, 37.4, 37.9_
 
+  - [ ]* 15.16 Scrivere i test headless di DasChartView
+    - In `DAS.Design.Charts.Tests`: token mancante (valore Light, avviso nel Log, nessuna eccezione), stato vuoto, cursore e tooltip, Chart_Selection, abilitazione di "Reset zoom", legenda fuori dall'area dati, cambio tema che conserva dati, zoom e selezione, export PNG con dimensioni = 2 × logiche (≥ 2.400 × 1.200) ed export SVG XML valido senza raster per i dati
+    - _Requirements: 37.13, 38.4, 38.7, 38.8, 38.17, 21.2, 21.11, 39.1-39.7_
+
+  - [ ]* 15.17 Scrivere il test di contrasto di `ChartThemeApplier` (Light e Dark)
+    - Verificare che `Apply` imposti in entrambe le varianti sfondo figura, area dati, griglia (100% e 40%), assi, tick, testi e legenda uguali ai token; calcolare con `ContrastCalculator` che oggetti grafici (serie, soglie, evidenziazioni) siano ≥ 3:1 su `Surface` e i testi ≥ 4,5:1 su `Background` e `Surface`
+    - _Requirements: 37.13, 38.2, 38.11, 29.8, 29.9_
+
+  - [ ]* 15.18 Scrivere i test di prestazione dei grafici
+    - `[Trait("Category","Performance")]`, dati sintetici, soglie parametrizzate: ridisegno ≤ 33 ms (p95) con 6.000 campioni, Confronto 8 × 6.000 ≤ 100 ms, zoom/pan/cursore/selezione ≤ 100 ms, ridisegno ≤ 30/s
+    - _Requirements: 37.14, 38.14_
+
+  - [ ]* 15.19 Scrivere i test di indipendenza dei progetti dei grafici
+    - `DAS.Design.Charts` (`.csproj` e assembly) senza riferimenti che iniziano per `DiscCheck`; `DAS.Design` senza riferimento a ScottPlot
+    - _Requirements: 28.3, 37.7, 37.14, 38.16_
+
 - [ ] 16. Checkpoint M7
   - Ensure all tests pass, ask the user if questions arise.
   - Verificare le condizioni M7 del Requirement 27.8.
@@ -418,9 +511,9 @@ Regole trasversali:
     - _Requirements: 20.5, 20.7, 20.10, 20.11_
 
   - [ ] 17.3 Implementare la vista Archivio/Degrado e il promemoria all'avvio
-    - Grafico di trend, elenco scaduti/in scadenza, evidenziazione "in peggioramento", suggerimenti di conservazione, longevità e obiettivo BLER < 50, promemoria una volta per avvio, errori di caricamento senza dati parziali
+    - Grafico di trend tramite `DasChartView` (serie `Trend`, asse X in date locali, asse Y con nome e unità della serie; estendere `ChartSampleMapper`), elenco scaduti/in scadenza, evidenziazione "in peggioramento", suggerimenti di conservazione, longevità e obiettivo BLER < 50, promemoria una volta per avvio, errori di caricamento senza dati parziali
     - Icone `disccheck.archive.degradation` e `das.reminder.bell`
-    - _Requirements: 20.1, 20.5, 20.6, 20.8, 20.9, 20.13_
+    - _Requirements: 20.1, 20.5, 20.6, 20.8, 20.9, 20.13, 20.14, 38.5, 38.15_
 
   - [ ] 17.4 Implementare `C2ReliabilityAnalyzer`, test runner e interfaccia
     - Conferma e disco con difetto noto, due letture da 7.500 settori con Cache_Defeat, esiti Reliable/Unreliable(n)/Inconclusive, salvataggio di `drives.c2_reliable`, stati errore/annullato senza modifiche, rifiuto se il Drive non supporta C2
@@ -436,6 +529,10 @@ Regole trasversali:
     - Registrare anche D3 e D4 se risolte, senza implementare masterizzazione
     - _Requirements: 25.4, 25.5, 36.3, 36.4, 36.6_
 
+  - [ ]* 17.7 Scrivere il test di analisi statica dell'uso di `DasChartView`
+    - In `DiscCheck.Core.Tests`: fallisce, con file e riga, se una vista di `DiscCheck.App` istanzia `AvaPlot` o `ScottPlot.Plot`, o se le viste Scansione, Storico, Confronto e Archivio/Degrado non contengono un `DasChartView`
+    - _Requirements: 37.12, 38.15_
+
 - [ ] 18. Checkpoint finale
   - Ensure all tests pass, ask the user if questions arise.
   - Verificare le condizioni M8 del Requirement 27.9 e `dotnet test --filter "Category!=Hardware"` con 0 falliti e 0 saltati.
@@ -445,6 +542,8 @@ Regole trasversali:
 - I sotto-task marcati con `*` sono opzionali e possono essere saltati per un MVP più rapido.
 - Ogni task cita i requisiti per tracciabilità; ogni property test cita il numero di proprietà del design.
 - I checkpoint garantiscono la validazione incrementale per milestone (Requirement 27.10, 27.11).
+- I test dei grafici stanno in `DAS.Design.Charts.Tests`; le Property 23-30 usano FsCheck su funzioni pure di `DAS.Design.Charts` (senza UI).
+- L'icona `das.reset` del pulsante "Reset zoom" è creata in M7 (15.10); fino ad allora `DasIcon` mostra l'icona di ripiego.
 - I task D1 (11.1), D2 (13.1) e D5 (17.6) richiedono una scelta dell'utente se la decisione è ancora "aperta".
 
 ## Task Dependency Graph
@@ -453,10 +552,10 @@ Regole trasversali:
 {
   "waves": [
     { "id": 0, "tasks": ["1.1"] },
-    { "id": 1, "tasks": ["1.2", "1.3", "1.7", "3.1"] },
-    { "id": 2, "tasks": ["1.4", "1.8", "3.2", "3.3", "5.1", "7.1", "7.4"] },
-    { "id": 3, "tasks": ["1.5", "3.4", "5.2", "5.3", "5.4", "7.2", "7.3", "7.5", "7.6", "7.7", "7.8", "7.15", "9.1"] },
-    { "id": 4, "tasks": ["1.6", "1.9", "3.7", "5.6", "7.9", "7.12", "7.16", "9.2"] },
+    { "id": 1, "tasks": ["1.2", "1.3", "1.7", "3.1", "7.19", "7.22"] },
+    { "id": 2, "tasks": ["1.4", "1.8", "3.2", "3.3", "5.1", "7.1", "7.4", "7.20", "7.21", "7.23", "7.24", "7.25", "7.28", "7.31"] },
+    { "id": 3, "tasks": ["1.5", "3.4", "5.2", "5.3", "5.4", "7.2", "7.3", "7.5", "7.6", "7.7", "7.8", "7.15", "9.1", "7.26", "7.27", "7.29", "7.30", "7.32"] },
+    { "id": 4, "tasks": ["1.6", "1.9", "3.7", "5.6", "7.9", "7.12", "7.16", "9.2", "7.33"] },
     { "id": 5, "tasks": ["1.10", "3.5", "7.10", "7.11", "7.13", "7.14", "9.3", "9.4"] },
     { "id": 6, "tasks": ["3.6", "5.5"] },
     { "id": 7, "tasks": ["7.17"] },
@@ -469,13 +568,13 @@ Regole trasversali:
     { "id": 14, "tasks": ["13.2"] },
     { "id": 15, "tasks": ["13.3"] },
     { "id": 16, "tasks": ["13.4"] },
-    { "id": 17, "tasks": ["13.5", "13.6", "15.1", "15.7", "15.10", "15.11"] },
-    { "id": 18, "tasks": ["13.7", "15.2", "15.3", "15.4", "15.8", "17.1"] },
+    { "id": 17, "tasks": ["13.5", "13.6", "15.1", "15.7", "15.10", "15.11", "15.15"] },
+    { "id": 18, "tasks": ["13.7", "15.2", "15.3", "15.4", "15.8", "17.1", "15.16", "15.17", "15.18", "15.19"] },
     { "id": 19, "tasks": ["15.5", "15.14", "17.2"] },
     { "id": 20, "tasks": ["15.6", "15.9"] },
     { "id": 21, "tasks": ["15.12", "15.13"] },
     { "id": 22, "tasks": ["17.3", "17.6"] },
-    { "id": 23, "tasks": ["17.4"] },
+    { "id": 23, "tasks": ["17.4", "17.7"] },
     { "id": 24, "tasks": ["17.5"] }
   ]
 }

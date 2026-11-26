@@ -8,7 +8,7 @@ DiscCheck è un'applicazione desktop Windows 10/11 x64 (C# 12, .NET 8 LTS, Avalo
 2. **Scansione di qualità**: misura C1/C2/CU tramite `LiteOnScanner` (comandi vendor portati da QPxTool) o `StandardC2Scanner` (READ CD con puntatori C2), produce un Verdetto OK/WARN/KO.
 3. **Archivio**: salva scansioni e verifiche in SQLite, con storico, confronto, trend di degrado e promemoria di ricontrollo.
 
-Lo stile grafico è fornito da `DAS.Design`, libreria Avalonia indipendente da DiscCheck e riusabile da altre applicazioni DAS.
+Lo stile grafico è fornito da `DAS.Design`, libreria Avalonia indipendente da DiscCheck e riusabile da altre applicazioni DAS. Lo stile e l'interattività dei grafici (cursore, selezione, soglie, evidenziazione errori, export PNG/SVG) sono forniti da `DAS.Design.Charts`, libreria separata che dipende solo da `DAS.Design` e ScottPlot.Avalonia 5.x; tutte le viste con un grafico (Scansione, Storico, Confronto, Archivio/Degrado) usano esclusivamente il controllo `DasChartView`.
 
 ### Decisioni di design principali
 
@@ -21,6 +21,8 @@ Lo stile grafico è fornito da `DAS.Design`, libreria Avalonia indipendente da D
 | 5 | Dapper + Microsoft.Data.Sqlite, migrazioni SQL versionate, niente EF | Richiesto dal Req. 16.7. Inserimento di ~4.800 campioni in una transazione. |
 | 6 | Chiusura del Test_Mode in `finally` per ogni scansione vendor | Evita Drive bloccati in Test_Mode (Req. 8.6, 23.8). |
 | 7 | Temi/colori solo tramite Design_Token `Das.*` | Cambio tema senza modificare le viste (Req. 22.7, 35). |
+| 8 | Progetto separato `DAS.Design.Charts` con `DasChartView` come unico modo di mostrare un grafico | `DAS.Design` resta privo di ScottPlot (Req. 28.3); stile e interattività sono scritti una volta e riusabili da ogni app DAS (Req. 38.15, 38.16). |
+| 9 | Logica di cursore, selezione, formattazione tick, soglie ed evidenziazione come funzioni pure in `DAS.Design.Charts`, su tipi propri (`ChartSample`, `ChartSeries`) | La libreria non può referenziare `ScanSample` di Core (nessun riferimento a `DiscCheck.*`); l'App mappa i propri campioni. Le funzioni sono testabili senza UI (Req. 37.13). |
 
 ### Ricerca e fonti
 
@@ -28,7 +30,7 @@ Lo stile grafico è fornito da `DAS.Design`, libreria Avalonia indipendente da D
 - **READ CD (0xBE)**: byte 1 = tipo settore atteso (0x04 = CD-DA), byte 9 = flag di campo (0x12 = user data + C2 pointers 294 byte; 0x14 = user data + C2 + block error byte, 296 byte). Standard T10 MMC.
 - **System.Threading.Channels**: `BoundedChannelOptions` con `FullMode=Wait` applica backpressure al producer; `SingleReader/SingleWriter` ottimizzano l'accesso. Un messaggio è letto da un solo consumer, quindi il fan-out è implementato esplicitamente.
 - **QPxTool** (fork speed47, GPL-2.0): `plugins/liteon/qscan_cmd.cpp` e `qscan_plugin.cpp` sono l'unica fonte dei CDB vendor. I byte dei CDB non sono riprodotti in questo documento; vanno estratti dal sorgente in implementazione (Req. 8.1, 8.3).
-- **ScottPlot 5 (Avalonia)**: `AvaPlot`, `Plot.Add.Bars`, `Plot.Add.Signal` con asse Y secondario; il downsampling per massimo per intervallo è implementato nel Core (funzione pura) prima di passare i dati al grafico.
+- **ScottPlot 5 (Avalonia)** (licenza MIT, adatto a decine di migliaia di punti): `AvaPlot`, `Plot.Add.Bars`, `Plot.Add.Signal` con asse Y secondario; `Plot.Axes.Bottom.TickGenerator` personalizzabile per i tick `mm:ss`; `Plot.Add.HorizontalLine`/`VerticalLine`/`HorizontalSpan` per soglie, cursore e selezione; `Plot.Style`/`Plot.FigureBackground`/`DataBackground`/`Grid`/`Legend` per applicare i token; `Plot.GetImage`/`SavePng` e `GetSvgXml`/`SaveSvg` per l'export; `Plot.ScaleFactor` e il `DisplayScale` di `AvaPlot` per i display HiDPI. Il downsampling per massimo per intervallo è implementato nel Core (funzione pura) prima di passare i dati al grafico. Le API esatte vanno verificate sulla versione 5.x scelta in implementazione.
 - **WCAG 2.1**: luminanza relativa sRGB e Contrast_Ratio = (L1+0,05)/(L2+0,05), soglie 4,5:1 (testo) e 3:1 (oggetti grafici).
 
 ## Architecture
@@ -44,8 +46,13 @@ graph TD
     Ver[DiscCheck.Verify<br/>estrazione, offset, confronto]
     Data[DiscCheck.Data<br/>Repository, Migrator]
     Das[DAS.Design<br/>token, stili, icone, logo]
+    Charts[DAS.Design.Charts<br/>DasChartView, DasChartStyle,<br/>cursore, selezione, export]
+    Plot[(ScottPlot.Avalonia 5.x)]
 
     App --> Core
+    App --> Charts
+    Charts --> Das
+    Charts --> Plot
     App --> Scsi
     App --> Scan
     App --> Ver
@@ -58,9 +65,10 @@ graph TD
     Data --> Core
     Scsi --> Core
     Das -.nessuna dipendenza.-> Core
+    Charts -.nessuna dipendenza.-> Core
 ```
 
-Regole: `Core` non referenzia nessun altro progetto. `DAS.Design` non referenzia progetti `DiscCheck.*` e dipende solo da Avalonia 11 (Req. 28.3). `Scsi` referenzia `Core` solo per tipi condivisi (`ScsiResult`, `SenseData`, `DriveInfo`); `Verify` e `Scanners` usano `IScsiTransport` mai direttamente `CreateFile`/`DeviceIoControl`. Solo `App` conosce le implementazioni concrete, registrate in DI.
+Regole: `Core` non referenzia nessun altro progetto. `DAS.Design` non referenzia progetti `DiscCheck.*` e dipende solo da Avalonia 11 (Req. 28.3), senza ScottPlot. `DAS.Design.Charts` dipende solo da `DAS.Design` e ScottPlot.Avalonia 5.x, senza riferimenti a `DiscCheck.*` (Req. 38.16): per questo definisce tipi propri (`ChartSample`, `ChartSeries`) e l'App converte i propri `ScanSample` e le serie di Confronto/trend tramite un mapper in `App`. ScottPlot è referenziato solo da `DAS.Design.Charts`; l'App non istanzia mai `AvaPlot` né `Plot` (Req. 38.15). `Scsi` referenzia `Core` solo per tipi condivisi (`ScsiResult`, `SenseData`, `DriveInfo`); `Verify` e `Scanners` usano `IScsiTransport` mai direttamente `CreateFile`/`DeviceIoControl`. Solo `App` conosce le implementazioni concrete, registrate in DI.
 
 ### Stile e livelli
 
@@ -211,6 +219,7 @@ Servizi e funzioni pure del Core:
 | `DegradationMonitor` | Serie di trend, `recheck_due = data scansione + anni`, elenco scaduti/in scadenza (≤ 90 giorni), "in peggioramento". |
 | `ChartDownsampler` | Riduce a ≤ larghezza px conservando il massimo per intervallo. |
 | `CsvExporter` / `CsvImporter` | CSV invariante rispetto alla cultura (virgola, punto decimale, `\r\n`, UTF-8). |
+| `Exporter` (servizio) | Orchestra CSV, report HTML, PNG e SVG. PNG e SVG sono prodotti dal `DasChartView` (`ExportPng`/`ExportSvg`, vedi DAS.Design.Charts) e scritti dall'Exporter con conferma di sovrascrittura, cancellazione del file parziale su errore e numeri in cultura invariante (Req. 21.2, 21.11, 21.12). Nessun file se la scansione non ha campioni. |
 | `SettingsValidator` | Valida Soglie, velocità 1–52, N 1–10, timeout 1–300, anni 5–10, percorso DB non vuoto. |
 | `ComparisonService` | Tabella di confronto (C1 medio, C1 max, C2 tot, CU tot, Verdetto), limite 8 scansioni, avviso drive/velocità diversi. |
 | `SpeedProposer` | Velocità proposte per il wizard "ricerca velocità ottimale" (minima supportata … 12x). |
@@ -240,7 +249,7 @@ Servizi e funzioni pure del Core:
 - Viste: Drive, Disco, Scansione, Verifica, Confronto, Storico, Archivio/Degrado, Impostazioni, About, Splash. Ogni ViewModel riceve solo interfacce Core.
 - Avvio: splash con lockup 128 px variante `-color` (≤ 5 s), `DasTheme`, finestra principale con lockup 32 px nella variante del tema. Errori non gestiti di host/DI: log, messaggio, exit code ≠ 0.
 - Mappatura Verdetto → `DasStatusBadge`; icone via `DasIcon` con chiavi semantiche (Req. 34.5).
-- `ChartColorProvider`: legge i colori `Das.Color.Chart.*` e `Das.Color.Series.*` dalle risorse e li converte per ScottPlot; nessuna costante di colore in C#.
+- **Grafici**: `ChartColorProvider` è sostituito dallo stile condiviso di `DAS.Design.Charts` (`DasChartStyle` / `ChartThemeApplier`), che legge `Das.Color.Chart.*`, `Das.Color.Series.*` e gli altri token; nell'App non esistono costanti di colore né codice ScottPlot. Le quattro viste con grafico (Scansione, Storico, Confronto, Archivio/Degrado) contengono un `DasChartView` e forniscono solo dati (`ChartSeries`), impostazioni (soglie, "Mostra soglie", tipo di scanner) e testi degli assi tramite un `ChartSampleMapper` nell'App. Il ViewModel di Scansione inoltra al controllo i campioni dal consumer UI; il controllo accorpa i ridisegni a max 30/s.
 - `disccheck.ico` generato da script riproducibile in `src/DiscCheck.App/Assets/`.
 
 ### DAS.Design
@@ -263,6 +272,53 @@ src/DAS.Design/
 - `DasStatusBadge(Status ∈ {Ok, Warn, Ko})`: icona + testo ("OK", "ATTENZIONE", "KO") + colori di stato.
 - `DasLogo(Form ∈ {Lockup, Mark}, Height)`: sceglie la variante light/dark in base al tema.
 - Il font Inter è incorporato con fallback "Segoe UI Variable Text", "Segoe UI", sans-serif.
+
+### DAS.Design.Charts
+
+Progetto Avalonia 11 / .NET 8 in `src/DAS.Design.Charts/`, namespace `DAS.Design.Charts`, dipendenze solo `DAS.Design` e ScottPlot.Avalonia 5.x, versionamento semantico con `CHANGELOG.md` (Req. 28.7-28.9 applicati, Req. 38.16). Si usa con `DasTheme` più un riferimento al progetto/pacchetto.
+
+```
+src/DAS.Design.Charts/
+  DasChartView.axaml(.cs)        controllo (AvaPlot incorporato)
+  Styling/ DasChartStyle.cs, ChartThemeApplier.cs, SeriesStyles.cs
+  Interaction/ NearestSampleFinder.cs, SelectionStatistics.cs, ZoomPanCalculator.cs,
+               ThresholdLineSelector.cs, ErrorHighlighter.cs
+  Formatting/ TimeTickFormatter.cs, TimeTickIntervalSelector.cs
+  Export/ ChartExporter.cs
+  Models/ ChartSample.cs, ChartSeries.cs, ChartAxisSpec.cs
+  CHANGELOG.md
+```
+
+```csharp
+public record ChartSample(double TimeSeconds, double? C1, double? C2, double? CU, double? SpeedX);
+public record ChartSeries(string Name, IReadOnlyList<ChartSample> Samples, ChartSeriesKind Kind, int Index);
+public enum ChartSeriesKind { ScanBars, CompareCurve, Trend }
+
+public static class ChartThemeApplier
+{
+    // Applica ai grafici i token della variante: sfondi, griglia (maggiore 100%, minore 40%), assi/tick,
+    // testi, legenda (fuori dall'area dati, centrata, max 4 righe), font Inter 12/14(600)/20(600) con fallback.
+    // Token non risolvibile: valore della variante Light, avviso nel Log, nessuna eccezione (Req. 38.17).
+    public static void Apply(Plot plot, ThemeVariant variant, ITokenResolver tokens, ILogger? log = null);
+}
+```
+
+`DasChartView` espone: `Series`, `AxisSpec` (etichette con unità, formato asse X tempo o data), `Thresholds` (`ThresholdSettings(WarnC1Max, KoC1Max, ScannerKind, ShowThresholds)`), `SelectedStatistics`, `ErrorSeconds`; metodi `ResetZoom()`, `ExportPng(path)` (scala 2x, almeno 2.400 × 1.200 px, dimensione logica ≥ 1.200 × 600), `ExportSvg(path)` (testi come testo, nessun raster per i dati). Comportamento:
+
+| Funzione | Realizzazione |
+|----------|---------------|
+| Stile e tema | `ChartThemeApplier.Apply` alla creazione e a ogni cambio di `ActualThemeVariant`, entro 1 s, conservando dati, zoom, selezione e serie visibili (Req. 38.4). |
+| Asse X tempo | `TimeTickFormatter` (`mm:ss`, minuti oltre 59, es. `80:00`) e `TimeTickIntervalSelector` (sceglie tra 1, 2, 5, 10, 15, 30, 60, 120, 300, 600 s il più piccolo che dà ≤ 12 tick maggiori, garantendo ≥ 4 e nessuna sovrapposizione di etichette). Asse Y a interi con minimo 0 per le scansioni; asse destro "Velocità (x)". |
+| Serie distinguibili | `SeriesStyles`: C1 barre piene + cerchio; C2 barre con tratteggio diagonale + quadrato; CU barre a punti + rombo; SpeedX linea tratteggiata. Confronto: stili pieno, tratteggio, punteggiato, tratto-punto ciclati e marcatori cerchio, quadrato, rombo, triangolo, in modo che due curve qualsiasi differiscano per colore e per stile o marcatore (indice i → colore `Series.(i+1)`, stile `i mod 4`, marcatore `(i / 2) mod 4`, scelto per garantire la differenza a coppie su 8 curve). |
+| Chart_Cursor | Su `PointerMoved`: `NearestSampleFinder.Find(times, t)` (ricerca binaria, minima distanza assoluta, a parità il tempo minore), linea verticale agganciata, tooltip con tempo mm:ss, C1, C2, CU, SpeedX ("n/d" per i nulli); in Confronto una riga per curva visibile. Il tooltip è riposizionato a sinistra/destra del puntatore vicino ai bordi; linea e tooltip nascosti all'uscita (≤ 100 ms). Da tastiera: frecce sinistra/destra. |
+| Zoom/pan | Rotella: fattore 1,25 per scatto centrato sul puntatore; intervallo X in [min(5 s, durata), durata]; pan trascinando, vincolato a [0, durata]; calcolo in `ZoomPanCalculator` (funzione pura). `+`/`-` da tastiera. |
+| Reset zoom | Pulsante (icona `das.reset`) in alto a destra, abilitato solo fuori dall'auto-fit; doppio clic e tasto `0` equivalenti. Auto-fit: X da 0 alla durata, Y da 0 a 1,05 × massimo visibile (min. 10 per scansioni). In auto-fit i nuovi campioni estendono l'asse X, altrimenti la vista resta (Req. 39.12). |
+| Chart_Selection | Maiusc + trascinamento: `HorizontalSpan` con opacità 25% e pannello con `SelectionStatistics.Compute(samples, t0, t1)`: min, max, media (2 decimali) per C1, C2, CU, SpeedX, somma per C2 e CU, durata mm:ss; "n/d" se non ci sono campioni. Esc o clic fuori (senza Maiusc) cancellano (Req. 39.6, 39.7). |
+| Linee soglia | `ThresholdLineSelector.Select(settings, visibleYRange)` restituisce le linee da tracciare: solo se `ScannerKind = LiteOn` e `ShowThresholds`, ciascuna solo se il suo valore rientra nell'intervallo Y visibile; l'asse Y non è mai esteso per includerle. Valori da `Settings.Thresholds` (C1MaxWarn → `Status.Warn`, C1MaxKo → `Status.Ko`), tratteggiate, spessore 1,5, etichetta testuale; aggiornate entro 1 s da una modifica delle Soglie. |
+| Evidenziazione errori | `ErrorHighlighter.Seconds(samples)` = campioni con C2 > 0 o CU > 0; per ciascuno banda verticale di 1 s (`Status.KoSurface`, opacità 60%) più triangolo `Status.Ko` in alto; etichetta "Secondi con errori C2/CU: N" accanto a "Reset zoom". |
+| Stato vuoto | Assi X 0-60 s e Y 0-10 con griglia in stile e testo "Nessun dato da visualizzare" in `TextSecondary`, nessuna eccezione. |
+| HiDPI e prestazioni | Rendering alla risoluzione fisica (scala 100-300%, ridisegno entro 1 s dal cambio), linee serie 1,5 dip, griglia 1 px fisico. Aggiornamenti accorpati con un timer a ≤ 30 Hz, downsampling con `ChartDownsampler` oltre i pixel disponibili; obiettivi: ridisegno ≤ 33 ms (p95) con 6.000 campioni, Confronto 8 × 6.000 ≤ 100 ms, risposta a zoom/pan/cursore/selezione ≤ 100 ms. |
+| Cultura | Numeri in UI con la cultura corrente (C1/C2/CU interi, SpeedX 1 decimale con "x", C1 medio 2 decimali); i file esportati usano la cultura invariante. |
 
 ## Data Models
 
@@ -365,6 +421,19 @@ CREATE TABLE verification_tracks (
 
 `PRAGMA foreign_keys = ON` su ogni connessione (necessario per `ON DELETE CASCADE` in SQLite). Tipi nulli: `c1` e `speed_x` NULL per i valori assenti.
 
+### Tipi dei grafici (DAS.Design.Charts)
+
+```csharp
+public record ChartSample(double TimeSeconds, double? C1, double? C2, double? CU, double? SpeedX);
+public record SelectionStats(double? Min, double? Max, double? Mean, double? Sum, int Count);   // per metrica, solo campioni non nulli
+public record SelectionResult(double T0, double T1, SelectionStats C1, SelectionStats C2, SelectionStats CU, SelectionStats SpeedX);
+public record ThresholdSettings(double C1MaxWarn, double C1MaxKo, bool IsLiteOn, bool ShowThresholds);
+public record ThresholdLine(double Value, ThresholdKind Kind);     // Warn | Ko
+public record AxisRange(double Min, double Max);
+```
+
+`ChartSampleMapper` (App) converte `ScanSample` → `ChartSample` (`TimeSeconds` = `TimeSeconds` del campione, valori nulli preservati) e `Thresholds` + `ScannerKind` → `ThresholdSettings`.
+
 ### Modello ER
 
 ```mermaid
@@ -384,7 +453,7 @@ Intestazione `TimeSeconds,C1,C2,CU,SpeedX`; UTF-8; separatore `,`; decimale `.`;
 
 ### Design_Token (DAS.Design)
 
-Famiglie di chiavi (Req. 29, 30, 31, 33): `Das.Color.*`, `Das.Brush.*`, `Das.Color.Status.{Ok,OkSurface,Warn,WarnSurface,Ko,KoSurface}`, `Das.Color.Chart.{C1,C2,CU,Speed}`, `Das.Color.Series.1..8`, `Das.Space.{1,2,3,6,8,12}` (4/8/12/16/24/32/48 px — nota: la mappatura nome↔valore deve riportare esattamente i 7 valori del Req. 29.13), `Das.Radius.{Small,Medium,Large,Pill}`, `Das.Icon.<chiave>`, `DiscCheck.Icon.<chiave>`, `Das.Logo.{Lockup,Mark}`. Ogni token esiste in varianti Light e Dark con lo stesso insieme di chiavi (Req. 29.15), verificato dal Req. 37.6.
+Famiglie di chiavi (Req. 29, 30, 31, 33): `Das.Color.*`, `Das.Brush.*`, `Das.Color.Status.{Ok,OkSurface,Warn,WarnSurface,Ko,KoSurface}`, `Das.Color.Chart.{C1,C2,CU,Speed}`, `Das.Color.Series.1..8`, `Das.Space.{1,2,3,6,8,12}` (4/8/12/16/24/32/48 px — nota: la mappatura nome↔valore deve riportare esattamente i 7 valori del Req. 29.13), `Das.Radius.{Small,Medium,Large,Pill}`, `Das.Icon.<chiave>`, `DiscCheck.Icon.<chiave>`, `Das.Logo.{Lockup,Mark}`. Il Chart_Style (`DAS.Design.Charts`) legge gli stessi token senza definirne di propri: `Das.Color.Background` (figura), `Surface` (area dati), `Border` (griglia maggiore 100%, minore 40%, assi, tick), `Text` (tick), `TextSecondary` (etichette assi, stato vuoto), `SurfaceAlt` (legenda), `Chart.*`, `Series.1..8`, `Status.{Warn,Ko,KoSurface}` (soglie ed evidenziazione). Ogni token esiste in varianti Light e Dark con lo stesso insieme di chiavi (Req. 29.15), verificato dal Req. 37.6.
 
 ## Correctness Properties
 
@@ -524,6 +593,54 @@ DiscCheck ha un ampio nucleo di logica pura (parsing, conteggio bit, valutazione
 
 **Validates: Requirements 29.8, 29.9, 37.5**
 
+### Property 23: Il Chart_Cursor sceglie il campione a distanza minima
+
+*Per ogni* lista non vuota di campioni ordinata per tempo e *per ogni* tempo del puntatore t, `NearestSampleFinder` restituisce un campione con distanza assoluta |t_i − t| minima tra tutti i campioni; a parità di distanza restituisce quello con tempo minore.
+
+**Validates: Requirements 39.1, 39.13, 37.13**
+
+### Property 24: Le statistiche di selezione sono coerenti con il calcolo di riferimento
+
+*Per ogni* lista di campioni (con valori nulli) e *per ogni* intervallo [t0, t1], per ciascuna metrica con almeno un campione non nullo nell'intervallo (estremi inclusi) vale min ≤ media ≤ max, il conteggio è uguale al numero di campioni non nulli nell'intervallo, e min, max, media e somma coincidono con un calcolo di riferimento ingenuo (filtro e aggregazione diretti); se non ci sono campioni non nulli, i valori sono assenti ("n/d") e il conteggio è 0.
+
+**Validates: Requirements 39.6, 37.13**
+
+### Property 25: Round-trip del formato dei tick tempo
+
+*Per ogni* numero intero di secondi non negativo, formattare il valore come `mm:ss` (minuti anche oltre 59) e rieseguire il parsing del testo ottenuto restituisce il valore originale.
+
+**Validates: Requirements 38.6, 37.13**
+
+### Property 26: Scelta dell'intervallo dei tick tempo
+
+*Per ogni* intervallo X visibile di ampiezza almeno 5 secondi e larghezza del grafico in pixel realistica, l'intervallo tra i tick maggiori scelto appartiene all'insieme {1, 2, 5, 10, 15, 30, 60, 120, 300, 600} s, produce tra 4 e 12 tick maggiori (quando l'ampiezza lo consente) e la larghezza delle etichette `mm:ss` non si sovrappone a quella dell'etichetta adiacente.
+
+**Validates: Requirements 38.6**
+
+### Property 27: Le linee soglia rispettano scanner, opzione e intervallo visibile
+
+*Per ogni* `ThresholdSettings` e *per ogni* intervallo Y visibile, `ThresholdLineSelector` restituisce una linea per la soglia WARN se e solo se lo scanner è LiteOn, "Mostra soglie" è attiva e C1MaxWarn rientra nell'intervallo, e analogamente per la soglia KO; per StandardC2 non restituisce mai linee, e l'intervallo Y calcolato per l'auto-fit non dipende dai valori delle soglie.
+
+**Validates: Requirements 39.8, 39.9**
+
+### Property 28: Conteggio dei secondi con errori
+
+*Per ogni* lista di campioni, il numero di secondi evidenziati da `ErrorHighlighter` è uguale al numero di campioni con C2 > 0 oppure CU > 0, e ogni campione evidenziato corrisponde a un campione con almeno uno dei due valori maggiore di 0 (nessun campione con C2 = 0 e CU = 0 o con valori nulli è evidenziato).
+
+**Validates: Requirements 39.10, 39.11**
+
+### Property 29: Zoom e pan restano nei limiti dei dati
+
+*Per ogni* durata dei dati D, *per ogni* intervallo X corrente valido, *per ogni* sequenza di operazioni di zoom (fattore 1,25 per scatto, in avanti o indietro, centro nel puntatore) e di pan, l'intervallo risultante è contenuto in [0, D], ha ampiezza almeno min(5 s, D) e al più D, e lo zoom centrato in un punto lascia il punto invariato in posizione relativa (a meno dei vincoli ai bordi).
+
+**Validates: Requirements 39.4, 39.5**
+
+### Property 30: Le serie sono distinguibili anche senza il colore
+
+*Per ogni* coppia di indici di curva distinti i ≠ j in 0..7 (Confronto), gli stili assegnati da `SeriesStyles` differiscono per colore (`Das.Color.Series.(i+1)`) e per almeno uno tra stile di linea e forma del marcatore; *per ogni* coppia tra le serie di scansione C1, C2, CU, SpeedX, riempimento/stile di linea e marcatore sono tutti diversi.
+
+**Validates: Requirements 38.12, 37.13**
+
 ### Riflessione sulle proprietà (eliminazione ridondanze)
 
 - Le proprietà su C2 totale/CU totale/C1 medio/C1 massimo (Req. 11.2-11.4) sono state **unificate nella Property 4** invece di tre proprietà separate, perché derivano dalla stessa funzione di classificazione e condividono i generatori.
@@ -531,6 +648,8 @@ DiscCheck ha un ampio nucleo di logica pura (parsing, conteggio bit, valutazione
 - Il round-trip del parsing TOC (Property 7) e il determinismo di `toc_hash` (Property 8) non sono stati uniti: la 7 riguarda il parser, la 8 riguarda una funzione di hash su dati già validati; sono componenti diverse con generatori diversi.
 - La proprietà su "esclusione campioni di bordo" (Property 11) include sia il conteggio escluso sia il numero di campioni confrontati, eliminando la necessità di una proprietà separata per ciascuno (erano ridondanti: il secondo è il complementare del primo rispetto alla lunghezza totale).
 - Le proprietà di ordine (Property 12) e di non-scarto/non-duplicazione sotto backpressure (Property 13) restano distinte perché la 12 riguarda la relazione tra consumer multipli in condizioni di velocità diversa, mentre la 13 riguarda la relazione quantità-pubblicata/quantità-consegnata in condizioni di saturazione del buffer; non si implicano a vicenda nei casi limite (un bug di scarto silenzioso potrebbe non alterare l'ordine).
+- Per i grafici (Req. 38-39) le proprietà 23-30 riguardano funzioni pure distinte (ricerca del campione, statistiche, formato e scelta dei tick, soglie, evidenziazione, zoom/pan, stili) e non si implicano a vicenda. La Property 25 (round-trip) e la 26 (scelta dell'intervallo) restano separate perché la prima verifica il formato, la seconda la densità. La Property 22 copre il contrasto di tutti i colori dei grafici (Req. 38.11) e la Property 21 il downsampling (Req. 38.14), senza duplicati. Il round-trip CSV (Property 14) copre anche la cultura invariante dell'export (Req. 21.12).
+- Non sono state scritte proprietà per l'aspetto dei grafici (applicazione di colori e font a `Plot`, posizione della legenda, HiDPI, dimensioni di export PNG/SVG): sono verificate con test headless a esempi, snapshot e test di prestazione (vedi Testing Strategy).
 - Non sono state scritte proprietà per i criteri classificati "no" nel prework (si veda sotto), per gli aspetti IaC/UI "a sensazione" (Req. 1.8 tempo di avvio percepito, Req. 20.8 testi di conservazione) e per i criteri di integrazione hardware (Req. 2, 3, 23.7), trattati con test di integrazione/hardware con 1-3 esempi.
 
 ## Error Handling
@@ -558,6 +677,8 @@ Categorie di errore e trattamento:
 | Impostazioni | soglie non valide, percorso DB non scrivibile, valori fuori range | salvataggio rifiutato con indicazione campo/vincolo; file invariato; eventuale fallback ai default con avviso |
 | Export | file esistente, scrittura fallita, nessun dato da esportare | conferma di sovrascrittura; pulizia del file parziale; nessun file creato se non ci sono campioni |
 | Design system | Token_Key assente, chiave icona inesistente | `DynamicResource` risolve a null senza eccezione (rilevato dai test); `DasIcon` sostituisce con l'icona di warning e logga |
+| Grafici | Token richiesto dal Chart_Style non risolvibile, font Inter assente, nessun dato, puntatore fuori dall'area dati | Valore della variante Light e avviso nel Log con la Token_Key (Req. 38.17); fallback del font senza cambiare le dimensioni; stato vuoto con messaggio "Nessun dato da visualizzare" (Req. 38.8); cursore e tooltip nascosti, nessuna eccezione |
+| Export grafico | File PNG/SVG esistente, scrittura fallita, nessun campione | Conferma di sovrascrittura; messaggio con causa e percorso, file parziale eliminato, dati invariati; nessun file se non ci sono campioni (Req. 21.6-21.8) |
 
 ## Testing Strategy
 
@@ -570,6 +691,12 @@ Categorie di errore e trattamento:
 - **Test con Fake_Transport**: ogni comando SCSI/MMC ha almeno un test con risposta registrata in `tests/Fixtures/*.bin` e almeno un test con risposta troncata (Req. 3.9); nessun test di `Scsi.Tests` accede a un drive fisico.
 - **Hardware test** (`[Trait("Category","Hardware")]`): eseguiti solo con il Lite-On iHAS124-14 collegato; `dotnet test --filter "Category!=Hardware"` deve passare con 0 falliti e 0 saltati per mancanza di hardware su una macchina senza drive ottici.
 - **Test del design system**: analisi statica dei file `.axaml` (Token_Key esistenti, assenza di colori/font letterali), validazione SVG delle icone (viewBox, currentColor, stroke-width, nomi file, 20 chiavi esatte), calcolo di Contrast_Ratio sui Design_Token, parità di chiavi Light/Dark, indipendenza di assembly/progetto di DAS.Design da DiscCheck.*, caricamento headless di `DasTheme`/`DasIcon`/`DasStatusBadge`, hash SHA-256 del logo, versione di `DasDesignInfo` sincronizzata con `CHANGELOG.md`.
+- **Test dei grafici** (in `DAS.Design.Tests`, Req. 37.13-37.14):
+  - *Headless* (Avalonia headless, senza hardware né rete): `ChartThemeApplier.Apply` imposta in Light e Dark sfondo figura/area dati, griglia, assi, tick e legenda uguali ai token; token mancante → valore Light, avviso nel Log, nessuna eccezione; stato vuoto; cursore, tooltip, Chart_Selection e pulsante "Reset zoom" (abilitazione); export PNG con dimensioni = 2 × logiche (≥ 2.400 × 1.200) ed export SVG XML valido senza raster per i dati; legenda fuori dall'area dati; cambio tema che conserva dati, zoom e selezione.
+  - *Proprietà* (FsCheck, 100+ iterazioni, tag `// Feature: disccheck, Property N: ...`): Property 23-30 sulle funzioni pure di `DAS.Design.Charts`; Property 22 per il contrasto dei colori dei grafici.
+  - *Prestazioni* (`[Trait("Category","Performance")]`, eseguiti da `dotnet test --filter "Category!=Hardware"`, dati sintetici): ridisegno live ≤ 33 ms (p95) con 6.000 campioni, Confronto 8 × 6.000 campioni ≤ 100 ms, risposta a zoom/pan/cursore/selezione ≤ 100 ms, frequenza di ridisegno ≤ 30/s. Le soglie temporali sono parametrizzate per evitare falsi negativi su macchine di CI lente.
+  - *Indipendenza*: `.csproj` e assembly di `DAS.Design.Charts` non referenziano nulla che inizi per `DiscCheck`; `DAS.Design` non referenzia ScottPlot.
+  - *Analisi statica in `DiscCheck.Core.Tests`* (Req. 37.12): fallisce, con file e riga, se una vista dell'App istanzia `AvaPlot` o `ScottPlot.Plot`, oppure se le viste Scansione, Storico, Confronto e Archivio/Degrado non contengono un `DasChartView`.
 
 ### Cosa NON è testato con PBT (e perché)
 
@@ -578,6 +705,7 @@ Categorie di errore e trattamento:
 | Comandi SCSI reali (INQUIRY, MODE SENSE, READ CD su hardware) | Comportamento del Drive/firmware, non logica nostra; costoso da ripetere 100 volte | Hardware test con 1-3 esempi, marcati `Category=Hardware` |
 | Avvio dell'host, DI, manifest amministratore | Configurazione una tantum | Smoke test (singola esecuzione) |
 | Aspetto/estetica (tema Fluent, splash, layout percepito) | Non è una proprietà calcolabile | Revisione manuale, eventuali snapshot visivi |
+| Rendering dei grafici (colori/font applicati a ScottPlot, legenda, HiDPI 100-300%, export PNG/SVG) | Dipende da ScottPlot e dal rendering, non da input variabili | Test headless a esempi e snapshot, test di prestazione, revisione manuale su display HiDPI |
 | Cross-check C1/C2 contro QPxTool/Opti Drive Control (Req. 23.7) | Confronto con strumento esterno su hardware reale | Hardware test dedicato con soglie di tolleranza (±10% C1, uguaglianza C2) |
 | Caricamento di `DasTheme` in Avalonia headless | Verifica di wiring, non proprietà universale su input | Test di integrazione singolo (Req. 37.8) |
 
@@ -585,7 +713,7 @@ Categorie di errore e trattamento:
 
 Il prework completo (criterio per criterio) è stato eseguito con lo strumento dedicato prima di scrivere le proprietà. In sintesi:
 
-- **PROPERTY**: conteggio bit C2 (7.11), Evaluator (11.1-11.4, 11.6, 11.8, 11.10), round-trip TOC/toc_hash (5.8, 5.11), round-trip decoder (14.14), rilevamento/esclusione offset (15.8, 15.9, 15.12), pipeline (9.5, 9.9, 9.10, 9.4), round-trip CSV (21.10), round-trip Repository (16.16), round-trip Settings JSON (22.8), validazione Soglie (11.5, 11.9, 22.9), deduplica Drive (4.5), classificazione cache (12.2), pianificazione Cache_Defeat (12.6, 12.8), downsampling grafico (18.6), Contrast_Ratio (29.8, 29.9).
+- **PROPERTY**: conteggio bit C2 (7.11), Evaluator (11.1-11.4, 11.6, 11.8, 11.10), round-trip TOC/toc_hash (5.8, 5.11), round-trip decoder (14.14), rilevamento/esclusione offset (15.8, 15.9, 15.12), pipeline (9.5, 9.9, 9.10, 9.4), round-trip CSV (21.10), round-trip Repository (16.16), round-trip Settings JSON (22.8), validazione Soglie (11.5, 11.9, 22.9), deduplica Drive (4.5), classificazione cache (12.2), pianificazione Cache_Defeat (12.6, 12.8), downsampling grafico (18.6), Contrast_Ratio (29.8, 29.9), cursore sul campione più vicino (39.1, 39.13), statistiche di selezione (39.6), formato e scelta dei tick tempo (38.6), linee soglia (39.8, 39.9), evidenziazione e conteggio secondi con errori (39.10, 39.11), limiti di zoom/pan (39.4, 39.5), stili distinguibili delle serie (38.12).
 - **EXAMPLE**: un caso concreto per OK/WARN/KO (Req. 23.2), parsing di una risposta INQUIRY/TOC/ATIP di fixture, messaggio "Disco identico alla sorgente" quando tutte le tracce sono identiche (14.10), comportamento di `Probe()` con vendor "LITE-ON" esatto (8.7), apertura vista Storico con filtri (17.*).
 - **EDGE_CASE**: ultimo blocco di settori residui (1-74) nello StandardC2Scanner (7.7) e nel LiteOnScanner, offset ai limiti ±5000, Disco con una sola scansione (20.10), nessun risultato di ricerca filtri (17.8), 8 scansioni esatte nel confronto (19.1 vs 19.2).
 - **INTEGRATION**: apertura/chiusura reale del Drive, IOCTL reali, Test_Mode su hardware, log su file reale, migrazioni su un file SQLite reale.
@@ -607,5 +735,7 @@ Il prework completo (criterio per criterio) è stato eseguito con lo strumento d
 | Exporter | file esistente, nessun dato | round-trip CSV | — |
 | StandardC2Scanner / LiteOnScanner | Probe non supportato, errore comando | conteggio C2 (condiviso) | scansione completa con iHAS124, cross-check C1/C2 |
 | DAS.Design | istanza DasIcon/DasStatusBadge | Contrast_Ratio | caricamento DasTheme headless |
+| DAS.Design.Charts | tema, stato vuoto, export PNG/SVG, legenda, token mancante, indipendenza assembly | Property 23-30 (cursore, selezione, tick, soglie, evidenziazione, zoom/pan, stili) | headless `DasChartView`; test di prestazione (Category=Performance) |
+| Viste con grafico (App) | analisi statica: solo `DasChartView`, nessun `AvaPlot`/`Plot` | — | — |
 
 Dopo il completamento di questo documento, il flusso richiede la revisione dell'utente prima di passare alla fase di creazione dei task.
