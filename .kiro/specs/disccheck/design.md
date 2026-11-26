@@ -2,7 +2,7 @@
 
 ## Overview
 
-DiscCheck è un'applicazione desktop Windows 10/11 x64 (C# 12, .NET 8 LTS, Avalonia 11) per il controllo qualità dei CD audio masterizzati. Offre tre funzioni:
+DiscCheck è un'applicazione desktop Windows 10/11 x64 (C# 15, .NET 11, Avalonia 11) per il controllo qualità dei CD audio masterizzati. Offre tre funzioni:
 
 1. **Verifica bit-perfect**: estrae l'audio dal Disco con READ CD, lo confronta campione per campione con la Sorgente (FLAC/WAV 16 bit / 44,1 kHz) applicando l'offset di lettura.
 2. **Scansione di qualità**: misura C1/C2/CU tramite `LiteOnScanner` (comandi vendor portati da QPxTool) o `StandardC2Scanner` (READ CD con puntatori C2), produce un Verdetto OK/WARN/KO.
@@ -23,6 +23,7 @@ Lo stile grafico è fornito da `DAS.Design`, libreria Avalonia indipendente da D
 | 7 | Temi/colori solo tramite Design_Token `Das.*` | Cambio tema senza modificare le viste (Req. 22.7, 35). |
 | 8 | Progetto separato `DAS.Design.Charts` con `DasChartView` come unico modo di mostrare un grafico | `DAS.Design` resta privo di ScottPlot (Req. 28.3); stile e interattività sono scritti una volta e riusabili da ogni app DAS (Req. 38.15, 38.16). |
 | 9 | Logica di cursore, selezione, formattazione tick, soglie ed evidenziazione come funzioni pure in `DAS.Design.Charts`, su tipi propri (`ChartSample`, `ChartSeries`) | La libreria non può referenziare `ScanSample` di Core (nessun riferimento a `DiscCheck.*`); l'App mappa i propri campioni. Le funzioni sono testabili senza UI (Req. 37.13). |
+| 10 | Configurazione di build a livello di repository: `global.json` nella radice fissa l'SDK 11.0.x con `rollForward` = `latestFeature`; `Directory.Build.props` imposta `TargetFramework` `net11.0`, `Nullable` abilitato e lascia `LangVersion` al valore predefinito (C# 15). CI e release usano la stessa versione major dell'SDK di `global.json`. Nessuna funzionalità preview o sperimentale. | .NET 11 è una release STS (GA 10 novembre 2026, supporto fino a novembre 2028): build riproducibili tra sviluppo, CI e release e nessun passaggio accidentale a un SDK diverso o in anteprima. .NET 11 è supportato fino a novembre 2028 (STS con 24 mesi di supporto, stessa scadenza di .NET 10 LTS); pianificare l'aggiornamento alla release successiva entro quella data (Req. 1.2, 1.11-1.13). |
 
 ### Ricerca e fonti
 
@@ -275,7 +276,7 @@ src/DAS.Design/
 
 ### DAS.Design.Charts
 
-Progetto Avalonia 11 / .NET 8 in `src/DAS.Design.Charts/`, namespace `DAS.Design.Charts`, dipendenze solo `DAS.Design` e ScottPlot.Avalonia 5.x, versionamento semantico con `CHANGELOG.md` (Req. 28.7-28.9 applicati, Req. 38.16). Si usa con `DasTheme` più un riferimento al progetto/pacchetto.
+Progetto Avalonia 11 / .NET 11 in `src/DAS.Design.Charts/`, namespace `DAS.Design.Charts`, dipendenze solo `DAS.Design` e ScottPlot.Avalonia 5.x, versionamento semantico con `CHANGELOG.md` (Req. 28.7-28.9 applicati, Req. 38.16). Si usa con `DasTheme` più un riferimento al progetto/pacchetto.
 
 ```
 src/DAS.Design.Charts/
