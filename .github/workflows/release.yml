@@ -1,0 +1,160 @@
+name: Release
+
+# main -> release-please (PR di release / tag / GitHub Release)
+#      -> app Windows come asset della Release
+#      -> immagine su GHCR con tag di versione
+#      -> promozione dei tag (latest, X.Y, X) senza ricostruire
+#      -> PR di riallineamento main -> development
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.rp.outputs.release_created }}
+      tag_name: ${{ steps.rp.outputs.tag_name }}
+      version: ${{ steps.rp.outputs.version }}
+    steps:
+      - id: rp
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.AUTOMATION_TOKEN || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  build-app:
+    name: Build Windows app
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ needs.release-please.outputs.tag_name }}
+      VERSION: ${{ needs.release-please.outputs.version }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Publish and attach to release
+        shell: pwsh
+        run: |
+          if (-not (Test-Path src/DiscCheck.App)) {
+            Write-Host "src/DiscCheck.App non presente: nessun asset da pubblicare."
+            exit 0
+          }
+          dotnet publish src/DiscCheck.App -c Release -r win-x64 --self-contained true `
+            -p:Version=$env:VERSION -p:PublishSingleFile=false -o publish
+          $zip = "DiscCheck-$($env:VERSION)-win-x64.zip"
+          Compress-Archive -Path publish/* -DestinationPath $zip
+          (Get-FileHash $zip -Algorithm SHA256).Hash.ToLower() + "  $zip" | Set-Content "$zip.sha256"
+          gh release upload $env:TAG $zip "$zip.sha256" --clobber
+
+  image:
+    name: Build image
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Image name (lowercase)
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}-ci" >> "$GITHUB_ENV"
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/ci.Dockerfile
+          push: true
+          tags: ${{ env.IMAGE }}:${{ needs.release-please.outputs.version }}
+          cache-from: type=gha
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.version=${{ needs.release-please.outputs.version }}
+            org.opencontainers.image.revision=${{ github.sha }}
+
+  promote:
+    name: Promote image tags
+    needs: [release-please, image, build-app]
+    runs-on: ubuntu-latest
+    # Se nell'ambiente "production" configuri dei reviewer, la promozione attende l'approvazione.
+    environment: production
+    permissions:
+      packages: write
+    steps:
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Retag without rebuilding
+        env:
+          VERSION: ${{ needs.release-please.outputs.version }}
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}-ci"
+          MAJOR="${VERSION%%.*}"
+          MINOR="${VERSION%.*}"
+          docker buildx imagetools create \
+            -t "$IMAGE:latest" -t "$IMAGE:$MINOR" -t "$IMAGE:$MAJOR" \
+            "$IMAGE:$VERSION"
+
+  sync-development:
+    name: Back-merge main into development
+    needs: [release-please, promote]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN || secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Open PR main -> development
+        run: |
+          behind=$(git rev-list --count origin/development..origin/main)
+          if [ "$behind" -eq 0 ]; then echo "development e' gia' allineato."; exit 0; fi
+          num=$(gh pr list --base development --head main --state open --json number --jq '.[0].number // empty')
+          if [ -z "$num" ]; then
+            gh pr create --base development --head main \
+              --title "chore: sync main into development" \
+              --body "Riallineamento dopo la release ${{ needs.release-please.outputs.tag_name }} (changelog e versione)."
+            num=$(gh pr list --base development --head main --state open --json number --jq '.[0].number')
+          fi
+          gh pr merge "$num" --auto --merge

@@ -1,0 +1,81 @@
+name: CI
+
+# Controlli sulle PR verso development e main.
+on:
+  pull_request:
+    branches: [development, main]
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-title:
+    name: PR title
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      # release-please deriva versione e changelog dai Conventional Commits.
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  source-branch:
+    name: Source branch
+    if: github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only development or release-please can target main
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          if [[ "$HEAD_REF" == "development" || "$HEAD_REF" == release-please--* ]]; then
+            echo "OK: $HEAD_REF -> main"
+          else
+            echo "::error::PR verso main ammesse solo da 'development' o 'release-please--*' (trovato '$HEAD_REF')."
+            exit 1
+          fi
+
+  build-test:
+    name: Build and test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check solution presence
+        id: sln
+        shell: pwsh
+        run: |
+          $has = Test-Path DiscCheck.sln
+          "present=$($has.ToString().ToLower())" >> $env:GITHUB_OUTPUT
+          if (-not $has) { Write-Host "DiscCheck.sln non ancora presente: build e test saltati." }
+
+      - uses: actions/setup-dotnet@v4
+        if: steps.sln.outputs.present == 'true'
+        with:
+          dotnet-version: 8.0.x
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore
+        if: steps.sln.outputs.present == 'true'
+        run: dotnet restore DiscCheck.sln
+
+      - name: Build
+        if: steps.sln.outputs.present == 'true'
+        run: dotnet build DiscCheck.sln -c Release --no-restore
+
+      - name: Test (senza hardware)
+        if: steps.sln.outputs.present == 'true'
+        run: dotnet test DiscCheck.sln -c Release --no-build --filter "Category!=Hardware" --logger "trx" --results-directory TestResults
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.sln.outputs.present == 'true'
+        with:
+          name: test-results
+          path: TestResults
