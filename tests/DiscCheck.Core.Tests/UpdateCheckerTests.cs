@@ -145,21 +145,41 @@ public sealed class UpdateCheckerTests : IDisposable
         SettingsJson.Deserialize(SettingsJson.Serialize(s)).UpdateSource.Should().Be("https://intranet/v.json");
 
         string path = Path.Combine(_dir, "settings.json");
-        File.WriteAllText(path, SettingsJson.Serialize(new Settings()).Replace("\"updateSource\": \"\",", string.Empty)
-            .Replace(",\n  \"updateSource\": \"\"", string.Empty).Replace(",\r\n  \"updateSource\": \"\"", string.Empty));
+        string json = SettingsJson.Serialize(new Settings());
+        json = System.Text.RegularExpressions.Regex.Replace(json, ",\\s*\"updateSource\":\\s*\"[^\"]*\"", string.Empty);
+        json.Should().NotContain("updateSource");
+        File.WriteAllText(path, json);
         var store = new SettingsStore(path);
         var load = store.Load();
+        load.Errors.Should().BeEmpty();
+        load.Settings.UpdateSource.Should().Be(Settings.DefaultUpdateSource);
+    }
+
+    [Fact]
+    public void Default_update_source_is_the_latest_public_release_and_is_valid()
+    {
+        new Settings().UpdateSource.Should().Be(Settings.DefaultUpdateSource);
+        Settings.DefaultUpdateSource.Should().StartWith("https://github.com/").And.EndWith("/releases/latest/download/version.json");
+        SettingsValidator.Validate(new Settings()).Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Empty_update_source_in_file_keeps_the_check_disabled()
+    {
+        string path = Path.Combine(_dir, "settings3.json");
+        File.WriteAllText(path, SettingsJson.Serialize(new Settings { UpdateSource = string.Empty }));
+        var load = new SettingsStore(path).Load();
         load.Errors.Should().BeEmpty();
         load.Settings.UpdateSource.Should().BeEmpty();
     }
 
     [Fact]
-    public void Invalid_update_source_in_file_falls_back_to_disabled_and_is_reported()
+    public void Invalid_update_source_in_file_falls_back_to_default_and_is_reported()
     {
         string path = Path.Combine(_dir, "settings2.json");
-        File.WriteAllText(path, SettingsJson.Serialize(new Settings()).Replace("\"updateSource\": \"\"", "\"updateSource\": \"ftp://x\""));
+        File.WriteAllText(path, SettingsJson.Serialize(new Settings { UpdateSource = "ftp://x" }));
         var load = new SettingsStore(path).Load();
-        load.Settings.UpdateSource.Should().BeEmpty();
+        load.Settings.UpdateSource.Should().Be(Settings.DefaultUpdateSource);
         load.Errors.Should().Contain(e => e.Field == "updateSource");
     }
 }

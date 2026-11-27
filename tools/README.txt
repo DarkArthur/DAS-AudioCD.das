@@ -8,7 +8,8 @@ pubblicata, a meno che indichi una versione con -Version.
 REQUISITI
   - PowerShell 7 (pwsh)
   - GitHub CLI (gh), installato e autenticato una volta:   gh auth login
-    (il repository e' privato: serve un account con accesso)
+    (il repository e' pubblico: basta un account GitHub qualsiasi; in alternativa
+     si scarica dal browser: https://github.com/DarkArthur/DAS-AudioCD.das/releases/latest)
 
 SCRIPT
   1) download-installer.ps1
@@ -47,16 +48,14 @@ COSA FANNO, IN ORDINE
 
 PROBLEMI COMUNI
   - "GitHub CLI (gh) not found": installa gh e riapri il terminale.
-  - Errori di autenticazione / 404: esegui "gh auth login" con un account che
-    ha accesso al repository.
+  - Errori di autenticazione: esegui "gh auth login".
   - Download bloccato dal SOC/antivirus: chiedi l'autorizzazione del file
     usando lo SHA-256 del file .sha256 pubblicato nella release.
   - Avviso SmartScreen all'esecuzione dell'installer: non e' firmato; scegli
     "Ulteriori informazioni" e poi "Esegui comunque".
 
 NOTIFICA DI NUOVA VERSIONE (nell'app)
-  L'app non scarica nulla da sola. Se in Impostazioni e' indicato l'indirizzo di version.json
-  (URL http(s) o percorso di rete) e li' c'e' una versione piu' recente di quella installata,
-  all'avvio compare un avviso con il pulsante 'Apri pagina di download'.
-  version.json e' allegato ad ogni release: copialo nell'indirizzo scelto. Dettagli in docs/ci-cd.md.
-
+  All'avvio l'app controlla l'ultima release pubblica (version.json allegato alla release)
+  e, se c'e' una versione piu' recente, mostra un avviso con 'Apri pagina di download'.
+  Non scarica ne' installa nulla da sola. Si disattiva svuotando, in Impostazioni,
+  il campo 'Indirizzo degli aggiornamenti'; li' si puo' anche indicare un indirizzo interno.
