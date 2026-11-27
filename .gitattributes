@@ -1,0 +1,2 @@
+# Asset hashed in logo.sha256 (and binary fonts/icons): keep bytes as committed, no CRLF conversion on Windows runners.
+src/DAS.Design/Assets/** -text
