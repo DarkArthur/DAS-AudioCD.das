@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.2.0...v1.3.0) (2026-11-27)
+
+
+### Features
+
+* release under GPL-2.0-or-later, holder DarkArthur DAS, update check from the latest public release ([1ef1e66](https://github.com/DarkArthur/DAS-AudioCD.das/commit/1ef1e66837d6c1bb065b76fd95b7427d8ca94d6d))
+
 ## [1.2.0](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.1.0...v1.2.0) (2026-11-27)
 
 
