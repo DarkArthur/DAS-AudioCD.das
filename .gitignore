@@ -64,3 +64,4 @@ token*.txt
 # .NET build output
 [Bb]in/
 [Oo]bj/
+publish/

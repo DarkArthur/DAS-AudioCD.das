@@ -67,6 +67,12 @@ jobs:
           Compress-Archive -Path publish/* -DestinationPath $zip
           (Get-FileHash $zip -Algorithm SHA256).Hash.ToLower() + "  $zip" | Set-Content "$zip.sha256"
           gh release upload $env:TAG $zip "$zip.sha256" --clobber
+          # Guided installer (Inno Setup), built from the same publish output.
+          choco install innosetup -y --no-progress
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup install failed" }
+          ./installer/build-installer.ps1 -Version $env:VERSION -SkipPublish
+          $setup = "artifacts/DiscCheck-Setup-$($env:VERSION)-win-x64.exe"
+          gh release upload $env:TAG $setup "$setup.sha256" --clobber
 
   image:
     name: Build image

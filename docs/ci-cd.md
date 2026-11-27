@@ -41,3 +41,10 @@ Immagine: `ghcr.io/<owner>/<repo>-ci`. Contiene il toolchain per build e test; l
 - La release si crea fondendo la PR "chore(main): release X.Y.Z" aperta da release-please (passaggio manuale volontario).
 
 Senza branch protection (repo privato, piano Free) l'auto-merge non esiste: i workflow attendono i check della PR con `gh pr checks --watch` e poi fondono.
+
+## Installer guidato (Windows)
+
+Ogni release allega anche `DiscCheck-Setup-X.Y.Z-win-x64.exe` (+ `.sha256`), creato con Inno Setup 6 da `installer/DiscCheck.iss`. Procedura guidata in italiano e inglese, richiede privilegi di amministratore (come l'app), crea il collegamento nel menu Start (e sul desktop, facoltativo) e il disinstallatore. Un aggiornamento sovrascrive la versione precedente. Le impostazioni, il Database e i log dell'utente restano al disinstallo.
+
+Build locale: `winget install JRSoftware.InnoSetup` e poi `pwsh installer/build-installer.ps1 -Version 1.0.1` (output in `artifacts/`). Non esegue test di installazione: va provato a mano.
+
