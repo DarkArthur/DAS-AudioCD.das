@@ -63,6 +63,13 @@ jobs:
           }
           dotnet publish src/DiscCheck.App -c Release -r win-x64 --self-contained true `
             -p:Version=$env:VERSION -p:PublishSingleFile=false -o publish
+          # Licence texts and notices travel with the binaries (GPL-2.0 Req. 25.8, LGPL-3.0 of FLAKE, CC-BY assets).
+          Copy-Item LICENSE publish/LICENSE.txt
+          Copy-Item THIRD-PARTY-NOTICES.md publish/
+          New-Item -ItemType Directory -Force publish/licenses | Out-Null
+          Copy-Item licenses/* publish/licenses/
+          Copy-Item src/DAS.Design/LICENSE-ASSETS.md publish/licenses/
+          Copy-Item src/DAS.Design/Assets/Fonts/OFL.txt publish/licenses/Inter-OFL.txt
           $zip = "DiscCheck-$($env:VERSION)-win-x64.zip"
           Compress-Archive -Path publish/* -DestinationPath $zip
           (Get-FileHash $zip -Algorithm SHA256).Hash.ToLower() + "  $zip" | Set-Content "$zip.sha256"

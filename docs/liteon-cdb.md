@@ -7,7 +7,7 @@ Documento del task 13.2 (Requirement 8.1, 8.3, 8.4). Ogni byte riportato qui è 
 - Repository: `github.com/speed47/qpxtool`, ramo `master`, commit `9c6a3fdb5e2759db1fd1b8d719e85d086b2b4489` (letto via raw.githubusercontent.com).
 - File principali: `plugins/liteon/qscan_cmd.cpp`, `plugins/liteon/qscan_plugin.cpp`.
 - File di supporto letti per risolvere lunghezza del CDB, direzione, flag e ciclo di lettura: `lib/qpxtransport/qpx_transport.cpp` (`Scsi_Command::operator[]`, `transport`), `lib/qpxtransport/qpx_mmc.cpp` (`seek`, `set_cd_speed`), `lib/qpxtransport/include/qpx_transport.h` (enum `Direction`), `lib/qpxscan/include/qpx_scan_plugin_api.h` (`set_read_speed`), `lib/qpxscan/qpx_scan_algo.cpp` (`run_cd_errc`), `console/qscan/qscan.cpp` (opzione `LITEON_FORCE_OLD`).
-- Licenza: GPL-2.0 or later (intestazione dei file). Vedi D2 in `docs/decisions.md` (uso personale, risolta come "b").
+- Licenza: GPL-2.0 or later (intestazione dei file). Vedi D2 in `docs/decisions.md` (distribuzione con GPL-2.0, opzione "a").
 
 ## Regole di costruzione del CDB in QPxTool
 

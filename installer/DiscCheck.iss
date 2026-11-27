@@ -22,7 +22,13 @@ AppId={{6F1D2A53-8C4B-4E7A-9B3D-5A0E7C2F9D14}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-AppPublisher=DAS
+AppPublisher=DarkArthur DAS
+AppCopyright=Copyright (C) 2026 DarkArthur DAS
+AppPublisherURL=https://github.com/DarkArthur/DAS-AudioCD.das
+AppSupportURL=https://github.com/DarkArthur/DAS-AudioCD.das/issues
+AppUpdatesURL=https://github.com/DarkArthur/DAS-AudioCD.das/releases
+; GPL-2.0 shown and accepted during setup (Requirement 25.8).
+LicenseFile={#RepoRoot}\LICENSE
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 UninstallDisplayIcon={app}\{#AppExe}
@@ -51,6 +57,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Licence texts and notices (GPL-2.0 of the project and of the QPxTool port, LGPL-3.0 of FLAKE, CC-BY 4.0 assets, OFL font).
+Source: "{#RepoRoot}\LICENSE"; DestDir: "{app}"; DestName: "LICENSE.txt"; Flags: ignoreversion
+Source: "{#RepoRoot}\THIRD-PARTY-NOTICES.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#RepoRoot}\licenses\*"; DestDir: "{app}\licenses"; Flags: ignoreversion
+Source: "{#RepoRoot}\src\DAS.Design\LICENSE-ASSETS.md"; DestDir: "{app}\licenses"; Flags: ignoreversion
+Source: "{#RepoRoot}\src\DAS.Design\Assets\Fonts\OFL.txt"; DestDir: "{app}\licenses"; DestName: "Inter-OFL.txt"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExe}"

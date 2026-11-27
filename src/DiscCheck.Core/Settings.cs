@@ -22,7 +22,10 @@ public sealed record Settings
     public int RecheckYears { get; init; } = 5;
 
     /// <summary>Address of <c>version.json</c> (http(s) URL, UNC or local path). Empty = update check disabled.</summary>
-    public string UpdateSource { get; init; } = string.Empty;
+    /// <summary>Default <see cref="UpdateSource"/>: version.json of the latest public GitHub release.</summary>
+    public const string DefaultUpdateSource = "https://github.com/DarkArthur/DAS-AudioCD.das/releases/latest/download/version.json";
+
+    public string UpdateSource { get; init; } = DefaultUpdateSource;
 }
 
 /// <summary>A violated constraint: the offending field and the constraint (Requirement 22.9).</summary>
