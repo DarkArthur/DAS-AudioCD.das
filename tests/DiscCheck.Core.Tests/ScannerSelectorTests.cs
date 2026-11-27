@@ -43,10 +43,20 @@ public class ScannerSelectorTests
     [Fact]
     public void ProbeTimeout_IsTreatedAsUnsupported()
     {
-        var lite = new FakeScanner("LiteOn", () => { Thread.Sleep(2000); return Yes; });
+        // The slow probe stays blocked until the end of the test, so it can only end by timeout. The timeout (1 s)
+        // leaves the fast probe enough time to be scheduled on a busy CI machine (100 ms was not enough).
+        using var release = new ManualResetEventSlim(false);
+        var lite = new FakeScanner("LiteOn", () => { release.Wait(TimeSpan.FromSeconds(30)); return Yes; });
         var std = new FakeScanner("StandardC2", () => Yes);
-        var sel = new ScannerSelector([lite, std], probeTimeout: TimeSpan.FromMilliseconds(100)).Select(Drive);
-        sel.Scanner.Should().BeSameAs(std);
+        try
+        {
+            var sel = new ScannerSelector([lite, std], probeTimeout: TimeSpan.FromSeconds(1)).Select(Drive);
+            sel.Scanner.Should().BeSameAs(std);
+        }
+        finally
+        {
+            release.Set();
+        }
     }
 
     [Fact]
