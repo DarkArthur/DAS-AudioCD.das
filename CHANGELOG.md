@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.0.1...v1.1.0) (2026-11-27)
+
+
+### Features
+
+* **installer:** guided Windows setup (Inno Setup) attached to every release ([ebe6c1f](https://github.com/DarkArthur/DAS-AudioCD.das/commit/ebe6c1f8e29d2e57162053775b1159ec393bc216))
+
 ## [1.0.1](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.0.0...v1.0.1) (2026-11-27)
 
 
