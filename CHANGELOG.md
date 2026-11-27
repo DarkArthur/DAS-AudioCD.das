@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.3.0...v1.3.1) (2026-11-27)
+
+
+### Bug Fixes
+
+* **ci:** wait only for CI checks before auto-merging, the job no longer waits for itself ([8dda5b6](https://github.com/DarkArthur/DAS-AudioCD.das/commit/8dda5b6962bdbd3df4d098b5a963263b2a43454a))
+
 ## [1.3.0](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.2.0...v1.3.0) (2026-11-27)
 
 
