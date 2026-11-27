@@ -174,6 +174,22 @@ jobs:
         run: |
           # Auto-merge richiede branch protection (piano Pro o repo pubblico).
           # In mancanza: attende i check della PR e poi fonde.
+          # Waits only for the checks of the "CI" workflow. The PR head commit also carries the checks of the workflow
+          # that is running this script, so waiting for "all checks" never ends once they are visible (public repo).
+          wait_ci() {
+            for _ in $(seq 1 120); do
+              rows=$(gh pr view "$1" --json statusCheckRollup \
+                --jq '[.statusCheckRollup[] | select(.workflowName == "CI")] | map("\(.status) \(.conclusion // "")") | .[]')
+              if [ -n "$rows" ] && ! echo "$rows" | grep -qv '^COMPLETED'; then
+                if echo "$rows" | grep -Eq 'FAILURE|CANCELLED|TIMED_OUT|ACTION_REQUIRED|STARTUP_FAILURE'; then
+                  echo "CI non superata sulla PR #$1:"; echo "$rows"; return 1
+                fi
+                echo "CI superata sulla PR #$1."; return 0
+              fi
+              sleep 20
+            done
+            echo "Timeout in attesa della CI sulla PR #$1."; return 1
+          }
           merge_pr() {
             if gh pr merge "$1" --auto --merge 2>/dev/null; then
               echo "Auto-merge abilitato su PR #$1"
@@ -181,7 +197,7 @@ jobs:
             fi
             echo "Auto-merge non disponibile: attendo i check e fondo."
             sleep 30
-            gh pr checks "$1" --watch --fail-fast
+            wait_ci "$1"
             gh pr merge "$1" --merge
           }
           behind=$(git rev-list --count origin/development..origin/main)
