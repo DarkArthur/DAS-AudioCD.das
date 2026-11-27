@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <FontFamily x:Key="Das.Font.Primary">avares://DAS.Design/Assets/Fonts#Inter, Segoe UI Variable Text, Segoe UI, sans-serif</FontFamily>
+  <FontFamily x:Key="Das.Font.Mono">Cascadia Mono, Consolas, monospace</FontFamily>
+  <FontWeight x:Key="Das.Font.Weight.Regular">Normal</FontWeight>
+  <FontWeight x:Key="Das.Font.Weight.SemiBold">SemiBold</FontWeight>
+  <FontWeight x:Key="Das.Font.Weight.Bold">Bold</FontWeight>
+  <x:Double x:Key="Das.Text.Caption.Size">12</x:Double>
+  <x:Double x:Key="Das.Text.Caption.LineHeight">16</x:Double>
+  <x:Double x:Key="Das.Text.Body.Size">14</x:Double>
+  <x:Double x:Key="Das.Text.Body.LineHeight">20</x:Double>
+  <x:Double x:Key="Das.Text.BodyLarge.Size">16</x:Double>
+  <x:Double x:Key="Das.Text.BodyLarge.LineHeight">24</x:Double>
+  <x:Double x:Key="Das.Text.Title.Size">20</x:Double>
+  <x:Double x:Key="Das.Text.Title.LineHeight">28</x:Double>
+  <x:Double x:Key="Das.Text.Headline.Size">24</x:Double>
+  <x:Double x:Key="Das.Text.Headline.LineHeight">32</x:Double>
+  <x:Double x:Key="Das.Text.Display.Size">32</x:Double>
+  <x:Double x:Key="Das.Text.Display.LineHeight">40</x:Double>
+</ResourceDictionary>
+
+

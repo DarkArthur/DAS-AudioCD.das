@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:DAS.Design.Controls"
+        xmlns:vm="using:DiscCheck.App.ViewModels"
+        x:Class="DiscCheck.App.Views.AboutWindow"
+        x:DataType="vm:AboutViewModel"
+        Title="Informazioni su DiscCheck"
+        Icon="avares://DiscCheck.App/Assets/Icons/disccheck.ico"
+        SizeToContent="WidthAndHeight"
+        CanResize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource Das.Brush.Background}">
+  <StackPanel Margin="32" Spacing="{DynamicResource Das.Space.4}" MinWidth="360" MaxWidth="560">
+    <!-- Lockup 64 px, name after a 1 px separator (Requirements 32.2, 32.6) -->
+    <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.4}">
+      <controls:DasLogo Form="Lockup" Height="64" />
+      <Border Width="1" Background="{DynamicResource Das.Brush.Border}" />
+      <TextBlock Text="{Binding AppName}"
+                 VerticalAlignment="Center"
+                 FontFamily="{DynamicResource Das.Font.Primary}"
+                 FontSize="{DynamicResource Das.Text.Title.Size}"
+                 LineHeight="{DynamicResource Das.Text.Title.LineHeight}"
+                 FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+    </StackPanel>
+    <StackPanel Spacing="{DynamicResource Das.Space.1}">
+      <TextBlock Classes="Body" Text="{Binding AppVersionText}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <TextBlock Classes="Body" Text="{Binding DesignVersionText}"
+                 Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+    </StackPanel>
+    <!-- Shown only when the asset licence requires attribution (decision D5, option b) -->
+    <TextBlock Classes="Body" Text="{Binding Attribution}" TextWrapping="Wrap"
+               IsVisible="{Binding HasAttribution}"
+               Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+    <Button Classes="primary" Content="Chiudi" HorizontalAlignment="Right" Click="OnCloseClick" />
+  </StackPanel>
+</Window>

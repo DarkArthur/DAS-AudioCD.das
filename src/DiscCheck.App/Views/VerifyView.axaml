@@ -1,0 +1,165 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:DAS.Design.Controls"
+             xmlns:vm="using:DiscCheck.App.ViewModels"
+             x:Class="DiscCheck.App.Views.VerifyView"
+             x:DataType="vm:VerifyViewModel">
+  <ScrollViewer>
+    <StackPanel Margin="16" Spacing="{DynamicResource Das.Space.2}">
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <controls:DasIcon IconName="disccheck.verify.bitperfect" Size="24"
+                          Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Text="Verifica"
+                   VerticalAlignment="Center"
+                   FontFamily="{DynamicResource Das.Font.Primary}"
+                   FontSize="{DynamicResource Das.Text.Title.Size}"
+                   FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </StackPanel>
+
+      <!-- Disco and Sorgente selection (Requirement 14.1) -->
+      <TextBlock Classes="Body" Text="{Binding DiscSummary}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <TextBlock Classes="Body" Text="Sorgente" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Text="{Binding SourcePath}" Width="420" IsEnabled="{Binding IsIdle}"
+                 Watermark="Cartella o file CUE" />
+        <Button x:Name="BrowseFolder" Classes="secondary" Content="Cartella…" IsEnabled="{Binding IsIdle}" />
+        <Button x:Name="BrowseCue" Classes="secondary" Content="File CUE…" IsEnabled="{Binding IsIdle}" />
+        <TextBlock Classes="Body" Text="Riletture (N)" VerticalAlignment="Center" Margin="16,0,0,0"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <NumericUpDown Value="{Binding MaxRereadCount}" Minimum="1" Maximum="10" Increment="1"
+                       FormatString="0" Width="110" IsEnabled="{Binding IsIdle}" />
+      </StackPanel>
+
+      <!-- Offset (Requirements 15.2-15.7) -->
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <TextBlock Classes="Body" Text="{Binding OffsetText, StringFormat='Offset di lettura: {0}'}"
+                   VerticalAlignment="Center" Foreground="{DynamicResource Das.Brush.Text}" />
+        <Button Classes="secondary" Content="Rileva offset" Command="{Binding DetectOffsetCommand}" />
+        <TextBox Text="{Binding ManualOffsetText}" Width="100" Watermark="-5000…5000"
+                 IsEnabled="{Binding IsIdle}" />
+        <Button Classes="secondary" Content="Imposta offset" Command="{Binding SetManualOffsetCommand}" />
+      </StackPanel>
+      <Border Classes="card" IsVisible="{Binding HasOffsetMessage}"
+              Background="{DynamicResource Das.Brush.Status.WarnSurface}"
+              BorderBrush="{DynamicResource Das.Brush.Status.Warn}">
+        <TextBlock Classes="Body" Text="{Binding OffsetMessage}" TextWrapping="Wrap"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </Border>
+
+      <!-- Cache (Requirement 12) -->
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <TextBlock Classes="Body" Text="{Binding CacheText, StringFormat='Cache audio: {0}'}"
+                   VerticalAlignment="Center" Foreground="{DynamicResource Das.Brush.Text}" />
+        <Button Classes="secondary" Content="Rileva cache" Command="{Binding DetectCacheCommand}" />
+      </StackPanel>
+      <TextBlock Classes="Body" Text="{Binding CacheMessage}" TextWrapping="Wrap"
+                 IsVisible="{Binding HasCacheMessage}"
+                 Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+
+      <TextBlock Classes="Body" Text="{Binding AvailabilityMessage}" TextWrapping="Wrap"
+                 IsVisible="{Binding HasAvailabilityMessage}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <Button Classes="primary" Content="Avvia verifica" Command="{Binding StartCommand}" />
+        <Button Classes="secondary" Content="Annulla" Command="{Binding CancelCommand}" />
+      </StackPanel>
+
+      <!-- Progress per track (Requirement 14.13) -->
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.4}"
+                  IsVisible="{Binding HasStatusText}">
+        <TextBlock Classes="Body" Text="{Binding StatusText, StringFormat='Stato: {0}'}"
+                   VerticalAlignment="Center" Foreground="{DynamicResource Das.Brush.Text}" />
+        <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" Width="240"
+                     IsVisible="{Binding IsRunning}" />
+        <TextBlock Classes="Body" Text="{Binding ProgressText}" VerticalAlignment="Center"
+                   IsVisible="{Binding IsRunning}" Foreground="{DynamicResource Das.Brush.Text}" />
+      </StackPanel>
+
+      <Border Classes="card" IsVisible="{Binding HasErrorMessage}"
+              Background="{DynamicResource Das.Brush.Status.KoSurface}"
+              BorderBrush="{DynamicResource Das.Brush.Status.Ko}">
+        <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+          <controls:DasStatusBadge Status="Ko" VerticalAlignment="Top" />
+          <TextBlock Classes="Body" Text="{Binding ErrorMessage}" TextWrapping="Wrap"
+                     VerticalAlignment="Center"
+                     Foreground="{DynamicResource Das.Brush.Text}" />
+        </StackPanel>
+      </Border>
+
+      <!-- Final result (Requirements 14.10, 14.11) -->
+      <Border Classes="card" IsVisible="{Binding IsDiscIdentical}"
+              Background="{DynamicResource Das.Brush.Status.OkSurface}"
+              BorderBrush="{DynamicResource Das.Brush.Status.Ok}">
+        <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+          <controls:DasStatusBadge Status="Ok" />
+          <TextBlock Classes="Body" Text="{Binding IdenticalText}"
+                     VerticalAlignment="Center"
+                     FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                     Foreground="{DynamicResource Das.Brush.Text}" />
+        </StackPanel>
+      </Border>
+
+      <!-- Results table (Requirements 14.8, 14.9, 14.13, 15.9) -->
+      <Border Classes="card" IsVisible="{Binding HasRows}">
+        <StackPanel Spacing="{DynamicResource Das.Space.1}">
+          <Grid ColumnDefinitions="70,110,150,170,150">
+            <TextBlock Classes="Body" Grid.Column="0" Text="Traccia" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+            <TextBlock Classes="Body" Grid.Column="1" Text="Esito" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+            <TextBlock Classes="Body" Grid.Column="2" Text="Campioni diversi" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+            <TextBlock Classes="Body" Grid.Column="3" Text="Prima differenza (indice)" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+            <TextBlock Classes="Body" Grid.Column="4" Text="Campioni esclusi" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+          </Grid>
+          <ItemsControl ItemsSource="{Binding Rows}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:VerifyTrackRowViewModel">
+                <StackPanel Margin="0,4,0,0">
+                  <Grid ColumnDefinitions="70,110,150,170,150">
+                    <TextBlock Classes="Body" Grid.Column="0" Text="{Binding TrackNo}"
+                               Foreground="{DynamicResource Das.Brush.Text}" />
+                    <TextBlock Classes="Body" Grid.Column="1" Text="{Binding Outcome}"
+                               Foreground="{DynamicResource Das.Brush.Text}" />
+                    <TextBlock Classes="Body" Grid.Column="2" Text="{Binding DifferentSamples}"
+                               Foreground="{DynamicResource Das.Brush.Text}" />
+                    <TextBlock Classes="Body" Grid.Column="3" Text="{Binding FirstDifference}"
+                               Foreground="{DynamicResource Das.Brush.Text}" />
+                    <TextBlock Classes="Body" Grid.Column="4" Text="{Binding ExcludedSamples}"
+                               Foreground="{DynamicResource Das.Brush.Text}" />
+                  </Grid>
+                  <TextBlock Classes="Body" Text="{Binding Hashes}" TextWrapping="Wrap"
+                             Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+                  <TextBlock Classes="Body" Text="{Binding Unreliable}" TextWrapping="Wrap"
+                             IsVisible="{Binding HasUnreliable}"
+                             Foreground="{DynamicResource Das.Brush.Text}" />
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </Border>
+
+      <TextBlock Classes="Body" Text="{Binding ReportNote}" TextWrapping="Wrap"
+                 IsVisible="{Binding HasReportNote}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <TextBlock Classes="Body" Text="{Binding CacheDefeatNote}" TextWrapping="Wrap"
+                 IsVisible="{Binding HasCacheDefeatNote}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}"
+                  IsVisible="{Binding HasSaveMessage}">
+        <TextBlock Classes="Body" Text="{Binding SaveMessage}" TextWrapping="Wrap"
+                   VerticalAlignment="Center" Foreground="{DynamicResource Das.Brush.Text}" />
+        <Button Classes="secondary" Content="Riprova salvataggio" Command="{Binding RetrySaveCommand}"
+                IsVisible="{Binding SaveFailed}" />
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

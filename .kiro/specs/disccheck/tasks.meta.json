@@ -1,0 +1,1829 @@
+{
+  "pbtResults": {
+    "5.2 Property test per il round-trip della TOC": {
+      "status": "passed",
+      "lastRunTimestamp": 1795774808181
+    },
+    "5.3 Property test per `toc_hash`": {
+      "status": "passed",
+      "lastRunTimestamp": 1795774976871
+    },
+    "7.2 Property test per l'additività del conteggio C2": {
+      "status": "passed",
+      "lastRunTimestamp": 1795777602423
+    },
+    "7.5 Property test per la monotonia del Verdetto": {
+      "status": "passed",
+      "lastRunTimestamp": 1795777921649
+    },
+    "7.6 Property test per la classificazione secondo le Soglie": {
+      "status": "passed",
+      "lastRunTimestamp": 1795778173549
+    },
+    "7.7 Property test per il Verdetto binario di StandardC2Scanner": {
+      "status": "passed",
+      "lastRunTimestamp": 1795778248408
+    },
+    "7.8 Property test per l'assenza di Verdetto senza campioni": {
+      "status": "passed",
+      "lastRunTimestamp": 1795778358807
+    },
+    "7.13 Property test per ordine e completezza dei consumer": {
+      "status": "passed",
+      "lastRunTimestamp": 1795779407410
+    },
+    "7.14 Property test per la backpressure senza scarto": {
+      "status": "passed",
+      "lastRunTimestamp": 1795779590460
+    },
+    "7.20 Property test per il Chart_Cursor": {
+      "status": "passed",
+      "lastRunTimestamp": 1795779768465
+    },
+    "7.21 Property test per le statistiche di selezione": {
+      "status": "passed",
+      "lastRunTimestamp": 1795780008951
+    },
+    "7.23 Property test per il formato dei tick tempo": {
+      "status": "passed",
+      "lastRunTimestamp": 1795780035799
+    },
+    "7.24 Property test per la scelta dell'intervallo dei tick": {
+      "status": "passed",
+      "lastRunTimestamp": 1795780068212
+    },
+    "7.26 Property test per le linee soglia": {
+      "status": "passed",
+      "lastRunTimestamp": 1795780097264
+    },
+    "7.27 Property test per il conteggio dei secondi con errori": {
+      "status": "passed",
+      "lastRunTimestamp": 1795780155187
+    },
+    "7.29 Property test per zoom e pan": {
+      "status": "passed",
+      "lastRunTimestamp": 1795780257936
+    },
+    "9.3 Property test per il round-trip dei Repository": {
+      "status": "passed",
+      "lastRunTimestamp": 1795781161950
+    },
+    "9.4 Property test per la deduplicazione dei Drive": {
+      "status": "passed",
+      "lastRunTimestamp": 1795781538911
+    },
+    "11.3 Property test per il round-trip del decoder": {
+      "status": "passed",
+      "lastRunTimestamp": 1795782959699
+    },
+    "11.5 Property test per la classificazione della cache": {
+      "status": "passed",
+      "lastRunTimestamp": 1795783133295
+    },
+    "11.7 Property test per la pianificazione del Cache_Defeat": {
+      "status": "passed",
+      "lastRunTimestamp": 1795783185590
+    },
+    "11.9 Property test per il round-trip dell'offset": {
+      "status": "passed",
+      "lastRunTimestamp": 1795783219469
+    },
+    "11.10 Property test per l'esclusione dei campioni di bordo": {
+      "status": "passed",
+      "lastRunTimestamp": 1795783236774
+    },
+    "15.3 Property test per la validazione delle Soglie": {
+      "status": "passed",
+      "lastRunTimestamp": 1795791890082
+    },
+    "15.8 Property test per il round-trip CSV": {
+      "status": "passed",
+      "lastRunTimestamp": 1795791891722
+    },
+    "15.2 Property test per il round-trip JSON delle impostazioni": {
+      "status": "passed",
+      "lastRunTimestamp": 1795791895569
+    }
+  },
+  "executionHistory": {
+    "1.1 Creare la soluzione e la struttura dei progetti": [
+      {
+        "executionId": "40c1d034-4d21-41b1-8732-faa723756b3d",
+        "chatSessionId": "sess_afaff179-7a58-4eee-b2a2-10ff7930c079",
+        "timestamp": 1795709216252
+      },
+      {
+        "executionId": "40c1d034-4d21-41b1-8732-faa723756b3d",
+        "chatSessionId": "sess_afaff179-7a58-4eee-b2a2-10ff7930c079",
+        "timestamp": 1795709575460
+      }
+    ],
+    "1.2 Creare il registro delle decisioni D1-D5": [
+      {
+        "executionId": "10c3b695-e74a-4cdc-98ad-716fa0a28ab4",
+        "chatSessionId": "sess_92051249-ffa3-4548-8508-8b1282e7a66e",
+        "timestamp": 1795709637207
+      },
+      {
+        "executionId": "10c3b695-e74a-4cdc-98ad-716fa0a28ab4",
+        "chatSessionId": "sess_92051249-ffa3-4548-8508-8b1282e7a66e",
+        "timestamp": 1795709663730
+      }
+    ],
+    "1.3 Implementare Design_Token, DasTheme e DasDesignInfo in DAS.Design": [
+      {
+        "executionId": "d9c109ee-88a8-4449-9d67-83c02df27121",
+        "chatSessionId": "sess_0815aa09-eeff-4964-a70c-98d294226ac2",
+        "timestamp": 1795709745481
+      },
+      {
+        "executionId": "d9c109ee-88a8-4449-9d67-83c02df27121",
+        "chatSessionId": "sess_0815aa09-eeff-4964-a70c-98d294226ac2",
+        "timestamp": 1795710077524
+      }
+    ],
+    "1.4 Implementare stili e controlli condivisi di DAS.Design": [
+      {
+        "executionId": "5359db2b-8d7e-4683-a60e-97a912dce06a",
+        "chatSessionId": "sess_2e2b977f-dfdb-4022-aaf5-13de7835aa8e",
+        "timestamp": 1795710163515
+      },
+      {
+        "executionId": "5359db2b-8d7e-4683-a60e-97a912dce06a",
+        "chatSessionId": "sess_2e2b977f-dfdb-4022-aaf5-13de7835aa8e",
+        "timestamp": 1795710477767
+      }
+    ],
+    "1.5 Creare gli asset del DAS_Logo": [
+      {
+        "executionId": "707a3b9b-8167-47a7-93e8-903f9f47e873",
+        "chatSessionId": "sess_01d61ef9-a954-4b02-a967-4bcd664d9dd6",
+        "timestamp": 1795710504873
+      },
+      {
+        "executionId": "707a3b9b-8167-47a7-93e8-903f9f47e873",
+        "chatSessionId": "sess_01d61ef9-a954-4b02-a967-4bcd664d9dd6",
+        "timestamp": 1795710865202
+      }
+    ],
+    "1.6 Implementare l'host dell'App (DI, Serilog, finestra principale, splash)": [
+      {
+        "executionId": "1733b494-8b13-49f9-8843-25bc5a959b66",
+        "chatSessionId": "sess_e06a9df1-3385-45f6-813a-050f4e1660d7",
+        "timestamp": 1795710886502
+      },
+      {
+        "executionId": "1733b494-8b13-49f9-8843-25bc5a959b66",
+        "chatSessionId": "sess_e06a9df1-3385-45f6-813a-050f4e1660d7",
+        "timestamp": 1795711120931
+      }
+    ],
+    "1.7 Implementare `ContrastCalculator` nel Core": [
+      {
+        "executionId": "ddfaacc2-6299-4239-aef7-494b36deaec7",
+        "chatSessionId": "sess_8fecb802-2a84-4b98-9e12-51dde23c9277",
+        "timestamp": 1795711165153
+      },
+      {
+        "executionId": "ddfaacc2-6299-4239-aef7-494b36deaec7",
+        "chatSessionId": "sess_8fecb802-2a84-4b98-9e12-51dde23c9277",
+        "timestamp": 1795711195790
+      }
+    ],
+    "1. M0: Soluzione, infrastruttura, DAS.Design e CLAUDE.md": [
+      {
+        "executionId": "ddfaacc2-6299-4239-aef7-494b36deaec7",
+        "chatSessionId": "sess_8fecb802-2a84-4b98-9e12-51dde23c9277",
+        "timestamp": 1795711195868
+      }
+    ],
+    "1.8 Property test per il Contrast_Ratio": [
+      {
+        "executionId": "96f0d195-dd99-4f61-89b0-855b9e93dab3",
+        "chatSessionId": "sess_f869f09d-3428-4330-87e5-73560bdef5f9",
+        "timestamp": 1795711218937
+      },
+      {
+        "executionId": "96f0d195-dd99-4f61-89b0-855b9e93dab3",
+        "chatSessionId": "sess_f869f09d-3428-4330-87e5-73560bdef5f9",
+        "timestamp": 1795711254673
+      }
+    ],
+    "1.9 Scrivere i test di DAS.Design (M0)": [
+      {
+        "executionId": "f6c2b360-b784-4248-bbe9-f6d8be994205",
+        "chatSessionId": "sess_983f752a-6687-4975-b9d1-c317e2f7dd15",
+        "timestamp": 1795711283839
+      },
+      {
+        "executionId": "f6c2b360-b784-4248-bbe9-f6d8be994205",
+        "chatSessionId": "sess_983f752a-6687-4975-b9d1-c317e2f7dd15",
+        "timestamp": 1795711466875
+      }
+    ],
+    "1.10 Scrivere i test di analisi statica dei file `.axaml`": [
+      {
+        "executionId": "7767dee7-887d-481f-91bf-25c02acb2276",
+        "chatSessionId": "sess_f583dbcf-21bd-4e4b-8a74-42b2f8aa87fd",
+        "timestamp": 1795711484317
+      },
+      {
+        "executionId": "7767dee7-887d-481f-91bf-25c02acb2276",
+        "chatSessionId": "sess_f583dbcf-21bd-4e4b-8a74-42b2f8aa87fd",
+        "timestamp": 1795711579033
+      }
+    ],
+    "2. Checkpoint M0": [
+      {
+        "executionId": "8da92f35-acfb-41e4-a311-201cdf84470f",
+        "chatSessionId": "sess_2aff3010-8cf5-483b-b2a0-1f40c56a5f93",
+        "timestamp": 1795711647368
+      },
+      {
+        "executionId": "8da92f35-acfb-41e4-a311-201cdf84470f",
+        "chatSessionId": "sess_2aff3010-8cf5-483b-b2a0-1f40c56a5f93",
+        "timestamp": 1795711740602
+      }
+    ],
+    "3.1 Definire i tipi SCSI e `FakeScsiTransport`": [
+      {
+        "executionId": "6d6eebdb-1896-48bb-be73-fc89839b68cc",
+        "chatSessionId": "sess_cb5d0400-b30a-4cfb-889a-2ee6d990c1b8",
+        "timestamp": 1795711877145
+      },
+      {
+        "executionId": "6d6eebdb-1896-48bb-be73-fc89839b68cc",
+        "chatSessionId": "sess_cb5d0400-b30a-4cfb-889a-2ee6d990c1b8",
+        "timestamp": 1795712023417
+      }
+    ],
+    "3.2 Implementare `WinScsiPassThrough`": [
+      {
+        "executionId": "db4fde49-5395-4ce4-9147-b446dfe27ea4",
+        "chatSessionId": "sess_b828c728-ecc4-4ae7-8cef-d12f54560ec1",
+        "timestamp": 1795712065611
+      },
+      {
+        "executionId": "db4fde49-5395-4ce4-9147-b446dfe27ea4",
+        "chatSessionId": "sess_b828c728-ecc4-4ae7-8cef-d12f54560ec1",
+        "timestamp": 1795712245932
+      }
+    ],
+    "3.3 Implementare parser puri e `MmcCommands`": [
+      {
+        "executionId": "49df911d-624f-4adb-895c-bef05960a5f6",
+        "chatSessionId": "sess_ffb56907-ca53-4a15-b5b2-3090bea2d56f",
+        "timestamp": 1795712273387
+      },
+      {
+        "executionId": "49df911d-624f-4adb-895c-bef05960a5f6",
+        "chatSessionId": "sess_ffb56907-ca53-4a15-b5b2-3090bea2d56f",
+        "timestamp": 1795712389420
+      }
+    ],
+    "3.4 Scrivere i test Scsi.Tests con fixture": [
+      {
+        "executionId": "2feb5c5c-7b7f-47a7-b895-7d9d0e90383b",
+        "chatSessionId": "sess_e4a939cc-442f-4327-9976-e486ed119726",
+        "timestamp": 1795712450039
+      },
+      {
+        "executionId": "2feb5c5c-7b7f-47a7-b895-7d9d0e90383b",
+        "chatSessionId": "sess_e4a939cc-442f-4327-9976-e486ed119726",
+        "timestamp": 1795712615123
+      }
+    ],
+    "3.5 Implementare `DriveEnumerator`, vista Drive e \"Reset drive\"": [
+      {
+        "executionId": "6f117e68-1aa7-47dd-a8cf-eba33ef4fadb",
+        "chatSessionId": "sess_fa62c458-5ff9-4421-89aa-4981bd64ff66",
+        "timestamp": 1795712711466
+      },
+      {
+        "executionId": "6f117e68-1aa7-47dd-a8cf-eba33ef4fadb",
+        "chatSessionId": "sess_fa62c458-5ff9-4421-89aa-4981bd64ff66",
+        "timestamp": 1795713272341
+      }
+    ],
+    "3. M1: Trasporto SCSI, INQUIRY/MODE SENSE, enumerazione Drive": [
+      {
+        "executionId": "6f117e68-1aa7-47dd-a8cf-eba33ef4fadb",
+        "chatSessionId": "sess_fa62c458-5ff9-4421-89aa-4981bd64ff66",
+        "timestamp": 1795713272421
+      }
+    ],
+    "3.6 Scrivere i test unitari di enumerazione e Reset drive": [
+      {
+        "executionId": "16e58335-c7df-4f97-9316-9cd8c684247b",
+        "chatSessionId": "sess_ac484229-3cf3-429e-abb8-52a98b95ba98",
+        "timestamp": 1795713329671
+      },
+      {
+        "executionId": "16e58335-c7df-4f97-9316-9cd8c684247b",
+        "chatSessionId": "sess_ac484229-3cf3-429e-abb8-52a98b95ba98",
+        "timestamp": 1795772541362
+      }
+    ],
+    "3.7 Scrivere gli hardware test M1": [
+      {
+        "executionId": "d2476aee-4b97-4108-9afb-4645c700aeb8",
+        "chatSessionId": "sess_9c62cb4e-94f4-493c-b54b-dbdda138d6f3",
+        "timestamp": 1795772556649
+      },
+      {
+        "executionId": "d2476aee-4b97-4108-9afb-4645c700aeb8",
+        "chatSessionId": "sess_9c62cb4e-94f4-493c-b54b-dbdda138d6f3",
+        "timestamp": 1795772836755
+      }
+    ],
+    "4. Checkpoint M1": [
+      {
+        "executionId": "e8ab3dba-d054-498d-a572-408d64f1301b",
+        "chatSessionId": "sess_91c41580-0148-4d8d-859e-ef614f356f68",
+        "timestamp": 1795772915141
+      }
+    ],
+    "5. M2: TOC, ATIP e Media ID": [
+      {
+        "executionId": "bac15ec0-36f8-4499-8a87-cba4bac2d5e7",
+        "chatSessionId": "sess_28b22220-068c-44dd-afaa-858c01f6c0fa",
+        "timestamp": 1795773513375
+      },
+      {
+        "executionId": "bac15ec0-36f8-4499-8a87-cba4bac2d5e7",
+        "chatSessionId": "sess_28b22220-068c-44dd-afaa-858c01f6c0fa",
+        "timestamp": 1795774304437
+      }
+    ],
+    "5.1 Implementare modelli e logica TOC nel Core": [
+      {
+        "executionId": "4f6dc862-61fc-445c-9b11-39e3458f3e3a",
+        "chatSessionId": "sess_36cbc287-3af9-433b-a2e1-f6c0f8d84f8b",
+        "timestamp": 1795774691504
+      },
+      {
+        "executionId": "4f6dc862-61fc-445c-9b11-39e3458f3e3a",
+        "chatSessionId": "sess_36cbc287-3af9-433b-a2e1-f6c0f8d84f8b",
+        "timestamp": 1795774735048
+      }
+    ],
+    "5.2 Property test per il round-trip della TOC": [
+      {
+        "executionId": "bb4cfbb1-7d9d-4e30-bdbe-8749593530de",
+        "chatSessionId": "sess_dbd6f8b9-37e5-467f-931c-56a26b6e8f85",
+        "timestamp": 1795774761412
+      },
+      {
+        "executionId": "bb4cfbb1-7d9d-4e30-bdbe-8749593530de",
+        "chatSessionId": "sess_dbd6f8b9-37e5-467f-931c-56a26b6e8f85",
+        "timestamp": 1795774814039
+      }
+    ],
+    "5.3 Property test per `toc_hash`": [
+      {
+        "executionId": "1cd328ac-16c6-43a4-8e83-f2cd4481fb20",
+        "chatSessionId": "sess_ffbc5907-9c48-4b5c-a770-62e1f58f614b",
+        "timestamp": 1795774852087
+      },
+      {
+        "executionId": "1cd328ac-16c6-43a4-8e83-f2cd4481fb20",
+        "chatSessionId": "sess_ffbc5907-9c48-4b5c-a770-62e1f58f614b",
+        "timestamp": 1795774981282
+      }
+    ],
+    "5.4 Implementare `AtipParser` e `AtipTable`": [
+      {
+        "executionId": "9f7acf03-70ce-4bd0-9abe-940217fcfc3a",
+        "chatSessionId": "sess_0536b493-6e11-48f9-b0ed-67ee2c05e4a1",
+        "timestamp": 1795775170005
+      },
+      {
+        "executionId": "9f7acf03-70ce-4bd0-9abe-940217fcfc3a",
+        "chatSessionId": "sess_0536b493-6e11-48f9-b0ed-67ee2c05e4a1",
+        "timestamp": 1795775248205
+      }
+    ],
+    "5.5 Implementare la vista Disco": [
+      {
+        "executionId": "e551363c-ead4-427b-b0b4-a4d08f4985e2",
+        "chatSessionId": "sess_36e61a69-cc73-4f4b-8aad-ff570173ca09",
+        "timestamp": 1795775862264
+      },
+      {
+        "executionId": "e551363c-ead4-427b-b0b4-a4d08f4985e2",
+        "chatSessionId": "sess_36e61a69-cc73-4f4b-8aad-ff570173ca09",
+        "timestamp": 1795776048546
+      }
+    ],
+    "5.6 Scrivere i test unitari TOC/ATIP": [
+      {
+        "executionId": "b30fd271-234c-4c59-8a9d-592a2dd1bafd",
+        "chatSessionId": "sess_b7fc0c95-f74a-4e77-88b1-91ab2dc79bd7",
+        "timestamp": 1795776583531
+      },
+      {
+        "executionId": "b30fd271-234c-4c59-8a9d-592a2dd1bafd",
+        "chatSessionId": "sess_b7fc0c95-f74a-4e77-88b1-91ab2dc79bd7",
+        "timestamp": 1795776821914
+      }
+    ],
+    "6. Checkpoint M2": [
+      {
+        "executionId": "a7913d00-4eee-410b-a3f0-faa05ef2be20",
+        "chatSessionId": "sess_7d668bd4-9a7c-432c-a641-05a323b45e25",
+        "timestamp": 1795776905578
+      },
+      {
+        "executionId": "a7913d00-4eee-410b-a3f0-faa05ef2be20",
+        "chatSessionId": "sess_7d668bd4-9a7c-432c-a641-05a323b45e25",
+        "timestamp": 1795776939068
+      }
+    ],
+    "7.1 Implementare `C2BitCounter` e `SampleAggregator`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082155
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777168005
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777277369
+      }
+    ],
+    "7.4 Implementare `Evaluator` e `Thresholds`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082229
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777168200
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777277499
+      }
+    ],
+    "7.9 Implementare `StandardC2Scanner`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082280
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795778510807
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795778861270
+      }
+    ],
+    "7.11 Implementare `ScannerSelector`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082343
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779163382
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779246061
+      }
+    ],
+    "7.12 Implementare `ScanPipeline`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082389
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779246135
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779364129
+      }
+    ],
+    "7.15 Implementare `ChartDownsampler`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082436
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779597604
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779705225
+      }
+    ],
+    "7.17 Implementare la vista Scansione": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082485
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781079870
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781473740
+      }
+    ],
+    "7.19 Implementare i modelli e le funzioni pure di cursore e selezione in DAS.Design.Charts": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082533
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777094909
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777165251
+      }
+    ],
+    "7.22 Implementare formattazione e scelta dei tick del tempo in DAS.Design.Charts": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082581
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777094956
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777164617
+      }
+    ],
+    "7.25 Implementare `ThresholdLineSelector` ed `ErrorHighlighter`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082638
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777168986
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777277955
+      }
+    ],
+    "7.28 Implementare `ZoomPanCalculator` e `SeriesStyles`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082701
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777169538
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777278600
+      }
+    ],
+    "7.31 Implementare `ChartThemeApplier` e `DasChartStyle`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082753
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777170201
+      },
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777279015
+      }
+    ],
+    "7.32 Implementare il controllo `DasChartView`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082802
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780295345
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780924552
+      }
+    ],
+    "7.33 Implementare `ChartSampleMapper` nell'App": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082852
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780926884
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781070941
+      }
+    ],
+    "8. Checkpoint M3": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082903
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781547180
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781647308
+      }
+    ],
+    "9.1 Implementare `Migrator` e migrazione 001": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777082953
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780297505
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780924487
+      }
+    ],
+    "9.2 Implementare i Repository Dapper": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083003
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780927437
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781071073
+      }
+    ],
+    "9.5 Collegare il salvataggio e implementare la vista Storico": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083053
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781647401
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781988790
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782252358
+      }
+    ],
+    "10. Checkpoint M4": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083106
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782310206
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782390745
+      }
+    ],
+    "11.1 Risolvere la decisione D1 (decoder FLAC)": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083152
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782391526
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782443645
+      }
+    ],
+    "11.2 Implementare `IFlacDecoder` e il lettore WAV": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083205
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782444365
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782903928
+      }
+    ],
+    "11.4 Implementare `CacheDetector` e `CacheDetectorRunner`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083263
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782913445
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783062756
+      }
+    ],
+    "11.6 Implementare `CacheDefeatPlanner`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083333
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782913500
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783063203
+      }
+    ],
+    "11.8 Implementare `OffsetDetector`, `PcmComparer` e `OffsetService`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083382
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783067137
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783194625
+      }
+    ],
+    "11.11 Implementare `Verifier`, `AudioExtractor` e `SourceReader`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083432
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783245371
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783467165
+      }
+    ],
+    "11.13 Implementare la vista Verifica e le azioni cache/offset": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083487
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783467590
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795787907750
+      }
+    ],
+    "12. Checkpoint M5": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083536
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788016597
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788113228
+      }
+    ],
+    "13.1 Risolvere la decisione D2 (licenza del porting)": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083589
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788113297
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788262971
+      }
+    ],
+    "13.2 Estrarre da QPxTool_Source il flusso e l'elenco dei CDB": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083646
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788262889
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788885957
+      }
+    ],
+    "13.3 Portare i comandi vendor in `DiscCheck.Scanners`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083696
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788886624
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795789029633
+      }
+    ],
+    "13.4 Implementare `LiteOnScanner`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083746
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795789030225
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795789393929
+      }
+    ],
+    "13.5 Integrare gli esiti e i messaggi di LiteOnScanner nell'App": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083799
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795789394659
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791628810
+      }
+    ],
+    "14. Checkpoint M6": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083848
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791752567
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791843834
+      }
+    ],
+    "15.1 Implementare `SettingsValidator` e `SettingsStore`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083900
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791633510
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791751256
+      }
+    ],
+    "15.4 Implementare la vista Impostazioni e collegare le impostazioni": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083949
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792066220
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792996895
+      }
+    ],
+    "15.5 Implementare `ComparisonService`, `SpeedProposer` e vista Confronto": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777083998
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793001188
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793243452
+      }
+    ],
+    "15.7 Implementare `CsvExporter` e `CsvImporter`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084047
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791634107
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791752075
+      }
+    ],
+    "15.9 Implementare export PNG, SVG, report HTML e interfaccia di export": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084097
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793252484
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793702762
+      }
+    ],
+    "15.10 Creare le 15 icone del DAS_Icon_Set": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084148
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795789401029
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791629210
+      }
+    ],
+    "15.11 Creare il DiscCheck_Icon_Pack e `disccheck.ico`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084237
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791850524
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792057889
+      }
+    ],
+    "15.15 Implementare `ChartExporter` in DAS.Design.Charts": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084286
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795789401088
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791629794
+      }
+    ],
+    "16. Checkpoint M7": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084336
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794037564
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794150578
+      }
+    ],
+    "17.1 Implementare `DegradationMonitor`": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084387
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792066302
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792996968
+      }
+    ],
+    "17.3 Implementare la vista Archivio/Degrado e il promemoria all'avvio": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084437
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794151381
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794423848
+      }
+    ],
+    "17.4 Implementare `C2ReliabilityAnalyzer`, test runner e interfaccia": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084489
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794448073
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794630228
+      }
+    ],
+    "17.6 Risolvere la decisione D5 (licenza degli asset) prima della pubblicazione": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084546
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794152049
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794448142
+      }
+    ],
+    "18. Checkpoint finale": [
+      {
+        "executionId": "623c0aed-7f4a-4f4d-bd8b-45d524705fb9",
+        "chatSessionId": "sess_bb278d97-5efc-4db0-a0cf-f4bac6228436",
+        "timestamp": 1795777084596
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794730299
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795796146636
+      }
+    ],
+    "7.2 Property test per l'additività del conteggio C2": [
+      {
+        "executionId": "db062db0-5349-4f89-ac3e-0a0d60132a63",
+        "chatSessionId": "sess_04731c4f-e0e4-4041-803b-d6aec5d60018",
+        "timestamp": 1795777360348
+      },
+      {
+        "executionId": "db062db0-5349-4f89-ac3e-0a0d60132a63",
+        "chatSessionId": "sess_04731c4f-e0e4-4041-803b-d6aec5d60018",
+        "timestamp": 1795777608355
+      }
+    ],
+    "7.3 Property test per l'equivalenza dei formati 0x12 e 0x14": [
+      {
+        "executionId": "4463b06b-323d-4bc1-8291-1b5ec1dee824",
+        "chatSessionId": "sess_020232b1-701b-4d75-9641-54caa1c7de17",
+        "timestamp": 1795777698647
+      },
+      {
+        "executionId": "4463b06b-323d-4bc1-8291-1b5ec1dee824",
+        "chatSessionId": "sess_020232b1-701b-4d75-9641-54caa1c7de17",
+        "timestamp": 1795777771808
+      }
+    ],
+    "7.5 Property test per la monotonia del Verdetto": [
+      {
+        "executionId": "8d97ea3f-83cf-4349-8c57-0a093b9fd854",
+        "chatSessionId": "sess_fb32413d-c5d2-469a-9888-09823d077d4a",
+        "timestamp": 1795777850515
+      },
+      {
+        "executionId": "8d97ea3f-83cf-4349-8c57-0a093b9fd854",
+        "chatSessionId": "sess_fb32413d-c5d2-469a-9888-09823d077d4a",
+        "timestamp": 1795777929006
+      }
+    ],
+    "7.6 Property test per la classificazione secondo le Soglie": [
+      {
+        "executionId": "07ab1a2c-1b77-4c88-98db-d866c3c2bb93",
+        "chatSessionId": "sess_c15d76ce-1d25-47bd-b26d-f927b290fc5a",
+        "timestamp": 1795778127272
+      },
+      {
+        "executionId": "07ab1a2c-1b77-4c88-98db-d866c3c2bb93",
+        "chatSessionId": "sess_c15d76ce-1d25-47bd-b26d-f927b290fc5a",
+        "timestamp": 1795778180822
+      }
+    ],
+    "7.7 Property test per il Verdetto binario di StandardC2Scanner": [
+      {
+        "executionId": "540df0a0-4549-4271-a211-b13d96ee0a92",
+        "chatSessionId": "sess_9752859d-c7e2-4ffb-b96d-3710d0a980b2",
+        "timestamp": 1795778214255
+      },
+      {
+        "executionId": "540df0a0-4549-4271-a211-b13d96ee0a92",
+        "chatSessionId": "sess_9752859d-c7e2-4ffb-b96d-3710d0a980b2",
+        "timestamp": 1795778254231
+      }
+    ],
+    "7.8 Property test per l'assenza di Verdetto senza campioni": [
+      {
+        "executionId": "aad25e62-6c44-4589-b6ad-cd17e601bb59",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795778290464
+      },
+      {
+        "executionId": "aad25e62-6c44-4589-b6ad-cd17e601bb59",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795778363907
+      }
+    ],
+    "7.10 Scrivere i test unitari di StandardC2Scanner": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795778861806
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779163275
+      }
+    ],
+    "7.13 Property test per ordine e completezza dei consumer": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779364188
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779414536
+      }
+    ],
+    "7.14 Property test per la backpressure senza scarto": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779364650
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779597092
+      }
+    ],
+    "7.16 Property test per il downsampling": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779707533
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779709735
+      }
+    ],
+    "7.20 Property test per il Chart_Cursor": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779714875
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779775521
+      }
+    ],
+    "7.21 Property test per le statistiche di selezione": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795779776018
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780015359
+      }
+    ],
+    "7.23 Property test per il formato dei tick tempo": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780015866
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780043150
+      }
+    ],
+    "7.24 Property test per la scelta dell'intervallo dei tick": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780043235
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780074688
+      }
+    ],
+    "7.26 Property test per le linee soglia": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780075332
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780104877
+      }
+    ],
+    "7.27 Property test per il conteggio dei secondi con errori": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780105459
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780161441
+      }
+    ],
+    "7.29 Property test per zoom e pan": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780162138
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780266703
+      }
+    ],
+    "7.30 Property test per gli stili distinguibili delle serie": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780267358
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795780295300
+      }
+    ],
+    "9.3 Property test per il round-trip dei Repository": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781079797
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781474256
+      }
+    ],
+    "7. M3: StandardC2Scanner, pipeline, grafico live e Verdetto": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781473828
+      }
+    ],
+    "7.18 Scrivere i test unitari dei ViewModel di scansione": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781475047
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781545838
+      }
+    ],
+    "9.4 Property test per la deduplicazione dei Drive": [
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781475682
+      },
+      {
+        "executionId": "7d05df27-ff04-49ed-89e6-b9920422a558",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795781546625
+      }
+    ],
+    "9. M4: SQLite, Repository e Storico": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782252450
+      }
+    ],
+    "9.6 Scrivere i test unitari di Migrator e Storico": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782252904
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782309741
+      }
+    ],
+    "11.3 Property test per il round-trip del decoder": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795782913363
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783062646
+      }
+    ],
+    "11.5 Property test per la classificazione della cache": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783065717
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783193293
+      }
+    ],
+    "11.7 Property test per la pianificazione del Cache_Defeat": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783066521
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783194088
+      }
+    ],
+    "11.9 Property test per il round-trip dell'offset": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783197616
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783244007
+      }
+    ],
+    "11.10 Property test per l'esclusione dei campioni di bordo": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783198122
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783244689
+      }
+    ],
+    "11.12 Scrivere i test unitari del Verifier": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795783467106
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795787906974
+      }
+    ],
+    "11. M5: Cache, Cache_Defeat, verifica bit-perfect e offset": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795787907812
+      }
+    ],
+    "11.14 Scrivere gli hardware test M5": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795787911936
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795788015944
+      }
+    ],
+    "13.6 Scrivere i test di LiteOnScanner con fixture": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795789400918
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791628905
+      }
+    ],
+    "13. M6: LiteOnScanner (CDB portati solo da QPxTool_Source)": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791628958
+      }
+    ],
+    "13.7 Scrivere gli hardware test M6": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791632706
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791750481
+      }
+    ],
+    "15.2 Property test per il round-trip JSON delle impostazioni": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791850459
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792055898
+      }
+    ],
+    "15.3 Property test per la validazione delle Soglie": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791850579
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792056678
+      }
+    ],
+    "15.8 Property test per il round-trip CSV": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795791850631
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792057235
+      }
+    ],
+    "15.16 Scrivere i test headless di DasChartView": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792066456
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792997430
+      }
+    ],
+    "15.19 Scrivere i test di indipendenza dei progetti dei grafici": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792067073
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795792998072
+      }
+    ],
+    "17.2 Scrivere i test unitari del Degradation_Monitor": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793001993
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793245619
+      }
+    ],
+    "15.17 Scrivere il test di contrasto di `ChartThemeApplier` (Light e Dark)": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793002822
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793244243
+      }
+    ],
+    "15.14 Scrivere i test delle icone in DAS.Design.Tests": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793003548
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793245033
+      }
+    ],
+    "15.6 Scrivere i test unitari del Comparator e dello SpeedProposer": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793252376
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793702706
+      }
+    ],
+    "15.18 Scrivere i test di prestazione dei grafici": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793252429
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793702619
+      }
+    ],
+    "15. M7: Confronto, export, impostazioni e icone": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793702825
+      }
+    ],
+    "15.12 Applicare le icone a tutte le viste e creare la finestra About": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793768478
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794036047
+      }
+    ],
+    "15.13 Scrivere i test unitari dell'Exporter": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795793768565
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794036846
+      }
+    ],
+    "17.7 Scrivere il test di analisi statica dell'uso di `DasChartView`": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794448384
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794629215
+      }
+    ],
+    "17. M8: Archivio, degrado e C2_Reliability_Test": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794630284
+      }
+    ],
+    "17.5 Scrivere i test unitari del C2_Reliability_Test": [
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794630850
+      },
+      {
+        "executionId": "81b2a7ca-3329-45f6-b195-eda7c1e7266d",
+        "chatSessionId": "sess_a6d15755-a055-4617-a3ca-f2101191706f",
+        "timestamp": 1795794729700
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="FluentAssertions" Version="7.2.2" />
+    <PackageReference Include="FsCheck.Xunit" Version="3.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="NSubstitute" Version="6.2.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DiscCheck.Scsi\DiscCheck.Scsi.csproj" />
+    <ProjectReference Include="..\..\src\DiscCheck.Core\DiscCheck.Core.csproj" />
+    <ProjectReference Include="..\..\src\DiscCheck.Scanners\DiscCheck.Scanners.csproj" />
+    <ProjectReference Include="..\..\src\DiscCheck.Verify\DiscCheck.Verify.csproj" />
+    <ProjectReference Include="..\..\src\DiscCheck.Codecs.Flake\DiscCheck.Codecs.Flake.csproj" />
+  </ItemGroup>
+
+</Project>

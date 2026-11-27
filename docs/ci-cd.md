@@ -15,6 +15,13 @@ feature/* --PR--> development --(auto PR + auto-merge)--> main --release-please-
 | `image-dev.yml` | push su `development` (docker/**) | immagine CI su GHCR `:dev`, `:dev-<sha>` |
 | `release.yml` | push su `main` | release-please; se rilascia: app Windows come asset, immagine `:X.Y.Z`, promozione `latest`/`X.Y`/`X`, PR di sync `main` -> `development` |
 
+La CI esegue `dotnet test --filter "Category!=Hardware&Category!=Performance"`. I test di prestazione dei grafici (`Category=Performance`, `tests/DAS.Design.Charts.Tests/ChartPerformanceTests.cs`) dipendono dai tempi della macchina e si lanciano a mano:
+
+```powershell
+dotnet test tests/DAS.Design.Charts.Tests --filter "Category=Performance"
+$env:DAS_PERF_TOLERANCE = "3"   # opzionale: moltiplica le soglie in ms (default 1); il limite di 30 ridisegni/s non cambia
+```
+
 Immagine: `ghcr.io/<owner>/<repo>-ci`. Contiene il toolchain per build e test; l'app Windows non gira in container.
 
 ## Impostazioni del repository (una tantum)

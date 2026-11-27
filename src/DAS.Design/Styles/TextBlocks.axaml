@@ -1,0 +1,38 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="TextBlock.Caption">
+    <Setter Property="FontFamily" Value="{DynamicResource Das.Font.Primary}" />
+    <Setter Property="FontSize" Value="{DynamicResource Das.Text.Caption.Size}" />
+    <Setter Property="LineHeight" Value="{DynamicResource Das.Text.Caption.LineHeight}" />
+    <Setter Property="FontWeight" Value="{DynamicResource Das.Font.Weight.Regular}" />
+  </Style>
+  <Style Selector="TextBlock.Body">
+    <Setter Property="FontFamily" Value="{DynamicResource Das.Font.Primary}" />
+    <Setter Property="FontSize" Value="{DynamicResource Das.Text.Body.Size}" />
+    <Setter Property="LineHeight" Value="{DynamicResource Das.Text.Body.LineHeight}" />
+    <Setter Property="FontWeight" Value="{DynamicResource Das.Font.Weight.Regular}" />
+  </Style>
+  <Style Selector="TextBlock.BodyLarge">
+    <Setter Property="FontFamily" Value="{DynamicResource Das.Font.Primary}" />
+    <Setter Property="FontSize" Value="{DynamicResource Das.Text.BodyLarge.Size}" />
+    <Setter Property="LineHeight" Value="{DynamicResource Das.Text.BodyLarge.LineHeight}" />
+    <Setter Property="FontWeight" Value="{DynamicResource Das.Font.Weight.Regular}" />
+  </Style>
+  <Style Selector="TextBlock.Title">
+    <Setter Property="FontFamily" Value="{DynamicResource Das.Font.Primary}" />
+    <Setter Property="FontSize" Value="{DynamicResource Das.Text.Title.Size}" />
+    <Setter Property="LineHeight" Value="{DynamicResource Das.Text.Title.LineHeight}" />
+    <Setter Property="FontWeight" Value="{DynamicResource Das.Font.Weight.SemiBold}" />
+  </Style>
+  <Style Selector="TextBlock.Headline">
+    <Setter Property="FontFamily" Value="{DynamicResource Das.Font.Primary}" />
+    <Setter Property="FontSize" Value="{DynamicResource Das.Text.Headline.Size}" />
+    <Setter Property="LineHeight" Value="{DynamicResource Das.Text.Headline.LineHeight}" />
+    <Setter Property="FontWeight" Value="{DynamicResource Das.Font.Weight.SemiBold}" />
+  </Style>
+  <Style Selector="TextBlock.Display">
+    <Setter Property="FontFamily" Value="{DynamicResource Das.Font.Primary}" />
+    <Setter Property="FontSize" Value="{DynamicResource Das.Text.Display.Size}" />
+    <Setter Property="LineHeight" Value="{DynamicResource Das.Text.Display.LineHeight}" />
+    <Setter Property="FontWeight" Value="{DynamicResource Das.Font.Weight.Bold}" />
+  </Style>
+</Styles>

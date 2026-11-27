@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DiscCheck.Core\DiscCheck.Core.csproj" />
+    <ProjectReference Include="..\DiscCheck.Scsi\DiscCheck.Scsi.csproj" />
+    <ProjectReference Include="..\DiscCheck.Scanners\DiscCheck.Scanners.csproj" />
+    <ProjectReference Include="..\DiscCheck.Verify\DiscCheck.Verify.csproj" />
+    <ProjectReference Include="..\DiscCheck.Data\DiscCheck.Data.csproj" />
+    <ProjectReference Include="..\DiscCheck.Codecs.Flake\DiscCheck.Codecs.Flake.csproj" />
+    <ProjectReference Include="..\DAS.Design\DAS.Design.csproj" />
+    <ProjectReference Include="..\DAS.Design.Charts\DAS.Design.Charts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.23" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.23" />
+    <PackageReference Include="Avalonia.Skia" Version="11.3.23" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.23" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="11.0.0" />
+    <PackageReference Include="Serilog" Version="4.4.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="11.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Assets\Icons\disccheck.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Assets\generate-icon.cs" />
+    <AvaloniaResource Include="Assets\Icons\disccheck.ico" />
+  </ItemGroup>
+
+</Project>
+
+
+

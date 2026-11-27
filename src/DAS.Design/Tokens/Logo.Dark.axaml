@@ -1,0 +1,25 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- DAS_Logo (Dark variant): same geometry as Assets/Logo/das-*-dark.svg -->
+  <DrawingImage x:Key="Das.Logo.Mark">
+    <DrawingGroup>
+      <GeometryDrawing Brush="Transparent" Geometry="M0 0H64V64H0Z" />
+      <GeometryDrawing Brush="#7FA6FF" Geometry="M62 32A30 30 0 1 1 32 2L32 10A22 22 0 1 0 54 32Z" />
+      <GeometryDrawing Brush="#4FD1C5" Geometry="M32 2A30 30 0 0 1 62 32L54 32A22 22 0 0 0 32 10Z" />
+      <GeometryDrawing Brush="#7FA6FF" Geometry="M40 32A8 8 0 1 1 24 32A8 8 0 1 1 40 32Z" />
+    </DrawingGroup>
+  </DrawingImage>
+  <DrawingImage x:Key="Das.Logo.Lockup">
+    <DrawingGroup>
+      <GeometryDrawing Brush="Transparent" Geometry="M0 0H200V64H0Z" />
+      <GeometryDrawing Brush="#7FA6FF" Geometry="M62 32A30 30 0 1 1 32 2L32 10A22 22 0 1 0 54 32Z" />
+      <GeometryDrawing Brush="#4FD1C5" Geometry="M32 2A30 30 0 0 1 62 32L54 32A22 22 0 0 0 32 10Z" />
+      <GeometryDrawing Brush="#7FA6FF" Geometry="M40 32A8 8 0 1 1 24 32A8 8 0 1 1 40 32Z" />
+      <GeometryDrawing Brush="#E8ECF4" Geometry="F0M80 12H96A20 20 0 0 1 96 52H80ZM89 21H96A11 11 0 0 1 96 43H89ZM120 52L135 12H145L160 52H149.5L146.4 42H133.6L130.5 52ZM136.6 32H143.4L140 22Z" />
+      <GeometryDrawing Geometry="M194 25C194 20 188 16.5 181 16.5C173 16.5 168 20 168 25.5C168 36 194 31 194 42C194 46.5 189 47.5 181 47.5C172 47.5 167.5 44 167 38">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#E8ECF4" Thickness="9" />
+        </GeometryDrawing.Pen>
+      </GeometryDrawing>
+    </DrawingGroup>
+  </DrawingImage>
+</ResourceDictionary>

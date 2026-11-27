@@ -1,0 +1,73 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Primary -->
+  <Style Selector="Button.primary /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Primary}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.OnPrimary}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Primary}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Das.Radius.Small}" />
+  </Style>
+  <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Primary}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.OnPrimary}" />
+    <Setter Property="Opacity" Value="0.9" />
+  </Style>
+  <Style Selector="Button.primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Primary}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.OnPrimary}" />
+    <Setter Property="Opacity" Value="0.75" />
+  </Style>
+  <Style Selector="Button.primary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Primary}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.OnPrimary}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Primary}" />
+  </Style>
+
+  <!-- Secondary -->
+  <Style Selector="Button.secondary /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Surface}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Text}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Border}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Das.Radius.Small}" />
+  </Style>
+  <Style Selector="Button.secondary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.SurfaceAlt}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Text}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Border}" />
+  </Style>
+  <Style Selector="Button.secondary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.SurfaceAlt}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Text}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Border}" />
+    <Setter Property="Opacity" Value="0.8" />
+  </Style>
+  <Style Selector="Button.secondary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Surface}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Text}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Border}" />
+  </Style>
+
+  <!-- Danger -->
+  <Style Selector="Button.danger /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Status.KoSurface}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Status.Ko}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Status.Ko}" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Das.Radius.Small}" />
+  </Style>
+  <Style Selector="Button.danger:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Status.KoSurface}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Status.Ko}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Status.Ko}" />
+    <Setter Property="Opacity" Value="0.85" />
+  </Style>
+  <Style Selector="Button.danger:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Status.KoSurface}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Status.Ko}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Status.Ko}" />
+    <Setter Property="Opacity" Value="0.7" />
+  </Style>
+  <Style Selector="Button.danger:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Status.KoSurface}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Status.Ko}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Status.Ko}" />
+  </Style>
+</Styles>

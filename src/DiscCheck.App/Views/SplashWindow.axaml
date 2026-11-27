@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:DAS.Design.Controls"
+        x:Class="DiscCheck.App.Views.SplashWindow"
+        Title="DiscCheck"
+        SizeToContent="WidthAndHeight"
+        CanResize="False"
+        ShowInTaskbar="False"
+        Topmost="True"
+        SystemDecorations="None"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Das.Brush.Background}">
+  <!-- Lockup 128 px, -color variant (Requirement 32.7). Padding keeps the clear space (Requirement 32.4). -->
+  <Border Padding="48" BorderBrush="{DynamicResource Das.Brush.Border}" BorderThickness="1">
+    <controls:DasLogo Form="Lockup" UseColorVariant="True" Height="128" />
+  </Border>
+</Window>

@@ -1,0 +1,112 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:DAS.Design.Controls"
+             xmlns:charts="using:DAS.Design.Charts"
+             xmlns:vm="using:DiscCheck.App.ViewModels"
+             xmlns:views="using:DiscCheck.App.Views"
+             x:Class="DiscCheck.App.Views.ComparisonView"
+             x:DataType="vm:ComparisonViewModel">
+  <ScrollViewer>
+    <StackPanel Margin="16" Spacing="{DynamicResource Das.Space.2}">
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <controls:DasIcon IconName="disccheck.compare.curves" Size="24"
+                          Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Text="Confronto"
+                   VerticalAlignment="Center"
+                   FontFamily="{DynamicResource Das.Font.Primary}"
+                   FontSize="{DynamicResource Das.Text.Title.Size}"
+                   FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </StackPanel>
+
+      <TextBlock Classes="Body" Text="{Binding LoadError}" TextWrapping="Wrap"
+                 IsVisible="{Binding HasLoadError}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+
+      <TextBlock Classes="Body" TextWrapping="Wrap"
+                 Text="Seleziona da 2 a 8 scansioni da sovrapporre (Ctrl o Maiusc per la selezione multipla)."
+                 Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+      <ListBox x:Name="ScanList" ItemsSource="{Binding Scans}" SelectionMode="Multiple,Toggle" MaxHeight="220"
+               Background="{DynamicResource Das.Brush.Background}">
+        <ListBox.ItemTemplate>
+          <DataTemplate x:DataType="vm:ScanRowViewModel">
+            <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.4}">
+              <TextBlock Text="{Binding Date}" Width="140" Foreground="{DynamicResource Das.Brush.Text}" />
+              <TextBlock Text="{Binding Disc}" Width="180" Foreground="{DynamicResource Das.Brush.Text}" />
+              <TextBlock Text="{Binding Drive}" Width="180" Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+              <TextBlock Text="{Binding Speed}" Width="50" Foreground="{DynamicResource Das.Brush.Text}" />
+              <controls:DasStatusBadge Status="{Binding Status}" />
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <!-- Messages: limit of 8, one scan only, different drive or speed (Requirements 19.2, 19.3, 19.5) -->
+      <Border Classes="card" IsVisible="{Binding HasLimitMessage}"
+              Background="{DynamicResource Das.Brush.Status.WarnSurface}"
+              BorderBrush="{DynamicResource Das.Brush.Status.Warn}">
+        <TextBlock Classes="Body" Text="{Binding LimitMessage}" TextWrapping="Wrap"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </Border>
+      <Border Classes="card" IsVisible="{Binding HasMinimumMessage}">
+        <TextBlock Classes="Body" Text="{Binding MinimumMessage}" TextWrapping="Wrap"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </Border>
+      <Border Classes="card" IsVisible="{Binding HasWarning}"
+              Background="{DynamicResource Das.Brush.Status.WarnSurface}"
+              BorderBrush="{DynamicResource Das.Brush.Status.Warn}">
+        <TextBlock Classes="Body" Text="{Binding Warning}" TextWrapping="Wrap"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </Border>
+
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <TextBlock Classes="Body" Text="Metrica" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <ComboBox ItemsSource="{Binding Metrics}" SelectedItem="{Binding Metric}" MinWidth="90" />
+        <Button Classes="secondary" Content="Ricerca velocità ottimale" Command="{Binding ProposeSpeedsCommand}" />
+      </StackPanel>
+      <TextBlock Classes="Body" Text="{Binding WizardMessage}" TextWrapping="Wrap"
+                 IsVisible="{Binding HasWizardMessage}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+
+      <!-- Table: one row per scan (Requirement 19.4) -->
+      <Grid ColumnDefinitions="24,*,90,90,90,90,90" IsVisible="{Binding HasRows}">
+        <TextBlock Grid.Column="1" Classes="Body" Text="Scansione" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Grid.Column="2" Classes="Body" Text="C1 medio" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Grid.Column="3" Classes="Body" Text="C1 massimo" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Grid.Column="4" Classes="Body" Text="C2 totale" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Grid.Column="5" Classes="Body" Text="CU totale" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Grid.Column="6" Classes="Body" Text="Verdetto" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </Grid>
+      <ItemsControl ItemsSource="{Binding Rows}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:ComparisonTableRow">
+            <Grid ColumnDefinitions="24,*,90,90,90,90,90" Margin="0,2">
+              <Border Width="12" Height="12" CornerRadius="2" HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Background="{Binding Index, Converter={x:Static views:SeriesBrushConverter.Instance}}" />
+              <TextBlock Grid.Column="1" Classes="Body" Text="{Binding Legend}" TextWrapping="Wrap"
+                         Foreground="{DynamicResource Das.Brush.Text}" />
+              <TextBlock Grid.Column="2" Classes="Body" Text="{Binding C1Mean}" Foreground="{DynamicResource Das.Brush.Text}" />
+              <TextBlock Grid.Column="3" Classes="Body" Text="{Binding C1Max}" Foreground="{DynamicResource Das.Brush.Text}" />
+              <TextBlock Grid.Column="4" Classes="Body" Text="{Binding C2Total}" Foreground="{DynamicResource Das.Brush.Text}" />
+              <TextBlock Grid.Column="5" Classes="Body" Text="{Binding CuTotal}" Foreground="{DynamicResource Das.Brush.Text}" />
+              <controls:DasStatusBadge Grid.Column="6" Status="{Binding Status}" HorizontalAlignment="Left" />
+            </Grid>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      <!-- Overlay only through the Chart_View (Requirements 19.8, 38.15) -->
+      <charts:DasChartView x:Name="Chart"
+                           MinHeight="320"
+                           Series="{Binding ChartSeriesList}"
+                           AxisSpec="{Binding AxisSpec}" />
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

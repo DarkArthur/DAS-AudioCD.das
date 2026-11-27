@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <SolidColorBrush x:Key="Das.Brush.Primary" Color="{DynamicResource Das.Color.Primary}" />
+  <SolidColorBrush x:Key="Das.Brush.Accent" Color="{DynamicResource Das.Color.Accent}" />
+  <SolidColorBrush x:Key="Das.Brush.Accent.Dark" Color="{DynamicResource Das.Color.Accent.Dark}" />
+  <SolidColorBrush x:Key="Das.Brush.OnPrimary" Color="{DynamicResource Das.Color.OnPrimary}" />
+  <SolidColorBrush x:Key="Das.Brush.OnAccent" Color="{DynamicResource Das.Color.OnAccent}" />
+  <SolidColorBrush x:Key="Das.Brush.Background" Color="{DynamicResource Das.Color.Background}" />
+  <SolidColorBrush x:Key="Das.Brush.Surface" Color="{DynamicResource Das.Color.Surface}" />
+  <SolidColorBrush x:Key="Das.Brush.SurfaceAlt" Color="{DynamicResource Das.Color.SurfaceAlt}" />
+  <SolidColorBrush x:Key="Das.Brush.Border" Color="{DynamicResource Das.Color.Border}" />
+  <SolidColorBrush x:Key="Das.Brush.Text" Color="{DynamicResource Das.Color.Text}" />
+  <SolidColorBrush x:Key="Das.Brush.TextSecondary" Color="{DynamicResource Das.Color.TextSecondary}" />
+  <SolidColorBrush x:Key="Das.Brush.Status.Ok" Color="{DynamicResource Das.Color.Status.Ok}" />
+  <SolidColorBrush x:Key="Das.Brush.Status.OkSurface" Color="{DynamicResource Das.Color.Status.OkSurface}" />
+  <SolidColorBrush x:Key="Das.Brush.Status.Warn" Color="{DynamicResource Das.Color.Status.Warn}" />
+  <SolidColorBrush x:Key="Das.Brush.Status.WarnSurface" Color="{DynamicResource Das.Color.Status.WarnSurface}" />
+  <SolidColorBrush x:Key="Das.Brush.Status.Ko" Color="{DynamicResource Das.Color.Status.Ko}" />
+  <SolidColorBrush x:Key="Das.Brush.Status.KoSurface" Color="{DynamicResource Das.Color.Status.KoSurface}" />
+  <SolidColorBrush x:Key="Das.Brush.Chart.C1" Color="{DynamicResource Das.Color.Chart.C1}" />
+  <SolidColorBrush x:Key="Das.Brush.Chart.C2" Color="{DynamicResource Das.Color.Chart.C2}" />
+  <SolidColorBrush x:Key="Das.Brush.Chart.CU" Color="{DynamicResource Das.Color.Chart.CU}" />
+  <SolidColorBrush x:Key="Das.Brush.Chart.Speed" Color="{DynamicResource Das.Color.Chart.Speed}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.1" Color="{DynamicResource Das.Color.Series.1}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.2" Color="{DynamicResource Das.Color.Series.2}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.3" Color="{DynamicResource Das.Color.Series.3}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.4" Color="{DynamicResource Das.Color.Series.4}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.5" Color="{DynamicResource Das.Color.Series.5}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.6" Color="{DynamicResource Das.Color.Series.6}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.7" Color="{DynamicResource Das.Color.Series.7}" />
+  <SolidColorBrush x:Key="Das.Brush.Series.8" Color="{DynamicResource Das.Color.Series.8}" />
+</ResourceDictionary>
+
