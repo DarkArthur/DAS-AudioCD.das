@@ -60,3 +60,7 @@ nunit-*.xml
 token*.txt
 *.pat
 .env
+
+# .NET build output
+[Bb]in/
+[Oo]bj/

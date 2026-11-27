@@ -1,0 +1,9 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="Border.card">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Surface}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="{DynamicResource Das.Radius.Medium}" />
+    <Setter Property="Padding" Value="{DynamicResource Das.Space.4}" />
+  </Style>
+</Styles>

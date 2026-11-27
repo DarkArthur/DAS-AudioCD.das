@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- D1: LGPL-3.0 library, kept in this separate assembly (docs/decisions.md). Not referenced by DiscCheck.Verify (Req. 25.9). -->
+    <PackageReference Include="CUETools.Codecs.FLAKE" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DiscCheck.Core\DiscCheck.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,96 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:DAS.Design.Controls"
+        xmlns:vm="using:DiscCheck.App.ViewModels"
+        xmlns:views="using:DiscCheck.App.Views"
+        x:Class="DiscCheck.App.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="DiscCheck"
+        Icon="avares://DiscCheck.App/Assets/Icons/disccheck.ico"
+        Width="1100" Height="720"
+        MinWidth="640" MinHeight="400"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Das.Brush.Background}">
+  <DockPanel>
+    <!-- Header: lockup 32 px, 16 px, 1 px separator, 16 px, app name (Requirement 32.2, 32.5) -->
+    <StackPanel DockPanel.Dock="Top"
+                Orientation="Horizontal"
+                Spacing="{DynamicResource Das.Space.4}"
+                Margin="16">
+      <controls:DasLogo Form="Lockup" Height="32" />
+      <Border Width="1" Background="{DynamicResource Das.Brush.Border}" />
+      <TextBlock Text="{Binding AppName}"
+                 VerticalAlignment="Center"
+                 FontFamily="{DynamicResource Das.Font.Primary}"
+                 FontSize="{DynamicResource Das.Text.Title.Size}"
+                 LineHeight="{DynamicResource Das.Text.Title.LineHeight}"
+                 FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+    <Button Classes="secondary" Content="Informazioni" VerticalAlignment="Center" Click="OnAboutClick" />
+    </StackPanel>
+
+    <ItemsControl DockPanel.Dock="Top"
+                  ItemsSource="{Binding Warnings}"
+                  IsVisible="{Binding HasWarnings}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="x:String">
+          <Border Classes="card"
+                  Margin="16"
+                  Background="{DynamicResource Das.Brush.Status.WarnSurface}"
+                  BorderBrush="{DynamicResource Das.Brush.Status.Warn}">
+            <TextBlock Classes="Body"
+                       Text="{Binding}"
+                       TextWrapping="Wrap"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <!-- Once-per-launch recheck reminder (Requirement 20.6) -->
+    <Border DockPanel.Dock="Top" Classes="card" Margin="16,0,16,8"
+            Background="{DynamicResource Das.Brush.Status.WarnSurface}"
+            BorderBrush="{DynamicResource Das.Brush.Status.Warn}"
+            IsVisible="{Binding Degradation.HasReminder, FallbackValue=False}">
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <controls:DasIcon IconName="das.reminder.bell" Size="20"
+                          Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Classes="Body" Text="{Binding Degradation.ReminderText}" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <Button Classes="primary" Content="Apri Archivio/Degrado" Command="{Binding OpenDegradationCommand}" />
+        <Button Classes="secondary" Content="Chiudi" Command="{Binding Degradation.DismissReminderCommand}" />
+      </StackPanel>
+    </Border>
+
+    <TabControl SelectedIndex="{Binding SelectedTabIndex}">
+      <TabItem Header="Drive">
+        <DockPanel>
+          <views:C2ReliabilityPanel DockPanel.Dock="Bottom" DataContext="{Binding C2Reliability}" />
+          <views:DriveView DataContext="{Binding Drives}" />
+        </DockPanel>
+      </TabItem>
+      <TabItem Header="Disco">
+        <views:DiscView DataContext="{Binding Disc}" />
+      </TabItem>
+      <TabItem Header="Scansione">
+        <views:ScanView DataContext="{Binding Scan}" />
+      </TabItem>
+      <TabItem Header="Verifica">
+        <views:VerifyView DataContext="{Binding Verify}" />
+      </TabItem>
+      <TabItem Header="Storico">
+        <views:HistoryView DataContext="{Binding History}" />
+      </TabItem>
+      <TabItem Header="Confronto">
+        <views:ComparisonView DataContext="{Binding Comparison}" />
+      </TabItem>
+      <TabItem Header="Archivio/Degrado">
+        <views:DegradationView DataContext="{Binding Degradation}" />
+      </TabItem>
+      <TabItem Header="Impostazioni">
+        <views:SettingsView DataContext="{Binding Settings}" />
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>
+

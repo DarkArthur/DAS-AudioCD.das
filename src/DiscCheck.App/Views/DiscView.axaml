@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:DAS.Design.Controls"
+             xmlns:vm="using:DiscCheck.App.ViewModels"
+             x:Class="DiscCheck.App.Views.DiscView"
+             x:DataType="vm:DiscViewModel">
+  <DockPanel Margin="16">
+    <StackPanel DockPanel.Dock="Top"
+                Orientation="Horizontal"
+                Spacing="{DynamicResource Das.Space.2}">
+      <controls:DasIcon IconName="das.disc.cd" Size="24"
+                        Foreground="{DynamicResource Das.Brush.Text}" />
+      <TextBlock Text="Disco"
+                 VerticalAlignment="Center"
+                 FontFamily="{DynamicResource Das.Font.Primary}"
+                 FontSize="{DynamicResource Das.Text.Title.Size}"
+                 FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <Button Classes="secondary" Content="Leggi disco" Command="{Binding ReadDiscCommand}" />
+      <Button Classes="secondary" Command="{Binding EjectCommand}">
+        <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+          <controls:DasIcon IconName="das.eject" Size="16"
+                            Foreground="{DynamicResource Das.Brush.Text}" />
+          <TextBlock Text="Espelli" />
+        </StackPanel>
+      </Button>
+      <Button Classes="secondary" Content="Associa a supporto" Command="{Binding AssociateCommand}" />
+    </StackPanel>
+
+    <Border DockPanel.Dock="Top"
+            Classes="card"
+            Margin="0,16,0,0"
+            IsVisible="{Binding HasStatusMessage}">
+      <TextBlock Classes="Body" Text="{Binding StatusMessage}" TextWrapping="Wrap"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+    </Border>
+
+    <Border DockPanel.Dock="Top"
+            Classes="card"
+            Margin="0,16,0,0"
+            IsVisible="{Binding HasAssociationMessage}">
+      <TextBlock Classes="Body" Text="{Binding AssociationMessage}" TextWrapping="Wrap"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+    </Border>
+
+    <StackPanel DockPanel.Dock="Bottom"
+                Margin="0,16,0,0"
+                Spacing="{DynamicResource Das.Space.1}"
+                IsVisible="{Binding HasDisc}">
+      <TextBlock Classes="Body" Text="{Binding TotalSectors, StringFormat='Settori totali: {0}'}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <StackPanel IsVisible="{Binding HasMediaId}" Spacing="{DynamicResource Das.Space.1}">
+        <TextBlock Classes="Body" Text="{Binding MediaId, StringFormat='Media_ID: {0}'}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Classes="Body" Text="{Binding Manufacturer, StringFormat='Produttore: {0}'}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </StackPanel>
+      <TextBlock Classes="Body" Text="{Binding MediaUnavailableReason}" TextWrapping="Wrap"
+                 IsVisible="{Binding HasMediaUnavailableReason}"
+                 Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+    </StackPanel>
+
+    <ListBox ItemsSource="{Binding Tracks}"
+             Margin="0,16,0,0"
+             IsVisible="{Binding HasDisc}"
+             Background="{DynamicResource Das.Brush.Background}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:TocRowViewModel">
+          <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.4}">
+            <TextBlock Text="{Binding TrackNo, StringFormat='Traccia {0:00}'}" Width="90"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+            <TextBlock Text="{Binding StartLba, StringFormat='LBA {0}'}" Width="120"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+            <TextBlock Text="{Binding Duration}" Width="70"
+                       Foreground="{DynamicResource Das.Brush.Text}" />
+            <TextBlock Text="{Binding Kind}"
+                       Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </DockPanel>
+</UserControl>

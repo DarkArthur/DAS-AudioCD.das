@@ -1,0 +1,49 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="DAS.Design.DasTheme">
+  <FluentTheme />
+  <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+  <StyleInclude Source="/Styles/Buttons.axaml" />
+  <StyleInclude Source="/Styles/Focus.axaml" />
+  <StyleInclude Source="/Styles/Disabled.axaml" />
+  <StyleInclude Source="/Styles/Card.axaml" />
+  <StyleInclude Source="/Styles/TextBlocks.axaml" />
+  <StyleInclude Source="/Styles/DataGrid.axaml" />
+  <StyleInclude Source="/Styles/StatusBadge.axaml" />
+  <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+  <StyleInclude Source="/Styles/Buttons.axaml" />
+  <StyleInclude Source="/Styles/Focus.axaml" />
+  <StyleInclude Source="/Styles/Disabled.axaml" />
+  <StyleInclude Source="/Styles/Card.axaml" />
+  <StyleInclude Source="/Styles/TextBlocks.axaml" />
+  <StyleInclude Source="/Styles/DataGrid.axaml" />
+  <StyleInclude Source="/Styles/StatusBadge.axaml" />
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <MergeResourceInclude Source="/Tokens/Typography.axaml" />
+        <MergeResourceInclude Source="/Tokens/Spacing.axaml" />
+        <MergeResourceInclude Source="/Tokens/Logo.Color.axaml" />
+        <MergeResourceInclude Source="/Tokens/Icons.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <ResourceDictionary.MergedDictionaries>
+            <MergeResourceInclude Source="/Tokens/Colors.Light.axaml" />
+            <MergeResourceInclude Source="/Tokens/Logo.Light.axaml" />
+            <MergeResourceInclude Source="/Tokens/Brushes.axaml" />
+          </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <ResourceDictionary.MergedDictionaries>
+            <MergeResourceInclude Source="/Tokens/Colors.Dark.axaml" />
+            <MergeResourceInclude Source="/Tokens/Logo.Dark.axaml" />
+            <MergeResourceInclude Source="/Tokens/Brushes.axaml" />
+          </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+</Styles>
+
+

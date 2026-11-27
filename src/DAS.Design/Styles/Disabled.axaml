@@ -1,0 +1,6 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Disabled: 40% opacity, layout unchanged (Requirement 30.5). -->
+  <Style Selector="Button:disabled, ToggleButton:disabled, CheckBox:disabled, RadioButton:disabled, ComboBox:disabled, TextBox:disabled, ListBoxItem:disabled, TabItem:disabled, Slider:disabled, ToggleSwitch:disabled, DataGrid:disabled">
+    <Setter Property="Opacity" Value="0.4" />
+  </Style>
+</Styles>

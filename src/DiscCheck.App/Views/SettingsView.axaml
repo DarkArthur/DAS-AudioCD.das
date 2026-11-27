@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:DAS.Design.Controls"
+             xmlns:vm="using:DiscCheck.App.ViewModels"
+             x:Class="DiscCheck.App.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel">
+  <ScrollViewer>
+    <StackPanel Margin="16" Spacing="{DynamicResource Das.Space.2}" MaxWidth="720" HorizontalAlignment="Left">
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <controls:DasIcon IconName="das.settings" Size="24"
+                          Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Text="Impostazioni"
+                   VerticalAlignment="Center"
+                   FontFamily="{DynamicResource Das.Font.Primary}"
+                   FontSize="{DynamicResource Das.Text.Title.Size}"
+                   FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+      </StackPanel>
+
+      <TextBlock Classes="Body" Text="Soglie" FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <Grid ColumnDefinitions="260,200" RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+        <TextBlock Grid.Row="0" Classes="Body" Text="C1 medio per WARN" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding C1MeanWarnText}" />
+        <TextBlock Grid.Row="1" Classes="Body" Text="C1 massimo per WARN" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding C1MaxWarnText}" />
+        <TextBlock Grid.Row="2" Classes="Body" Text="C1 massimo per KO" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding C1MaxKoText}" />
+      </Grid>
+
+      <TextBlock Classes="Body" Text="Comportamento" Margin="0,8,0,0"
+                 FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <Grid ColumnDefinitions="260,200" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="8">
+        <TextBlock Grid.Row="0" Classes="Body" Text="Velocità predefinita (1-52x)" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DefaultSpeedText}" />
+        <TextBlock Grid.Row="1" Classes="Body" Text="Variante Lite-On" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{x:Static vm:SettingsViewModel.LiteOnMethods}"
+                  SelectedItem="{Binding LiteOnMethod}" />
+        <TextBlock Grid.Row="2" Classes="Body" Text="Riletture della verifica (N, 1-10)" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding RereadAttemptsText}" />
+        <TextBlock Grid.Row="3" Classes="Body" Text="Timeout SCSI (1-300 s)" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ScsiTimeoutText}" />
+        <TextBlock Grid.Row="4" Classes="Body" Text="Ricontrollo (5-10 anni)" VerticalAlignment="Center"
+                   Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding RecheckYearsText}" />
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}"
+                    VerticalAlignment="Center">
+          <TextBlock Classes="Body" Text="Tema" VerticalAlignment="Center"
+                     Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+          <controls:DasIcon IconName="das.theme.light" Size="16"
+                            Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+          <controls:DasIcon IconName="das.theme.dark" Size="16"
+                            Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+        </StackPanel>
+        <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{x:Static vm:SettingsViewModel.Themes}"
+                  SelectedItem="{Binding Theme}" />
+      </Grid>
+
+      <CheckBox IsChecked="{Binding DebugMode}" Content="Modalità debug (log Verbose dei CDB)" />
+
+      <TextBlock Classes="Body" Text="Percorso del Database" Margin="0,8,0,0"
+                 Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+      <TextBox Text="{Binding DatabasePath}" />
+
+      <Border Classes="card" IsVisible="{Binding AwaitingDatabaseConfirmation}"
+              Background="{DynamicResource Das.Brush.Status.WarnSurface}"
+              BorderBrush="{DynamicResource Das.Brush.Status.Warn}">
+        <StackPanel Spacing="{DynamicResource Das.Space.2}">
+          <TextBlock Classes="Body" Text="{Binding ConfirmDatabaseText}" TextWrapping="Wrap"
+                     Foreground="{DynamicResource Das.Brush.Text}" />
+          <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+            <Button Classes="primary" Content="Conferma" Command="{Binding ConfirmDatabaseChangeCommand}" />
+            <Button Classes="secondary" Content="Annulla" Command="{Binding CancelDatabaseChangeCommand}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="card" IsVisible="{Binding HasErrors}"
+              Background="{DynamicResource Das.Brush.Status.KoSurface}"
+              BorderBrush="{DynamicResource Das.Brush.Status.Ko}">
+        <ItemsControl ItemsSource="{Binding Errors}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="x:String">
+              <TextBlock Classes="Body" Text="{Binding}" TextWrapping="Wrap"
+                         Foreground="{DynamicResource Das.Brush.Text}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </Border>
+
+      <TextBlock Classes="Body" Text="{Binding StatusMessage}" IsVisible="{Binding HasStatusMessage}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+
+      <Button Classes="primary" Content="Salva" Command="{Binding SaveCommand}" HorizontalAlignment="Left" />
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

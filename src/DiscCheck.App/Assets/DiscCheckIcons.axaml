@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <StreamGeometry x:Key="DiscCheck.Icon.disccheck.archive.degradation">M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20zM12 6v6l4 2.5</StreamGeometry>
+  <StreamGeometry x:Key="DiscCheck.Icon.disccheck.chart.errors">M3 3v18h18M8 21v-6M13 21V8M18 21v-9</StreamGeometry>
+  <StreamGeometry x:Key="DiscCheck.Icon.disccheck.compare.curves">M2 17C6 5 10 5 12 12s6 7 10-5M2 7c4 12 8 12 10 5s6-7 10 5</StreamGeometry>
+  <StreamGeometry x:Key="DiscCheck.Icon.disccheck.scan.pulse">M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20zM5 12h4l2-4 2 8 2-4h4</StreamGeometry>
+  <StreamGeometry x:Key="DiscCheck.Icon.disccheck.verify.bitperfect">M20.5 8a10 10 0 1 0 1.5 4M8 12l3 3 10-11</StreamGeometry>
+  <!-- DasIcon (DAS.Design) resolves "Das.Icon.<key>"; these aliases let DasIcon IconName="disccheck.*" resolve without touching DAS.Design. -->
+  <StreamGeometry x:Key="Das.Icon.disccheck.archive.degradation">M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20zM12 6v6l4 2.5</StreamGeometry>
+  <StreamGeometry x:Key="Das.Icon.disccheck.chart.errors">M3 3v18h18M8 21v-6M13 21V8M18 21v-9</StreamGeometry>
+  <StreamGeometry x:Key="Das.Icon.disccheck.compare.curves">M2 17C6 5 10 5 12 12s6 7 10-5M2 7c4 12 8 12 10 5s6-7 10 5</StreamGeometry>
+  <StreamGeometry x:Key="Das.Icon.disccheck.scan.pulse">M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20zM5 12h4l2-4 2 8 2-4h4</StreamGeometry>
+  <StreamGeometry x:Key="Das.Icon.disccheck.verify.bitperfect">M20.5 8a10 10 0 1 0 1.5 4M8 12l3 3 10-11</StreamGeometry>
+</ResourceDictionary>

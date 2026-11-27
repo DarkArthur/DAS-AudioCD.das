@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DiscCheck.App.ViewModels"
+             x:Class="DiscCheck.App.Views.C2ReliabilityPanel"
+             x:DataType="vm:C2ReliabilityViewModel">
+  <Border Classes="card" Margin="16,0,16,16">
+    <StackPanel Spacing="{DynamicResource Das.Space.2}">
+      <TextBlock Text="Test di affidabilità C2"
+                 FontFamily="{DynamicResource Das.Font.Primary}"
+                 FontSize="{DynamicResource Das.Text.BodyLarge.Size}"
+                 FontWeight="{DynamicResource Das.Font.Weight.SemiBold}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+      <TextBlock Classes="Body" TextWrapping="Wrap"
+                 Foreground="{DynamicResource Das.Brush.TextSecondary}"
+                 Text="Legge due volte gli stessi 7.500 settori dal primo settore audio, con puntatori C2 e Cache_Defeat prima di ogni lettura, e confronta i risultati. Richiede un disco con un difetto noto." />
+      <TextBlock Classes="Body" TextWrapping="Wrap"
+                 Text="{Binding AvailabilityMessage}"
+                 IsVisible="{Binding HasAvailabilityMessage}"
+                 Foreground="{DynamicResource Das.Brush.Status.Ko}" />
+      <CheckBox Content="Il disco inserito ha un difetto noto (es. graffio o macchia)"
+                IsChecked="{Binding KnownDefectDeclared}"
+                IsEnabled="{Binding !IsRunning}" />
+      <CheckBox Content="Confermo l'avvio del test"
+                IsChecked="{Binding Confirmed}"
+                IsEnabled="{Binding !IsRunning}" />
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <Button Classes="primary" Content="Avvia test C2" Command="{Binding StartCommand}" />
+        <Button Classes="secondary" Content="Annulla" Command="{Binding CancelCommand}" />
+        <ProgressBar Minimum="0" Maximum="1" Width="200" Value="{Binding Progress}"
+                     IsVisible="{Binding IsRunning}" VerticalAlignment="Center" />
+      </StackPanel>
+      <TextBlock Classes="Body" TextWrapping="Wrap"
+                 Text="{Binding ResultMessage}"
+                 IsVisible="{Binding HasResultMessage}"
+                 Foreground="{DynamicResource Das.Brush.Text}" />
+    </StackPanel>
+  </Border>
+</UserControl>

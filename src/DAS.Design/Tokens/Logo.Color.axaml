@@ -1,0 +1,17 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- DAS_Logo (-color variant, theme independent): same geometry as Assets/Logo/das-logo-color.svg -->
+  <DrawingImage x:Key="Das.Logo.Lockup.Color">
+    <DrawingGroup>
+      <GeometryDrawing Brush="#FFFFFF" Geometry="M12 0H188A12 12 0 0 1 200 12V52A12 12 0 0 1 188 64H12A12 12 0 0 1 0 52V12A12 12 0 0 1 12 0Z" />
+      <GeometryDrawing Brush="#1F4FBF" Geometry="M62 32A30 30 0 1 1 32 2L32 10A22 22 0 1 0 54 32Z" />
+      <GeometryDrawing Brush="#0B7A75" Geometry="M32 2A30 30 0 0 1 62 32L54 32A22 22 0 0 0 32 10Z" />
+      <GeometryDrawing Brush="#1F4FBF" Geometry="M40 32A8 8 0 1 1 24 32A8 8 0 1 1 40 32Z" />
+      <GeometryDrawing Brush="#0F1420" Geometry="F0M80 12H96A20 20 0 0 1 96 52H80ZM89 21H96A11 11 0 0 1 96 43H89ZM120 52L135 12H145L160 52H149.5L146.4 42H133.6L130.5 52ZM136.6 32H143.4L140 22Z" />
+      <GeometryDrawing Geometry="M194 25C194 20 188 16.5 181 16.5C173 16.5 168 20 168 25.5C168 36 194 31 194 42C194 46.5 189 47.5 181 47.5C172 47.5 167.5 44 167 38">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#0F1420" Thickness="9" />
+        </GeometryDrawing.Pen>
+      </GeometryDrawing>
+    </DrawingGroup>
+  </DrawingImage>
+</ResourceDictionary>

@@ -1,0 +1,26 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="DataGrid">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Background}" />
+    <Setter Property="RowBackground" Value="{DynamicResource Das.Brush.Surface}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="GridLinesVisibility" Value="Horizontal" />
+    <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource Das.Brush.Border}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Text}" />
+    <Setter Property="FontFamily" Value="{DynamicResource Das.Font.Primary}" />
+    <Setter Property="FontSize" Value="{DynamicResource Das.Text.Body.Size}" />
+  </Style>
+  <Style Selector="DataGridColumnHeader">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.SurfaceAlt}" />
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Text}" />
+    <Setter Property="SeparatorBrush" Value="{DynamicResource Das.Brush.Border}" />
+    <Setter Property="FontWeight" Value="{DynamicResource Das.Font.Weight.SemiBold}" />
+  </Style>
+  <Style Selector="DataGridRow:nth-child(2n)">
+    <Setter Property="Background" Value="{DynamicResource Das.Brush.Background}" />
+  </Style>
+  <Style Selector="DataGridRow">
+    <Setter Property="Foreground" Value="{DynamicResource Das.Brush.Text}" />
+  </Style>
+</Styles>
+

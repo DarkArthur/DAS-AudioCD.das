@@ -1,0 +1,14 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Keyboard focus: 2 px outline, Primary colour, 2 px gap from the control (Requirement 30.4). -->
+  <Style Selector="Button:focus-visible, ToggleButton:focus-visible, CheckBox:focus-visible, RadioButton:focus-visible, ComboBox:focus-visible, TextBox:focus-visible, ListBoxItem:focus-visible, TabItem:focus-visible, Slider:focus-visible, ToggleSwitch:focus-visible, DataGrid:focus-visible">
+    <Setter Property="FocusAdorner">
+      <FocusAdornerTemplate>
+        <Border Margin="-4"
+                BorderThickness="2"
+                BorderBrush="{DynamicResource Das.Brush.Primary}"
+                CornerRadius="{DynamicResource Das.Radius.Medium}"
+                IsHitTestVisible="False" />
+      </FocusAdornerTemplate>
+    </Setter>
+  </Style>
+</Styles>
