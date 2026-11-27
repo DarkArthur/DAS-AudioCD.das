@@ -57,4 +57,26 @@ public class ViewsStartupSmokeTests
 
         act.Should().NotThrow();
     }
+
+    [AvaloniaTheory]
+    [InlineData("Light")]
+    [InlineData("Dark")]
+    public void MainWindowAndAboutWindowAreCreatedAndLaidOut(string variant)
+    {
+        var theme = variant == "Dark" ? ThemeVariant.Dark : ThemeVariant.Light;
+        var main = new MainWindow { RequestedThemeVariant = theme };
+        var about = new AboutWindow { RequestedThemeVariant = theme };
+
+        var act = () =>
+        {
+            main.Show();
+            main.UpdateLayout();
+            about.Show();
+            about.UpdateLayout();
+        };
+
+        act.Should().NotThrow();
+        main.Close();
+        about.Close();
+    }
 }

@@ -16,8 +16,9 @@ public sealed partial class MainWindowViewModel : ObservableObject
                                VerifyViewModel verify, HistoryViewModel history, ArchiveOpenResult archive,
                                SettingsViewModel? settings = null, SettingsLoadResult? settingsLoad = null,
                                ComparisonViewModel? comparison = null, DegradationViewModel? degradation = null,
-                               C2ReliabilityViewModel? c2Reliability = null)
+                               C2ReliabilityViewModel? c2Reliability = null, UpdateNotificationViewModel? updates = null)
     {
+        Updates = updates;
         C2Reliability = c2Reliability;
         Settings = settings;
         Degradation = degradation;
@@ -62,6 +63,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
     public DriveViewModel Drives { get; }
 
     public C2ReliabilityViewModel? C2Reliability { get; }
+    public UpdateNotificationViewModel? Updates { get; }
 
     public DiscViewModel Disc { get; }
 
@@ -87,6 +89,9 @@ public sealed partial class MainWindowViewModel : ObservableObject
         SelectedTabIndex = DegradationTabIndex;
         Degradation?.DismissReminder();
     }
+
+    /// <summary>Background check for a newer published version (once per launch); never throws.</summary>
+    public Task CheckUpdatesAsync() => Updates?.CheckAsync() ?? Task.CompletedTask;
 
     /// <summary>Runs the once-per-launch recheck reminder; called when the main window is shown.</summary>
     public Task CheckReminderAsync() => Degradation?.CheckReminderAsync() ?? Task.CompletedTask;

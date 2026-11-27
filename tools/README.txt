@@ -53,3 +53,10 @@ PROBLEMI COMUNI
     usando lo SHA-256 del file .sha256 pubblicato nella release.
   - Avviso SmartScreen all'esecuzione dell'installer: non e' firmato; scegli
     "Ulteriori informazioni" e poi "Esegui comunque".
+
+NOTIFICA DI NUOVA VERSIONE (nell'app)
+  L'app non scarica nulla da sola. Se in Impostazioni e' indicato l'indirizzo di version.json
+  (URL http(s) o percorso di rete) e li' c'e' una versione piu' recente di quella installata,
+  all'avvio compare un avviso con il pulsante 'Apri pagina di download'.
+  version.json e' allegato ad ogni release: copialo nell'indirizzo scelto. Dettagli in docs/ci-cd.md.
+

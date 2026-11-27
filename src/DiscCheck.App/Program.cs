@@ -119,6 +119,11 @@ public static class Program
                     services.AddSingleton(sp => new DegradationViewModel(
                         sp.GetRequiredService<IArchive>(), sp.GetRequiredService<SettingsStore>()));
                     services.AddSingleton<SettingsViewModel>();
+                    services.AddSingleton<IUrlOpener, ShellUrlOpener>();
+                    services.AddSingleton(new UpdateChecker(new UpdateManifestReader()));
+                    services.AddSingleton(sp => new UpdateNotificationViewModel(
+                        sp.GetRequiredService<UpdateChecker>(), sp.GetRequiredService<SettingsStore>(),
+                        AboutViewModel.CurrentAppVersion(), sp.GetRequiredService<IUrlOpener>()));
                     services.AddSingleton<MainWindowViewModel>();
                     services.AddSingleton<MainWindow>();
                 })
