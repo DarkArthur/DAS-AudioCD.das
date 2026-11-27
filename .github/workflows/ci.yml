@@ -60,7 +60,10 @@ jobs:
         with:
           dotnet-version: 11.0.x
           cache: true
-          cache-dependency-path: '**/packages.lock.json'
+          cache-dependency-path: |
+            **/*.csproj
+            Directory.Build.props
+            global.json
 
       - name: Restore
         if: steps.sln.outputs.present == 'true'
