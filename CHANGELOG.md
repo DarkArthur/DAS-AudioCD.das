@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.0.0...v1.0.1) (2026-11-27)
+
+
+### Bug Fixes
+
+* **design:** card padding token is a Thickness, app failed to start with a Double cast error ([96cfba5](https://github.com/DarkArthur/DAS-AudioCD.das/commit/96cfba55ca1603ecc5286a1974287e6b1827aae5))
+
 ## 1.0.0 (2026-11-27)
 
 
