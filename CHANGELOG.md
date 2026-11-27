@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.1.0...v1.2.0) (2026-11-27)
+
+
+### Features
+
+* **app:** notify when a newer version is published (version.json), configurable source, disabled by default ([fbd73f1](https://github.com/DarkArthur/DAS-AudioCD.das/commit/fbd73f118fb455f4585095984023f7219d0ad736))
+
 ## [1.1.0](https://github.com/DarkArthur/DAS-AudioCD.das/compare/v1.0.1...v1.1.0) (2026-11-27)
 
 
