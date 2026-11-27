@@ -4,6 +4,6 @@
     <Setter Property="BorderBrush" Value="{DynamicResource Das.Brush.Border}" />
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="CornerRadius" Value="{DynamicResource Das.Radius.Medium}" />
-    <Setter Property="Padding" Value="{DynamicResource Das.Space.4}" />
+    <Setter Property="Padding" Value="{DynamicResource Das.Padding.Card}" />
   </Style>
 </Styles>
