@@ -58,6 +58,7 @@ public sealed partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private string _rereadAttemptsText = string.Empty;
     [ObservableProperty] private string _scsiTimeoutText = string.Empty;
     [ObservableProperty] private string _recheckYearsText = string.Empty;
+    [ObservableProperty] private string _updateSource = string.Empty;
 
     [ObservableProperty] private string? _statusMessage;
     [ObservableProperty] private bool _awaitingDatabaseConfirmation;
@@ -80,6 +81,7 @@ public sealed partial class SettingsViewModel : ObservableObject
         RereadAttemptsText = s.RereadAttempts.ToString(CultureInfo.CurrentCulture);
         ScsiTimeoutText = s.ScsiTimeoutSeconds.ToString(CultureInfo.CurrentCulture);
         RecheckYearsText = s.RecheckYears.ToString(CultureInfo.CurrentCulture);
+        UpdateSource = s.UpdateSource;
     }
 
     private static string Format(double v) => v.ToString("R", CultureInfo.CurrentCulture);
@@ -198,6 +200,7 @@ public sealed partial class SettingsViewModel : ObservableObject
             RereadAttempts = rereads,
             ScsiTimeoutSeconds = timeout,
             RecheckYears = years,
+            UpdateSource = UpdateSource?.Trim() ?? string.Empty,
         };
 
         // Range checks only on fields that parsed, to avoid reporting the same field twice.

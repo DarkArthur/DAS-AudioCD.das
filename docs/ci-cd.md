@@ -48,3 +48,12 @@ Ogni release allega anche `DiscCheck-Setup-X.Y.Z-win-x64.exe` (+ `.sha256`), cre
 
 Build locale: `winget install JRSoftware.InnoSetup` e poi `pwsh installer/build-installer.ps1 -Version 1.0.1` (output in `artifacts/`). Non esegue test di installazione: va provato a mano.
 
+
+## Notifica di nuova versione nell'app
+
+L'app controlla una volta per avvio, in background, se esiste una versione piu' recente. Non scarica ne' installa nulla: mostra un avviso con il pulsante *Apri pagina di download* (solo URL http/https).
+
+- Sorgente: *Impostazioni > Indirizzo degli aggiornamenti* (campo `updateSource` di `settings.json`). Accetta un URL http(s), un percorso UNC o un percorso locale a `version.json`. **Vuoto = controllo disattivato** (valore predefinito).
+- Ogni release allega `version.json` (`version`, `url`, `installer`, `sha256`, `published`). Il repository e' privato: l'app non ha credenziali GitHub, quindi va copiato nell'indirizzo scelto (cartella di rete o server interno) ad ogni release. Il campo `url` puo' essere modificato prima della copia, ad esempio con il link interno al setup. Il campo opzionale `notes` viene mostrato nell'avviso.
+- Errori (rete assente, file mancante, JSON non valido) sono solo registrati nel log, senza avvisi all'utente. Timeout 5 s. I suffissi di pre-release (`-rc.1`) sono ignorati nel confronto.
+

@@ -14,7 +14,11 @@ public partial class MainWindow : Window
     public MainWindow(MainWindowViewModel viewModel) : this()
     {
         DataContext = viewModel;
-        Opened += async (_, _) => await viewModel.CheckReminderAsync();
+        Opened += async (_, _) =>
+        {
+            _ = viewModel.CheckUpdatesAsync();
+            await viewModel.CheckReminderAsync();
+        };
     }
 
     private async void OnAboutClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

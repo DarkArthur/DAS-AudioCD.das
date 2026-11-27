@@ -73,6 +73,17 @@ jobs:
           ./installer/build-installer.ps1 -Version $env:VERSION -SkipPublish
           $setup = "artifacts/DiscCheck-Setup-$($env:VERSION)-win-x64.exe"
           gh release upload $env:TAG $setup "$setup.sha256" --clobber
+          # version.json: read by the app to tell the user a newer version exists. Copy it to the address set in
+          # Impostazioni > "Indirizzo degli aggiornamenti" (docs/ci-cd.md).
+          $manifest = [ordered]@{
+            version   = $env:VERSION
+            url       = "https://github.com/$($env:GITHUB_REPOSITORY)/releases/tag/$($env:TAG)"
+            installer = "DiscCheck-Setup-$($env:VERSION)-win-x64.exe"
+            sha256    = (Get-FileHash $setup -Algorithm SHA256).Hash.ToLower()
+            published = (Get-Date).ToUniversalTime().ToString('o')
+          } | ConvertTo-Json
+          Set-Content artifacts/version.json $manifest -Encoding utf8NoBOM
+          gh release upload $env:TAG artifacts/version.json --clobber
 
   image:
     name: Build image

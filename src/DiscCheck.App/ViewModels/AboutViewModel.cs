@@ -30,7 +30,7 @@ public sealed class AboutViewModel
 
     public bool HasAttribution => Attribution is not null;
 
-    private static string CurrentAppVersion()
+    internal static string CurrentAppVersion()
     {
         var assembly = typeof(AboutViewModel).Assembly;
         var info = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;

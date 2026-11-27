@@ -47,6 +47,22 @@
       </ItemsControl.ItemTemplate>
     </ItemsControl>
 
+    <!-- New version available: notification only, nothing is downloaded or installed -->
+    <Border DockPanel.Dock="Top" Classes="card" Margin="16,0,16,8"
+            Background="{DynamicResource Das.Brush.Status.WarnSurface}"
+            BorderBrush="{DynamicResource Das.Brush.Status.Warn}"
+            IsVisible="{Binding Updates.HasUpdate, FallbackValue=False}">
+      <StackPanel Orientation="Horizontal" Spacing="{DynamicResource Das.Space.2}">
+        <controls:DasIcon IconName="das.export.html" Size="20"
+                          Foreground="{DynamicResource Das.Brush.Text}" />
+        <TextBlock Classes="Body" Text="{Binding Updates.Message}" VerticalAlignment="Center" TextWrapping="Wrap"
+                   Foreground="{DynamicResource Das.Brush.Text}" />
+        <Button Classes="primary" Content="Apri pagina di download"
+                IsVisible="{Binding Updates.CanOpen, FallbackValue=False}"
+                Command="{Binding Updates.OpenCommand}" />
+        <Button Classes="secondary" Content="Chiudi" Command="{Binding Updates.DismissCommand}" />
+      </StackPanel>
+    </Border>
     <!-- Once-per-launch recheck reminder (Requirement 20.6) -->
     <Border DockPanel.Dock="Top" Classes="card" Margin="16,0,16,8"
             Background="{DynamicResource Das.Brush.Status.WarnSurface}"

@@ -66,6 +66,10 @@
 
       <CheckBox IsChecked="{Binding DebugMode}" Content="Modalità debug (log Verbose dei CDB)" />
 
+      <TextBlock Classes="Body" Text="Indirizzo degli aggiornamenti (URL http(s) o percorso di version.json; vuoto = disattivato)" Margin="0,8,0,0"
+                 TextWrapping="Wrap" Foreground="{DynamicResource Das.Brush.TextSecondary}" />
+      <TextBox Text="{Binding UpdateSource}" />
+
       <TextBlock Classes="Body" Text="Percorso del Database" Margin="0,8,0,0"
                  Foreground="{DynamicResource Das.Brush.TextSecondary}" />
       <TextBox Text="{Binding DatabasePath}" />

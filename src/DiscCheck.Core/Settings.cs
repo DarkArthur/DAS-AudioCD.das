@@ -20,6 +20,9 @@ public sealed record Settings
     public int RereadAttempts { get; init; } = 3;
     public int ScsiTimeoutSeconds { get; init; } = 30;
     public int RecheckYears { get; init; } = 5;
+
+    /// <summary>Address of <c>version.json</c> (http(s) URL, UNC or local path). Empty = update check disabled.</summary>
+    public string UpdateSource { get; init; } = string.Empty;
 }
 
 /// <summary>A violated constraint: the offending field and the constraint (Requirement 22.9).</summary>
@@ -53,7 +56,17 @@ public static class SettingsValidator
         if (s.RereadAttempts is < 1 or > 10) errors.Add(new("rereadAttempts", "Il numero di tentativi di rilettura deve essere un intero tra 1 e 10."));
         if (s.ScsiTimeoutSeconds is < 1 or > 300) errors.Add(new("scsiTimeoutSeconds", "Il timeout SCSI deve essere un intero tra 1 e 300 secondi."));
         if (s.RecheckYears is < 5 or > 10) errors.Add(new("recheckYears", "L'intervallo di ricontrollo deve essere un intero tra 5 e 10 anni."));
+        if (!string.IsNullOrWhiteSpace(s.UpdateSource) && !IsValidUpdateSource(s.UpdateSource))
+            errors.Add(new("updateSource", "L'indirizzo degli aggiornamenti deve essere un URL http(s) oppure un percorso assoluto (anche UNC), oppure vuoto."));
         return errors;
+    }
+
+    private static bool IsValidUpdateSource(string source)
+    {
+        var s = source.Trim();
+        if (UpdateChecker.IsHttpUrl(s)) return true;
+        if (s.Contains("://", StringComparison.Ordinal)) return false;
+        return Path.IsPathFullyQualified(s);
     }
 
     private static bool IsFiniteNonNegative(double v) => double.IsFinite(v) && v >= 0;
@@ -100,11 +113,11 @@ public static class SettingsJson
     private sealed record ThresholdsDto(double C1MeanWarn, double C1MaxWarn, double C1MaxKo);
 
     private sealed record Dto(ThresholdsDto Thresholds, int DefaultSpeedX, LiteOnMethod LiteOnMethod, string DatabasePath,
-                              bool DebugMode, SettingsTheme Theme, int RereadAttempts, int ScsiTimeoutSeconds, int RecheckYears);
+                              bool DebugMode, SettingsTheme Theme, int RereadAttempts, int ScsiTimeoutSeconds, int RecheckYears, string? UpdateSource = null);
 
     private static Dto ToDto(Settings s) => new(
         new ThresholdsDto(s.Thresholds.C1MeanWarn, s.Thresholds.C1MaxWarn, s.Thresholds.C1MaxKo),
-        s.DefaultSpeedX, s.LiteOnMethod, s.DatabasePath, s.DebugMode, s.Theme, s.RereadAttempts, s.ScsiTimeoutSeconds, s.RecheckYears);
+        s.DefaultSpeedX, s.LiteOnMethod, s.DatabasePath, s.DebugMode, s.Theme, s.RereadAttempts, s.ScsiTimeoutSeconds, s.RecheckYears, s.UpdateSource);
 
     private static Settings FromDto(Dto d) => new()
     {
@@ -117,6 +130,7 @@ public static class SettingsJson
         RereadAttempts = d.RereadAttempts,
         ScsiTimeoutSeconds = d.ScsiTimeoutSeconds,
         RecheckYears = d.RecheckYears,
+        UpdateSource = d.UpdateSource ?? string.Empty,
     };
 
     /// <summary>
@@ -158,6 +172,7 @@ public static class SettingsJson
             RereadAttempts = Int(root, "rereadAttempts", def.RereadAttempts, 1, 10, "Il numero di tentativi di rilettura deve essere un intero tra 1 e 10.", errors),
             ScsiTimeoutSeconds = Int(root, "scsiTimeoutSeconds", def.ScsiTimeoutSeconds, 1, 300, "Il timeout SCSI deve essere un intero tra 1 e 300 secondi.", errors),
             RecheckYears = Int(root, "recheckYears", def.RecheckYears, 5, 10, "L'intervallo di ricontrollo deve essere un intero tra 5 e 10 anni.", errors),
+            UpdateSource = UpdateSource(root, def.UpdateSource, errors),
         };
         return (result, errors);
     }
@@ -182,6 +197,21 @@ public static class SettingsJson
         if (!root.TryGetProperty(name, out var e)) return fallback;
         if (e.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(e.GetString())) return e.GetString()!;
         errors.Add(new SettingsError(name, "Il percorso del Database non può essere vuoto."));
+        return fallback;
+    }
+
+    private static string UpdateSource(JsonElement root, string fallback, List<SettingsError> errors)
+    {
+        if (!root.TryGetProperty("updateSource", out var e)) return fallback;
+        if (e.ValueKind == JsonValueKind.String)
+        {
+            var value = e.GetString() ?? string.Empty;
+            var trial = SettingsValidator.Validate(new Settings { UpdateSource = value }).Where(x => x.Field == "updateSource").ToList();
+            if (trial.Count == 0) return value;
+            errors.AddRange(trial);
+            return fallback;
+        }
+        errors.Add(new SettingsError("updateSource", "L'indirizzo degli aggiornamenti deve essere un testo."));
         return fallback;
     }
 
